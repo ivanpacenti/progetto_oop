@@ -10,10 +10,15 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLConnection;
 import java.text.ParseException;
-import org.json.simple.JSONValue;
+import java.util.Scanner;
 
-import org.json.JSONObject;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+
+
 
 /**
  * @author ivan
@@ -23,55 +28,48 @@ public class APICall {
 
 	public void searchapi(String query) {
 		try {
-			String url = "https://wd4hfxnxxa.execute-api.us-east-2.amazonaws.com/dev/api/1.1/users/search.json";
-			HttpURLConnection openConnection = (HttpURLConnection) new URL(url).openConnection();
-			openConnection.setRequestMethod("GET");
-			//openConnection.setRequestProperty("Content-Type", "application/json");
-			//openConnection.setRequestProperty("Accept", "application/json");
-			openConnection.addRequestProperty("q", query);
+            
+			String address=query.replaceAll(" ", "%20");
+            URL url = new URL("https://wd4hfxnxxa.execute-api.us-east-2.amazonaws.com/dev/api/1.1/users/search.json?q="+address);
 
-			openConnection.setDoOutput(true);
-			String jsonBody = "{\n" + "\"id\",\n" + "\"id_str\",\n" + "\"name\",\n" + "\"screen_name\",\n"
-					+ "\"location\",\n" + "\"description\",\n" + "\"url\",\n" + "\"entities\",\n" + "\"protected\",\n"
-					+ "\"followers_count\",\n" + "\"friends_count\",\n" + "\"listed_count\",\n" + "\"created_at\",\n"
-					+ "\"favourites_count\",\n" + "\"utc_offset\",\n" + "\"time_zone\",\n" + "\"geo_enabled\",\n"
-					+ "\"verified\",\n" + "\"statuses_count\",\n" + "\"lang\",\n" + "\"status\",\n"
-					+ "\"contributors_enabled\",\n" + "\"is_translator\",\n" + "\"is_translation_enabled\",\n"
-					+ "\"profile_background_color\",\n" + "\"profile_background_image_url\",\n"
-					+ "\"profile_background_image_url_https\",\n" + "\"profile_background_tile\",\n"
-					+ "\"profile_image_url\",\n" + "\"profile_image_url_https\",\n" + "\"profile_link_color\",\n"
-					+ "\"profile_sidebar_border_color\",\n" + "\"profile_sidebar_fill_color\",\n"
-					+ "\"profile_text_color\",\n" + "\"profile_use_background_image\",\n"
-					+ "\"has_extended_profile\",\n" + "\"default_profile\",\n" + "\"default_profile_image\",\n"
-					+ "\"following\",\n" + "\"follow_request_sent\",\n" + "\"notifications\",\n"
-					+ "\"translator_type\",\n" + "\"withheld_in_countries\"\n" + "}";
-			try (OutputStream os = openConnection.getOutputStream()) {
-				byte[] input = jsonBody.getBytes("utf-8");
-				os.write(input, 0, input.length);
-			}
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("GET");
+            conn.connect();
 
-			InputStream in = openConnection.getInputStream();
+            //Check if connection is made
+            int responseCode = conn.getResponseCode();
 
-			String data = "";
-			String line = "";
-			try {
-				InputStreamReader inR = new InputStreamReader(in);
-				BufferedReader buf = new BufferedReader(inR);
+            // if 200 ->  OK
+            if (responseCode != 200) {
+                throw new RuntimeException("HttpResponseCode: " + responseCode);
+            } else {
 
-				while ((line = buf.readLine()) != null) {
-					data += line;
-					System.out.println(line);
-				}
-			} finally {
-				in.close();
-			}
-			JSONObject obj = (JSONObject) JSONValue.parseWithException(data);
-			System.out.println("OK");
-		} catch (IOException e) {
-			e.printStackTrace();
+                StringBuilder informationString = new StringBuilder();
+                Scanner scanner = new Scanner(url.openStream());
 
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+                while (scanner.hasNext()) {
+                    informationString.append(scanner.nextLine());
+                }
+                //Close the scanner
+                scanner.close();
+
+               // System.out.println(informationString);
+
+
+                //JSON simple library Setup with Maven is used to convert strings to JSON
+                JSONParser parse = new JSONParser();
+                JSONArray dataObject = (JSONArray) parse.parse(String.valueOf(informationString));
+
+                //Get the first JSON object in the JSON array
+                System.out.println(dataObject.get(0));
+
+                JSONObject results = (JSONObject) dataObject.get(0);
+
+                System.out.println(results.get("id"));
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 	}
 }

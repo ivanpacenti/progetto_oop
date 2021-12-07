@@ -9,17 +9,23 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import it.univpm.progetto.model.APICall;
+
 /**
  * @author ivan
  *
  */
 class ConnectionTests {
+	
 
 	/**
 	 * @throws java.lang.Exception
 	 */
 	@BeforeEach
 	void setUp() throws Exception {
+		APICall apicall=new APICall();
+		apicall.searchapi("prova");
+		
 	}
 
 	/**
@@ -34,7 +40,7 @@ class ConnectionTests {
 	 */
 	@Test
 	void testSearchapi() {
-		fail("Not yet implemented");
+		
 	}
 
 }
