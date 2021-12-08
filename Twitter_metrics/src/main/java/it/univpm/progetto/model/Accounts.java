@@ -18,6 +18,7 @@ public class Accounts {
 	private int listed_count;
 	private int statuses_count;
 	private ArrayList<Tweets> status;
+	private ArrayList<Entities> entities;
 	private String profile_image_url;
 	
 	
@@ -34,7 +35,7 @@ public class Accounts {
 	 * @param profile_image_url
 	 */
 	public Accounts(String id, String name, String screen_name, int followers_count, int friends_count,
-			int listed_count, int statuses_count, ArrayList<Tweets> status, String profile_image_url) {
+			int listed_count, int statuses_count, /*ArrayList<Tweets> status,*/ String profile_image_url) {
 		this.id = id;
 		this.name = name;
 		this.screen_name = screen_name;
@@ -42,8 +43,21 @@ public class Accounts {
 		this.friends_count = friends_count;
 		this.listed_count = listed_count;
 		this.statuses_count = statuses_count;
-		this.status = status;
+		//this.status = status;
 		this.profile_image_url = profile_image_url;
+	}
+	
+	/**
+	 * @return the entities
+	 */
+	public ArrayList<Entities> getEntities() {
+		return entities;
+	}
+	/**
+	 * @param entities the entities to set
+	 */
+	public void setEntities(ArrayList<Entities> entities) {
+		this.entities = entities;
 	}
 	/**
 	 * @return the id
@@ -153,4 +167,13 @@ public class Accounts {
 	public void setProfile_image_url(String profile_image_url) {
 		this.profile_image_url = profile_image_url;
 	}
+	@Override
+	public String toString() {
+		return "\nAccounts [id=" + id + ", \nname=" + name + ", \nscreen_name=" + screen_name + ", \nfollowers_count="
+				+ followers_count + ", \nfriends_count=" + friends_count + ", \nlisted_count=" + listed_count
+				+ ", \nstatuses_count=" + statuses_count + ", \nstatus=" + status + ", \nprofile_image_url="
+				+ profile_image_url + "]";
+	}
+	
+	
 }

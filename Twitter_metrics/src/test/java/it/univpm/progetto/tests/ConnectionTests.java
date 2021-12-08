@@ -24,7 +24,7 @@ class ConnectionTests {
 	@BeforeEach
 	void setUp() throws Exception {
 		APICall apicall=new APICall();
-		apicall.searchapi("prova");
+		System.out.println(apicall.searchapi("univpm"));
 		
 	}
 

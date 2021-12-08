@@ -3,30 +3,23 @@
  */
 package it.univpm.progetto.model;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLConnection;
-import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-
-
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * @author ivan
  *
  */
 public class APICall {
-
-	public void searchapi(String query) {
+	private ArrayList<Accounts> accounts=new ArrayList<Accounts>();
+	
+	public ArrayList<Accounts> searchapi(String query) {
 		try {
             
 			String address=query.replaceAll(" ", "%20");
@@ -44,32 +37,47 @@ public class APICall {
                 throw new RuntimeException("HttpResponseCode: " + responseCode);
             } else {
 
-                StringBuilder informationString = new StringBuilder();
+                String informationString ="";
                 Scanner scanner = new Scanner(url.openStream());
 
                 while (scanner.hasNext()) {
-                    informationString.append(scanner.nextLine());
+                    informationString+=scanner.nextLine();
                 }
                 //Close the scanner
                 scanner.close();
 
-               // System.out.println(informationString);
+                try {
+        			com.google.gson.Gson gson=new com.google.gson.GsonBuilder().setPrettyPrinting().create();
+        			JSONArray array=new JSONArray(informationString);
+        			for(int i=0;i<array.length();i++)
+        			{
+        				JSONObject obj=array.getJSONObject(i);
+        				accounts.add(new Accounts(
+        						obj.getString("id_str"),
+        						obj.getString("name"),
+        						obj.getString("screen_name"),
+        						obj.getInt("followers_count"),
+        						obj.getInt("friends_count"),
+        						obj.getInt("listed_count"),
+        						obj.getInt("statuses_count"),
+        						//(ArrayList<Tweets>) obj.get("status"),
+        						obj.getString("profile_image_url")));
+        				
+        			}
+        			
+        		}catch(JSONException e)
+        		{
+        			e.printStackTrace();
+        		}
+        		
 
 
-                //JSON simple library Setup with Maven is used to convert strings to JSON
-                JSONParser parse = new JSONParser();
-                JSONArray dataObject = (JSONArray) parse.parse(String.valueOf(informationString));
-
-                //Get the first JSON object in the JSON array
-                System.out.println(dataObject.get(0));
-
-                JSONObject results = (JSONObject) dataObject.get(0);
-
-                System.out.println(results.get("id"));
 
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
+		return accounts;
+		
 	}
 }

@@ -22,13 +22,15 @@ import it.univpm.progetto.model.Accounts;
 @RestController
 public class Controller {
 	
-	APICall apicall=new APICall();
+	private APICall apicall=new APICall();
+	
+	
+	
 	@GetMapping("/search")
-	public void search(@RequestParam(value="query") String query)
+	public ArrayList<Accounts> search(@RequestParam(value="query") String query)
 	{
 		
-		apicall.searchapi(query);
-		System.out.println("ciao");
+		return apicall.searchapi(query);
 		
 	}
 }
