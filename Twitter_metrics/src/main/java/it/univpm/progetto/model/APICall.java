@@ -12,14 +12,20 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 /**
  * @author ivan
  *
  */
 public class APICall {
-	private ArrayList<Accounts> accounts=new ArrayList<Accounts>();
+	 
 	
 	public ArrayList<Accounts> searchapi(String query) {
+		
+		ArrayList<Accounts> accounts=new ArrayList<Accounts>();
+		
 		try {
             
 			String address=query.replaceAll(" ", "%20");
@@ -47,7 +53,7 @@ public class APICall {
                 scanner.close();
 
                 try {
-        			com.google.gson.Gson gson=new com.google.gson.GsonBuilder().setPrettyPrinting().create();
+        			Gson gson=new GsonBuilder().setPrettyPrinting().create();
         			JSONArray array=new JSONArray(informationString);
         			for(int i=0;i<array.length();i++)
         			{
@@ -60,7 +66,6 @@ public class APICall {
         						obj.getInt("friends_count"),
         						obj.getInt("listed_count"),
         						obj.getInt("statuses_count"),
-        						//(ArrayList<Tweets>) obj.get("status"),
         						obj.getString("profile_image_url")));
         				
         			}

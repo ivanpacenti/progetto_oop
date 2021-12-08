@@ -17,8 +17,6 @@ public class Accounts {
 	private int friends_count;
 	private int listed_count;
 	private int statuses_count;
-	private ArrayList<Tweets> status;
-	private ArrayList<Entities> entities;
 	private String profile_image_url;
 	
 	
@@ -31,11 +29,10 @@ public class Accounts {
 	 * @param friends_count
 	 * @param listed_count
 	 * @param statuses_count
-	 * @param status
 	 * @param profile_image_url
 	 */
 	public Accounts(String id, String name, String screen_name, int followers_count, int friends_count,
-			int listed_count, int statuses_count, /*ArrayList<Tweets> status,*/ String profile_image_url) {
+			int listed_count, int statuses_count, String profile_image_url) {
 		this.id = id;
 		this.name = name;
 		this.screen_name = screen_name;
@@ -43,25 +40,9 @@ public class Accounts {
 		this.friends_count = friends_count;
 		this.listed_count = listed_count;
 		this.statuses_count = statuses_count;
-		//this.status = status;
 		this.profile_image_url = profile_image_url;
 	}
 	
-	/**
-	 * @return the entities
-	 */
-	public ArrayList<Entities> getEntities() {
-		return entities;
-	}
-	/**
-	 * @param entities the entities to set
-	 */
-	public void setEntities(ArrayList<Entities> entities) {
-		this.entities = entities;
-	}
-	/**
-	 * @return the id
-	 */
 	public String getId() {
 		return id;
 	}
@@ -101,12 +82,7 @@ public class Accounts {
 	public int getStatuses_count() {
 		return statuses_count;
 	}
-	/**
-	 * @return the status
-	 */
-	public ArrayList<Tweets> getStatus() {
-		return status;
-	}
+
 	/**
 	 * @return the profile_image_url
 	 */
@@ -156,24 +132,17 @@ public class Accounts {
 		this.statuses_count = statuses_count;
 	}
 	/**
-	 * @param status the status to set
-	 */
-	public void setStatus(ArrayList<Tweets> status) {
-		this.status = status;
-	}
-	/**
 	 * @param profile_image_url the profile_image_url to set
 	 */
 	public void setProfile_image_url(String profile_image_url) {
 		this.profile_image_url = profile_image_url;
 	}
+
 	@Override
 	public String toString() {
-		return "\nAccounts [id=" + id + ", \nname=" + name + ", \nscreen_name=" + screen_name + ", \nfollowers_count="
-				+ followers_count + ", \nfriends_count=" + friends_count + ", \nlisted_count=" + listed_count
-				+ ", \nstatuses_count=" + statuses_count + ", \nstatus=" + status + ", \nprofile_image_url="
-				+ profile_image_url + "]";
+		return "Accounts [id=" + id + ", name=" + name + ", followers_count=" + followers_count + "]";
 	}
+	
 	
 	
 }
