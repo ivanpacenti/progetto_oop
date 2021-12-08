@@ -138,10 +138,7 @@ public class Accounts {
 		this.profile_image_url = profile_image_url;
 	}
 
-	@Override
-	public String toString() {
-		return "Accounts [id=" + id + ", name=" + name + ", followers_count=" + followers_count + "]";
-	}
+	
 	
 	
 	
