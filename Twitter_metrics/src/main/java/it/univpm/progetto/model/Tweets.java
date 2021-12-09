@@ -4,6 +4,7 @@
 package it.univpm.progetto.model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -17,7 +18,7 @@ public class Tweets {
 	private String id;
 	private String text;
 	private Entities entities;
-	private ArrayList<Hashtags> hashtags=new ArrayList<Hashtags>();
+	private List<Hashtags> hashtags=new ArrayList<Hashtags>();
 	private int retweet_count;//Number of times this Tweet has been retweeted
 	private int favorite_count;//Nullable. Indicates approximately how many times this Tweet has been liked by Twitter users
 	/**
@@ -59,6 +60,25 @@ public class Tweets {
 		return text;
 	}
 	/**
+	 * @return the entities
+	 */
+	public Entities getEntities() {
+		return entities;
+	}
+	
+	/**
+	 * @return the retweet_count
+	 */
+	public int getRetweet_count() {
+		return retweet_count;
+	}
+	/**
+	 * @return the favorite_count
+	 */
+	public int getFavorite_count() {
+		return favorite_count;
+	}
+	/**
 	 * @param created_at the created_at to set
 	 */
 	public void setCreated_at(String created_at) {
@@ -76,18 +96,17 @@ public class Tweets {
 	public void setText(String text) {
 		this.text = text;
 	}
-	
 	/**
-	 * @return the retweet_count
+	 * @param entities the entities to set
 	 */
-	public int getRetweet_count() {
-		return retweet_count;
+	public void setEntities(Entities entities) {
+		this.entities = entities;
 	}
 	/**
-	 * @return the favorite_count
+	 * @param hashtags the hashtags to set
 	 */
-	public int getFavorite_count() {
-		return favorite_count;
+	public void setHashtags(List<Hashtags> hashtags) {
+		this.hashtags = hashtags;
 	}
 	/**
 	 * @param retweet_count the retweet_count to set
@@ -100,12 +119,6 @@ public class Tweets {
 	 */
 	public void setFavorite_count(int favorite_count) {
 		this.favorite_count = favorite_count;
-	}
-	@Override
-	public String toString() {
-		return "\nTweets \n[created_at=" + created_at + ",\n id=" + id + ",\n text=" + text + ",\n entities=" + entities
-				  + ",\n retweet_count=" + retweet_count + ",\n favorite_count=" + favorite_count
-				+  "\n"+hashtags+"]";
 	}
 	
 	

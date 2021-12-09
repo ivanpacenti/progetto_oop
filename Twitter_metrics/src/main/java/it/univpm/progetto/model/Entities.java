@@ -4,6 +4,7 @@
 package it.univpm.progetto.model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -13,32 +14,32 @@ import org.json.JSONObject;
  *
  */
 public class Entities {
-	private ArrayList<Hashtags> hashtags;
+	private List<Hashtags> hashtags;
 
 	/**
 	 * @param hashtags
 	 */
-	public Entities(ArrayList<Hashtags> hashtags) {
+	public Entities(List<Hashtags> hashtags) {
 		this.hashtags=hashtags;
 	}
 
 	/**
 	 * @return the hashtags
 	 */
-	public ArrayList<Hashtags> getHashtags() {
+	public List<Hashtags> getHashtags() {
 		return hashtags;
 	}
 
 	/**
 	 * @param hashtags the hashtags to set
 	 */
-	public void setHashtags(ArrayList<Hashtags> hashtags) {
+	public void setHashtags(List<Hashtags> hashtags) {
 		this.hashtags = hashtags;
 	}
 
 	@Override
 	public String toString() {
-		return " [\nhashtags=" + hashtags + "]";
+		return " \n[hashtags=" + hashtags + "]";
 	}
 	
 }
