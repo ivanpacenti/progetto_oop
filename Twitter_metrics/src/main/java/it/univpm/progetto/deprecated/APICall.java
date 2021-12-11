@@ -1,7 +1,7 @@
 /**
  * 
  */
-package it.univpm.progetto.apicall;
+package it.univpm.progetto.deprecated;
 
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -20,12 +20,12 @@ import it.univpm.progetto.model.Tweets;
 
 /**
  * @author ivan
- * @param <T>
+ * 
  *
  */
 public class APICall {
 
-	public JSONArray array(URL url) {
+	public String array(URL url) {
 		try {
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 			conn.setRequestMethod("GET");
@@ -47,8 +47,8 @@ public class APICall {
 				}
 				// Close the scanner
 				scanner.close();
-				 JSONArray array = new JSONArray(informationString);
-				 return array;
+				 
+				 return informationString;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -57,7 +57,7 @@ public class APICall {
 	}
 
 	
-	//prova metodo unificato per call api
+	
 	 
 
 }

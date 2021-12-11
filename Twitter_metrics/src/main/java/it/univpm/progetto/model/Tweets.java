@@ -21,6 +21,7 @@ public class Tweets {
 	private List<Hashtags> hashtags=new ArrayList<Hashtags>();
 	private int retweet_count;//Number of times this Tweet has been retweeted
 	private int favorite_count;//Nullable. Indicates approximately how many times this Tweet has been liked by Twitter users
+	private static final String tweets_url_api="https://wd4hfxnxxa.execute-api.us-east-2.amazonaws.com/dev/user/1.1/statuses/user_timeline.json";
 	/**
 	 * @param created_at
 	 * @param id
