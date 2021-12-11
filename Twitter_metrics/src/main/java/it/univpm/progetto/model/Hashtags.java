@@ -3,13 +3,18 @@
  */
 package it.univpm.progetto.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 /**
  * @author ivan
  *
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Hashtags {
+	
 	private String text;
-
+	
+	public Hashtags() {}
 	/**
 	 * @param text
 	 */
@@ -31,9 +36,5 @@ public class Hashtags {
 		this.text = text;
 	}
 
-	@Override
-	public String toString() {
-		return "\n [text=" + text + "]";
-	}
 	
 }

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package it.univpm.progetto.apicall;
+package it.univpm.progetto.service;
 
 import java.io.BufferedReader;
 import java.io.IOException;

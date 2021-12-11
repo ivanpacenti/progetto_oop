@@ -3,6 +3,7 @@
  */
 package it.univpm.progetto.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -47,11 +48,12 @@ public class Controller {
 		return new ResponseEntity<List<Accounts>>(accounts.getaccounts(),HttpStatus.OK);
 		
 	}
-	/*@GetMapping("/tweets")
-	public ResponseEntity<ArrayList<Tweets>> list(@RequestParam(value="id", defaultValue = "1304170778")String id)
+	
+	@GetMapping("/tweets")
+	public ResponseEntity<List<Tweets>> list(@RequestParam(value="id", defaultValue = "1304170778") String id) throws IllegalArgumentException, IOException
 	{
 		Tweets tweets=new Tweets(id);
-		return new ResponseEntity<>(tweets.getTweets()),HttpStatus.OK);
-	}*/
+		return new ResponseEntity<List<Tweets>>(tweets.getTweets(),HttpStatus.OK);
+	}
 }
 

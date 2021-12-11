@@ -23,8 +23,9 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import it.univpm.progetto.apicall.APIImpl;
+
 import it.univpm.progetto.exceptions.NullQueryException;
+import it.univpm.progetto.service.APIImpl;
 
 
 /**
@@ -115,7 +116,7 @@ public class Accounts {
 	 * @return the username
 	 */
 	public String getUsername() {
-		return username;
+		return "@"+username;
 	}
 	/**
 	 * @return the followers

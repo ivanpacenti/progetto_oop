@@ -22,25 +22,8 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
  * @author ivan
  *
  */
-@ControllerAdvice
+
 public class ControllerExceptionHandler {
-
-	
-	@ExceptionHandler(MissingServletRequestParameterException.class)
-	public ResponseEntity<Object> handleMissingParams(MissingServletRequestParameterException e) {
-	    String name = e.getParameterName();
-	    LinkedHashMap<String, Object> map = new LinkedHashMap<String, Object>();
-	    map.put("timestamp", new Date());
-	    map.put("status", 400);
-	    map.put("error", "Bad Request");
-        map.put("message", name+" parameter is missing");
-        map.put("path", "/search");
-        
-
-        return new ResponseEntity<Object>(map,HttpStatus.BAD_REQUEST);
-	}
-	
-	
 	
 	
 
