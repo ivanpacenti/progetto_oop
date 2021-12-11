@@ -9,9 +9,9 @@ import java.util.List;
 
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 import org.json.simple.JSONValue;
 import org.json.simple.parser.ParseException;
+import org.springframework.http.HttpStatus;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -24,6 +24,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import it.univpm.progetto.apicall.APIImpl;
+import it.univpm.progetto.exceptions.NullQueryException;
 
 
 /**
@@ -50,49 +51,32 @@ public class Accounts {
 	
 	private static final String accounts_api_url="https://wd4hfxnxxa.execute-api.us-east-2.amazonaws.com/dev/api/1.1/users/search.json?q=";
 	@JsonIgnore
-	ArrayList<Accounts> asd=new ArrayList<>();
+	List<Accounts> accounts=new ArrayList<>();
 	
 	
+	public Accounts() {}
 	
 	/**
 	 * @throws JsonMappingException 
 	 * @throws JsonProcessingException 
 	 * 
-	 */
-	public Accounts()
+	 */	
+	public Accounts(String query) 
 	{
 		
-	}
-	public Accounts(String query) throws JSONException, JsonMappingException, JsonProcessingException{
 		String url=accounts_api_url+query.replaceAll(" ", "%20");
 		APIImpl call=new APIImpl(url);
 		ObjectMapper mapper=new ObjectMapper();
-		String val=call.getData();
-		Accounts[] accounts = mapper.readValue(val, Accounts[].class);
-		for(int i=0;i<accounts.length;i++)
-		{
-			asd.add(accounts[i]);
+		try {
+			accounts = Arrays.asList(mapper.readValue(call.getData(), Accounts[].class));
+		} catch (JsonMappingException e) {
+			e.printStackTrace();
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
 		}
-		/*JSONArray array=new JSONArray();
-		array=call.getData(url);
-		for (int i = 0; i < array.length(); i++) 
-		{
-			JSONObject obj = array.getJSONObject(i);
-			accounts.add(
-				new Accounts(obj.getString("id_str"), 
-				obj.getString("name"),
-				obj.getString("screen_name"),
-				obj.getInt("followers_count"),
-				obj.getInt("friends_count"),
-				obj.getInt("listed_count"),
-				obj.getInt("statuses_count"),
-				obj.getString("profile_image_url")));
-		}*/
-	
+		
+		
 	}
-	
-	
-	
 
 	/**
 	 * @param id
@@ -218,16 +202,16 @@ public class Accounts {
 		this.profile_image_url = profile_image_url;
 	}
 	/**
-	 * @return the asd
+	 * @return the accounts
 	 */
-	public ArrayList<Accounts> getAsd() {
-		return asd;
+	public List<Accounts> getaccounts() {
+		return accounts;
 	}
 	/**
-	 * @param asd the asd to set
+	 * @param accounts the accounts to set
 	 */
-	public void setAsd(ArrayList<Accounts> asd) {
-		this.asd = asd;
+	public void setaccounts(List<Accounts> accounts) {
+		this.accounts = accounts;
 	}
 	
 	
