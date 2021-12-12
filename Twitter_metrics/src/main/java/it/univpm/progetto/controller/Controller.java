@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.Vector;
 
 import javax.net.ssl.SSLEngineResult.Status;
@@ -25,6 +26,8 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import it.univpm.progetto.deprecated.APICall;
 import it.univpm.progetto.exceptions.NullQueryException;
 import it.univpm.progetto.model.Accounts;
+import it.univpm.progetto.model.Collections;
+import it.univpm.progetto.model.Timelines;
 import it.univpm.progetto.model.Tweets;
 
 /**
@@ -40,7 +43,7 @@ public class Controller {
 	
 	@GetMapping("/search")
 	public ResponseEntity<List<Accounts>> 
-	search(@RequestParam(value="query",required=true) String query) 
+	accounts(@RequestParam(value="query",required=true) String query) 
 	
 	{
 		if(query.equals("")) throw new NullQueryException(HttpStatus.BAD_REQUEST, "Please insert query value");
@@ -50,10 +53,18 @@ public class Controller {
 	}
 	
 	@GetMapping("/tweets")
-	public ResponseEntity<List<Tweets>> list(@RequestParam(value="id", defaultValue = "1304170778") String id) throws IllegalArgumentException, IOException
+	public ResponseEntity<List<Tweets>> tweets(@RequestParam(value="id", defaultValue = "1304170778") String id) throws IllegalArgumentException, IOException
 	{
 		Tweets tweets=new Tweets(id);
 		return new ResponseEntity<List<Tweets>>(tweets.getTweets(),HttpStatus.OK);
 	}
+	
+	@GetMapping("/collections")
+	public ResponseEntity<Map<String,Timelines>> collections(@RequestParam(value="id", defaultValue = "1304170778") String id) throws IllegalArgumentException, IOException
+	{
+		Collections collection=new Collections(id);
+		return new ResponseEntity<Map<String,Timelines>>(collection.getMap(),HttpStatus.OK);
+	}
+	
 }
 

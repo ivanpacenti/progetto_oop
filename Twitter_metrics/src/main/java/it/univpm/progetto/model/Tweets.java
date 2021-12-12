@@ -66,6 +66,7 @@ public class Tweets {
 			JsonNode ent=node.at("entities");*/
 			
 			//entities=Arrays.asList(mapper.readValue(call.getData(), Entities[].class));
+			
 			tweets = Arrays.asList(mapper.readValue(call.getData(), Tweets[].class));
 			
 			
