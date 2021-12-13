@@ -4,6 +4,7 @@
 package it.univpm.progetto.model;
 
 import java.util.ArrayList;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -24,7 +25,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import it.univpm.progetto.exceptions.NullQueryException;
+
 import it.univpm.progetto.service.APIImpl;
 
 

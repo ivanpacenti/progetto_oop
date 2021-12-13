@@ -4,6 +4,7 @@
 package it.univpm.progetto.controller;
 
 import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -24,7 +25,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 
 import it.univpm.progetto.deprecated.APICall;
-import it.univpm.progetto.exceptions.NullQueryException;
+
 import it.univpm.progetto.model.Accounts;
 import it.univpm.progetto.model.Collections;
 import it.univpm.progetto.model.Timelines;
@@ -46,7 +47,7 @@ public class Controller {
 	searchAccounts(@RequestParam(value="query",required=true) String query) 
 	
 	{
-		if(query.equals("")) throw new NullQueryException(HttpStatus.BAD_REQUEST, "Please insert query value");
+		
 		Accounts accounts=new Accounts(query);
 		return new ResponseEntity<List<Accounts>>(accounts.getaccounts(),HttpStatus.OK);
 		
@@ -55,7 +56,7 @@ public class Controller {
 
 	@GetMapping("/search/collections")
 	public ResponseEntity<Map<String,Timelines>> searchCollections
-	(@RequestParam(value="id", defaultValue = "1304170778") String id) 
+	(@RequestParam(value="id", required=true) String id) 
 			throws IllegalArgumentException, IOException
 	{
 		Collections collection=new Collections(id);
@@ -64,8 +65,8 @@ public class Controller {
 	
 	@GetMapping("/tweets")
 	public ResponseEntity<List<Tweets>> getTweets
-	(@RequestParam(value="id", defaultValue = "1304170778") String id) 
-			throws IllegalArgumentException, IOException
+	(@RequestParam(value="id",required=true) String id)  throws  IllegalArgumentException, IOException
+			
 	{
 		Tweets tweets=new Tweets(id);
 		return new ResponseEntity<List<Tweets>>(tweets.getTweets(),HttpStatus.OK);
@@ -74,7 +75,7 @@ public class Controller {
 	
 	@GetMapping("/collections")
 	public ResponseEntity<List<Tweets>> getCollections
-	(@RequestParam(value="timeline", defaultValue = "custom-1125432419803377665") String timeline) 
+	(@RequestParam (value="timeline",required=true) String timeline) 
 			throws IllegalArgumentException, IOException
 	{
 		Timelines tml=new Timelines(timeline);
