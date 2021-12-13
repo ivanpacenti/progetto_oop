@@ -1,6 +1,4 @@
-/**
- * 
- */
+
 package it.univpm.progetto.model;
 
 import java.io.IOException;
@@ -34,7 +32,6 @@ import it.univpm.progetto.service.APIImpl;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Collections {
 
-	private List<Timelines> timeline=new ArrayList<>();
 	private Map<String,Timelines > map=new HashMap<>();
 	private String name;
 	private Timelines time=new Timelines();
@@ -57,24 +54,24 @@ public class Collections {
 		ObjectMapper mapper=new ObjectMapper();
 		mapper.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
 		JsonNode node=mapper.readTree(call.getData());
-		
 		JsonNode tls=node.path("objects");
 		Iterator<Entry<String, JsonNode>> nodes = tls.get("timelines").fields();
 		while (nodes.hasNext()) 
 		{
-			  Map.Entry<String, JsonNode> entry = (Map.Entry<String, JsonNode>) nodes.next();
-			  JsonNode tl_id=tls.path("timelines");
-				/* for(JsonNode temptimeline: tl_id.get(entry.getKey())) 
+			Map.Entry<String, JsonNode> entry = (Map.Entry<String, JsonNode>) nodes.next();
+			JsonNode tl_id=tls.path("timelines");
+			/* for(JsonNode temptimeline: tl_id.get(entry.getKey())) 
 				//{*/
 					
 					/*this.timeline.add(new Timelines(temptimeline.get("name").textValue(),
 							temptimeline.get("description").textValue(),
 							entry.getKey()));*/
 					
-				//}
-			  String a=tl_id.get(entry.getKey()).toString().replace("}", ",\"id\":\""+entry.getKey()+"\"}");
-			  time=mapper.readValue(a, Timelines.class);
-			  map.put(tl_id.get(entry.getKey()).get("name").asText(),time);
+			//}
+			//String a=tl_id.get(entry.getKey()).toString().replace("}", ",\"id\":\""+entry.getKey()+"\"}");
+			time=mapper.readValue(tl_id.get(entry.getKey()).toString(), Timelines.class);
+			this.time.setId(entry.getKey());
+			map.put(tl_id.get(entry.getKey()).get("name").asText(),time);
 			  	//System.out.println( tl_id.get(entry.getKey()));
 			}
 		/*try {
@@ -135,19 +132,7 @@ public class Collections {
 		this.collection = collection;
 	}
 
-	/**
-	 * @return the timeline
-	 */
-	public List<Timelines> getTimeline() {
-		return timeline;
-	}
-
-	/**
-	 * @param timeline the timeline to set
-	 */
-	public void setTimeline(List<Timelines> timeline) {
-		this.timeline = timeline;
-	}
+	
 
 	/**
 	 * @return the map

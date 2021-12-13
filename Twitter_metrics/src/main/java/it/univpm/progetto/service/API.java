@@ -18,7 +18,8 @@ import org.json.simple.JSONObject;
 public interface API {
 	
 	
-	abstract JSONArray setData(String url);
+	void setData(String url);
+	String getData();
 
 	
 }

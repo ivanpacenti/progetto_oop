@@ -25,7 +25,7 @@ import org.json.simple.parser.ParseException;
  * 
  *
  */
-public class APIImpl  {
+public class APIImpl  implements API{
 	
 	private String data;
 	

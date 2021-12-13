@@ -3,21 +3,63 @@
  */
 package it.univpm.progetto.model;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+
 import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import it.univpm.progetto.service.APIImpl;
 
 /**
  * @author ivan
  *
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Timelines {
+public class Timelines extends Tweets{
 	private String name;
 	private String description;
 	private String id;
+	private List<Tweets> tweets=new ArrayList<>();
+	Tweets temp=new Tweets();
+	private String timeline_url_api="https://wd4hfxnxxa.execute-api.us-east-2.amazonaws.com/dev/user/1.1/collections/entries.json?id=";
 	
 	public Timelines() {}
-	
+	public Timelines(String timeline)
+	{
+		String url=timeline_url_api+timeline+"&count=200";
+		APIImpl call=new APIImpl(url);
+		ObjectMapper mapper=new ObjectMapper();
+		mapper.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
+		try {
+
+			
+			
+			JsonNode node=mapper.readTree(call.getData());
+			JsonNode objects_node=node.path("objects");
+			Iterator<Entry<String, JsonNode>> nodes = objects_node.get("tweets").fields();
+			while (nodes.hasNext()) 
+			{
+				Map.Entry<String, JsonNode> entry = (Map.Entry<String, JsonNode>) nodes.next();
+				JsonNode tweets_node=objects_node.path("tweets");
+				temp=mapper.readValue(tweets_node.get(entry.getKey()).toString(), Tweets.class);
+				tweets.add(temp);
+			}
+		} catch (JsonMappingException e) {
+			e.printStackTrace();
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
+	}
 	
 	/**
 	 * @param name
@@ -71,6 +113,18 @@ public class Timelines {
 	 */
 	public void setId(String id) {
 		this.id = id;
+	}
+	/**
+	 * @return the tweets
+	 */
+	public List<Tweets> getTweets() {
+		return tweets;
+	}
+	/**
+	 * @param tweets the tweets to set
+	 */
+	public void setTweets(List<Tweets> tweets) {
+		this.tweets = tweets;
 	}
 	
 	

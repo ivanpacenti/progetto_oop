@@ -41,9 +41,9 @@ public class Controller {
 	
 	
 	
-	@GetMapping("/search")
+	@GetMapping("/search/accounts")
 	public ResponseEntity<List<Accounts>> 
-	accounts(@RequestParam(value="query",required=true) String query) 
+	searchAccounts(@RequestParam(value="query",required=true) String query) 
 	
 	{
 		if(query.equals("")) throw new NullQueryException(HttpStatus.BAD_REQUEST, "Please insert query value");
@@ -52,18 +52,33 @@ public class Controller {
 		
 	}
 	
+
+	@GetMapping("/search/collections")
+	public ResponseEntity<Map<String,Timelines>> searchCollections
+	(@RequestParam(value="id", defaultValue = "1304170778") String id) 
+			throws IllegalArgumentException, IOException
+	{
+		Collections collection=new Collections(id);
+		return new ResponseEntity<Map<String,Timelines>>(collection.getMap(),HttpStatus.OK);
+	}
+	
 	@GetMapping("/tweets")
-	public ResponseEntity<List<Tweets>> tweets(@RequestParam(value="id", defaultValue = "1304170778") String id) throws IllegalArgumentException, IOException
+	public ResponseEntity<List<Tweets>> getTweets
+	(@RequestParam(value="id", defaultValue = "1304170778") String id) 
+			throws IllegalArgumentException, IOException
 	{
 		Tweets tweets=new Tweets(id);
 		return new ResponseEntity<List<Tweets>>(tweets.getTweets(),HttpStatus.OK);
 	}
 	
+	
 	@GetMapping("/collections")
-	public ResponseEntity<Map<String,Timelines>> collections(@RequestParam(value="id", defaultValue = "1304170778") String id) throws IllegalArgumentException, IOException
+	public ResponseEntity<List<Tweets>> getCollections
+	(@RequestParam(value="timeline", defaultValue = "custom-1125432419803377665") String timeline) 
+			throws IllegalArgumentException, IOException
 	{
-		Collections collection=new Collections(id);
-		return new ResponseEntity<Map<String,Timelines>>(collection.getMap(),HttpStatus.OK);
+		Timelines tml=new Timelines(timeline);
+		return new ResponseEntity<List<Tweets>>(tml.getTweets(),HttpStatus.OK);
 	}
 	
 }

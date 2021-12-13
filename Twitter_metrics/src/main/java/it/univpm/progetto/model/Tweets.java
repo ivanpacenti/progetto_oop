@@ -188,6 +188,12 @@ public class Tweets {
 	public void setRetweeted_status(List<Tweets> retweeted_status) {
 		this.retweeted_status = retweeted_status;
 	}
+	@Override
+	public String toString() {
+		return "Tweets [tweets=" + tweets + ", created_at=" + created_at + ", id=" + id + ", text=" + text
+				+ ", entities=" + entities + ", retweets=" + retweets + ", likes=" + likes + ", retweeted_status="
+				+ retweeted_status + "]";
+	}
 	
 	
 	/**
