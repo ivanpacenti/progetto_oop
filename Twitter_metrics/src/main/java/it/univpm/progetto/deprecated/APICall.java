@@ -15,14 +15,15 @@ import org.json.JSONObject;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import it.univpm.progetto.model.Accounts;
-import it.univpm.progetto.model.Tweets;
+import it.univpm.progetto.model.Account;
+import it.univpm.progetto.model.Tweet;
 
 /**
  * @author ivan
  * 
  *
  */
+@Deprecated
 public class APICall {
 
 	public String array(URL url) {

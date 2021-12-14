@@ -10,15 +10,15 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
  *
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Hashtags {
+public class Hashtag {
 	
 	private String text;
 	
-	public Hashtags() {}
+	public Hashtag() {}
 	/**
 	 * @param text
 	 */
-	public Hashtags(String text) {
+	public Hashtag(String text) {
 		this.text = text;
 	}
 

@@ -34,7 +34,7 @@ import it.univpm.progetto.service.APIImpl;
  *
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Accounts {
+public class Account {
 	@JsonAlias("id_str")
 	private String id;
 	private String name;
@@ -51,26 +51,26 @@ public class Accounts {
 	@JsonIgnore
 	private String profile_image_url;
 	
-	private static final String accounts_api_url="https://wd4hfxnxxa.execute-api.us-east-2.amazonaws.com/dev/api/1.1/users/search.json?q=";
+	private static final String ACCOUNTS_API_URL="https://wd4hfxnxxa.execute-api.us-east-2.amazonaws.com/dev/api/1.1/users/search.json?q=";
 	@JsonIgnore
-	List<Accounts> accounts=new ArrayList<>();
+	List<Account> accounts=new ArrayList<>();
 	
 	
-	public Accounts() {}
+	public Account() {}
 	
 	/**
 	 * @throws JsonMappingException 
 	 * @throws JsonProcessingException 
 	 * 
 	 */	
-	public Accounts(String query) 
+	public Account(String query) 
 	{
 		
-		String url=accounts_api_url+query.replaceAll(" ", "%20");
+		String url=ACCOUNTS_API_URL+query.replaceAll(" ", "%20");
 		APIImpl call=new APIImpl(url);
 		ObjectMapper mapper=new ObjectMapper();
 		try {
-			accounts = Arrays.asList(mapper.readValue(call.getData(), Accounts[].class));
+			accounts = Arrays.asList(mapper.readValue(call.getData(), Account[].class));
 		} catch (JsonMappingException e) {
 			e.printStackTrace();
 		} catch (JsonProcessingException e) {
@@ -90,7 +90,7 @@ public class Accounts {
 	 * @param statuses
 	 * @param profile_image_url
 	 */
-	public Accounts(String id, String name, String username, int followers, int friends,
+	public Account(String id, String name, String username, int followers, int friends,
 			int listed, int statuses, String profile_image_url) {
 		this.id = id;
 		this.name = name;
@@ -153,7 +153,7 @@ public class Accounts {
 	 * @return the accountsApiUrl
 	 */
 	public static String getAccountsApiUrl() {
-		return accounts_api_url;
+		return ACCOUNTS_API_URL;
 	}
 	/**
 	 * @param id the id to set
@@ -206,13 +206,13 @@ public class Accounts {
 	/**
 	 * @return the accounts
 	 */
-	public List<Accounts> getaccounts() {
+	public List<Account> getaccounts() {
 		return accounts;
 	}
 	/**
 	 * @param accounts the accounts to set
 	 */
-	public void setaccounts(List<Accounts> accounts) {
+	public void setaccounts(List<Account> accounts) {
 		this.accounts = accounts;
 	}
 	

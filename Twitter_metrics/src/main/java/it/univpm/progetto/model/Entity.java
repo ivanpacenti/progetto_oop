@@ -20,43 +20,43 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Entities {
+public class Entity {
 	
-	private List<Hashtags> hashtags=new ArrayList<>();
+	private List<Hashtag> hashtags=new ArrayList<>();
 	@JsonAlias("user_mentions")
-	private List<Mentions> mentions=new ArrayList<>();
+	private List<Mention> mentions=new ArrayList<>();
 	
-	public Entities() {}
+	public Entity() {}
 	/**
 	 * @param hashtags
 	 */
-	public Entities(List<Hashtags> hashtags) {
+	public Entity(List<Hashtag> hashtags) {
 		this.hashtags=hashtags;
 	}
 
 	/**
 	 * @return the hashtags
 	 */
-	public List<Hashtags> getHashtags() {
+	public List<Hashtag> getHashtags() {
 		return hashtags;
 	}
 
 	/**
 	 * @param hashtags the hashtags to set
 	 */
-	public void setHashtags(List<Hashtags> hashtags) {
+	public void setHashtags(List<Hashtag> hashtags) {
 		this.hashtags = hashtags;
 	}
 	/**
 	 * @return the mentions
 	 */
-	public List<Mentions> getMentions() {
+	public List<Mention> getMentions() {
 		return mentions;
 	}
 	/**
 	 * @param mentions the mentions to set
 	 */
-	public void setMentions(List<Mentions> mentions) {
+	public void setMentions(List<Mention> mentions) {
 		this.mentions = mentions;
 	}
 

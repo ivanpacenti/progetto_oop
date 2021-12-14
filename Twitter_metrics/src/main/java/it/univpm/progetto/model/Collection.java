@@ -23,6 +23,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import it.univpm.progetto.exceptions.EmptyCollectionListException;
 import it.univpm.progetto.service.APIImpl;
 
 /**
@@ -30,31 +31,32 @@ import it.univpm.progetto.service.APIImpl;
  *
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Collections {
+public class Collection {
 
-	private Map<String,Timelines > map=new HashMap<>();
+	private Map<String,Timeline > map=new HashMap<>();
 	private String name;
-	private Timelines time=new Timelines();
+	private Timeline timeline=new Timeline();
 	private String description;
-	@JsonIgnore
-	private List<Collections> collection =new ArrayList<>();
-	private String collections_url_api="https://wd4hfxnxxa.execute-api.us-east-2.amazonaws.com/dev/user/1.1/collections/list.json?user_id=";
+	
+	//private List<Collection> collection =new ArrayList<>();
+	private static final String COLLECTIONS_URL_API="https://wd4hfxnxxa.execute-api.us-east-2.amazonaws.com/dev/user/1.1/collections/list.json?user_id=";
 
 	/**
 	 * 
 	 */
-	public Collections() {
+	public Collection() {
 	}
 	
-	public Collections(String id) throws IllegalArgumentException, IOException 
+	public Collection(String id) throws IllegalArgumentException, IOException 
 	{
 		
-		String url=collections_url_api+id;
+		String url=COLLECTIONS_URL_API+id;
 		APIImpl call=new APIImpl(url);
 		ObjectMapper mapper=new ObjectMapper();
 		mapper.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
 		JsonNode node=mapper.readTree(call.getData());
 		JsonNode tls=node.path("objects");
+		if(!tls.isEmpty()) {
 		Iterator<Entry<String, JsonNode>> nodes = tls.get("timelines").fields();
 		while (nodes.hasNext()) 
 		{
@@ -69,21 +71,12 @@ public class Collections {
 					
 			//}
 			//String a=tl_id.get(entry.getKey()).toString().replace("}", ",\"id\":\""+entry.getKey()+"\"}");
-			time=mapper.readValue(tl_id.get(entry.getKey()).toString(), Timelines.class);
-			this.time.setId(entry.getKey());
-			map.put(tl_id.get(entry.getKey()).get("name").asText(),time);
+			timeline=mapper.readValue(tl_id.get(entry.getKey()).toString(), Timeline.class);
+			this.timeline.setId(entry.getKey());
+			map.put(tl_id.get(entry.getKey()).get("name").asText(),timeline);
 			  	//System.out.println( tl_id.get(entry.getKey()));
 			}
-		/*try {
-			
-			/*JsonNode node=mapper.valueToTree(call.getData());
-			JsonNode ent=node.at("entities");*/
-			
-			//entities=Arrays.asList(mapper.readValue(call.getData(), Entities[].class));
-			//collection = Arrays.asList(mapper.readValue(call.getData(), Collections[].class));
-			
-		
-		
+		}
 		
 	}
 	
@@ -118,33 +111,20 @@ public class Collections {
 		this.description = description;
 	}
 
-	/**
-	 * @return the collection
-	 */
-	public List<Collections> getCollection() {
-		return collection;
-	}
-
-	/**
-	 * @param collection the collection to set
-	 */
-	public void setCollection(List<Collections> collection) {
-		this.collection = collection;
-	}
-
 	
 
 	/**
 	 * @return the map
 	 */
-	public Map<String, Timelines> getMap() {
-		return map;
+	public Map<String, Timeline> getMap()throws EmptyCollectionListException {
+		if(map.isEmpty()) throw new EmptyCollectionListException("The user has no collections yet.");
+		else return map;
 	}
 
 	/**
 	 * @param map the map to set
 	 */
-	public void setMap(Map<String, Timelines> map) {
+	public void setMap(Map<String, Timeline> map) {
 		this.map = map;
 	}
 	

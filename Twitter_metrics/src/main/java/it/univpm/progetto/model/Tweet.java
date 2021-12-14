@@ -4,14 +4,18 @@
 package it.univpm.progetto.model;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.core.JsonFactory;
@@ -34,29 +38,30 @@ import it.univpm.progetto.service.APIImpl;
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Tweets {
+public class Tweet {
 	@JsonIgnore
-	private List<Tweets> tweets=new ArrayList<>();
+	private List<Tweet> tweets=new ArrayList<>();
 	@JsonIgnore
-	private static final String tweets_url_api="https://wd4hfxnxxa.execute-api.us-east-2.amazonaws.com/dev/user/1.1/statuses/user_timeline.json?id=";
-	
-	private String created_at;
+	private static final String TWEET_URL_API="https://wd4hfxnxxa.execute-api.us-east-2.amazonaws.com/dev/user/1.1/statuses/user_timeline.json?id=";
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "EEE MMM dd HH:mm:ss Z yyyy",locale = "en")
+	private Date created_at;
 	@JsonAlias("id_str")
 	private String id;
 	private String text;
 	//@JsonSerialize
-	private List<Entities> entities=new ArrayList<>();	
+	private List<Entity> entities=new ArrayList<>();	
 	@JsonAlias("retweet_count")
 	private int retweets;//Number of times this Tweet has been retweeted
 	@JsonAlias("favorite_count")
 	private int likes;//Nullable. Indicates approximately how many times this Tweet has been liked by Twitter users
-	private List<Tweets> retweeted_status=new ArrayList<>();
+	@JsonAlias("retweeted_status")
+	private List<Tweet> retweets_status=new ArrayList<>();
 	
-	public Tweets() {}
-	public Tweets(String id) throws IllegalArgumentException, IOException 
+	public Tweet() {}
+	public Tweet(String id) throws IllegalArgumentException, IOException 
 	{
 		
-		String url=tweets_url_api+id;
+		String url=TWEET_URL_API+id;
 		APIImpl call=new APIImpl(url);
 		ObjectMapper mapper=new ObjectMapper();
 		mapper.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
@@ -67,7 +72,7 @@ public class Tweets {
 			
 			//entities=Arrays.asList(mapper.readValue(call.getData(), Entities[].class));
 			
-			tweets = Arrays.asList(mapper.readValue(call.getData(), Tweets[].class));
+			tweets = Arrays.asList(mapper.readValue(call.getData(), Tweet[].class));
 			
 			
 		} catch (JsonMappingException e) {
@@ -82,14 +87,14 @@ public class Tweets {
 	/**
 	 * @return the tweets
 	 */
-	public List<Tweets> getTweets() {
+	public List<Tweet> getTweets() {
 		return tweets;
 	}
 
 	/**
 	 * @return the created_at
 	 */
-	public String getCreated_at() {
+	public Date getCreated_at() {
 		return created_at;
 	}
 
@@ -110,7 +115,7 @@ public class Tweets {
 	/**
 	 * @return the entities
 	 */
-	public List<Entities> getEntities() {
+	public List<Entity> getEntities() {
 		return entities;
 	}
 
@@ -131,14 +136,15 @@ public class Tweets {
 	/**
 	 * @param tweets the tweets to set
 	 */
-	public void setTweets(List<Tweets> tweets) {
+	public void setTweets(List<Tweet> tweets) {
 		this.tweets = tweets;
 	}
 
 	/**
 	 * @param created_at the created_at to set
+	 * @throws ParseException 
 	 */
-	public void setCreated_at(String created_at) {
+	public void setCreated_at(Date created_at)  {
 		this.created_at = created_at;
 	}
 
@@ -159,7 +165,7 @@ public class Tweets {
 	/**
 	 * @param entities the entities to set
 	 */
-	public void setEntities(List<Entities> entities) {
+	public void setEntities(List<Entity> entities) {
 		this.entities = entities;
 	}
 
@@ -179,20 +185,20 @@ public class Tweets {
 	/**
 	 * @return the retweeted_status
 	 */
-	public List<Tweets> getRetweeted_status() {
-		return retweeted_status;
+	public List<Tweet> getRetweeted_status() {
+		return retweets_status;
 	}
 	/**
 	 * @param retweeted_status the retweeted_status to set
 	 */
-	public void setRetweeted_status(List<Tweets> retweeted_status) {
-		this.retweeted_status = retweeted_status;
+	public void setRetweeted_status(List<Tweet> retweeted_status) {
+		this.retweets_status = retweeted_status;
 	}
 	@Override
 	public String toString() {
 		return "Tweets [tweets=" + tweets + ", created_at=" + created_at + ", id=" + id + ", text=" + text
 				+ ", entities=" + entities + ", retweets=" + retweets + ", likes=" + likes + ", retweeted_status="
-				+ retweeted_status + "]";
+				+ retweets_status + "]";
 	}
 	
 	

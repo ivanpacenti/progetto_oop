@@ -12,7 +12,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
  *
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Mentions {
+public class Mention {
 	
 	private String name;
 	@JsonAlias("screen_name")
@@ -20,7 +20,7 @@ public class Mentions {
 	@JsonAlias("id_str")
 	private String id;
 	
-	public Mentions() {}
+	public Mention() {}
 
 	/**
 	 * @return the name

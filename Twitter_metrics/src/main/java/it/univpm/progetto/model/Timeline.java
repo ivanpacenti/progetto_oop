@@ -25,18 +25,18 @@ import it.univpm.progetto.service.APIImpl;
  *
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Timelines extends Tweets{
+public class Timeline {
 	private String name;
 	private String description;
 	private String id;
-	private List<Tweets> tweets=new ArrayList<>();
-	Tweets temp=new Tweets();
-	private String timeline_url_api="https://wd4hfxnxxa.execute-api.us-east-2.amazonaws.com/dev/user/1.1/collections/entries.json?id=";
+	private List<Tweet> tweets=new ArrayList<>();
+	Tweet temp=new Tweet();
+	private static final String TIMELINE_URL_API="https://wd4hfxnxxa.execute-api.us-east-2.amazonaws.com/dev/user/1.1/collections/entries.json?id=";
 	
-	public Timelines() {}
-	public Timelines(String timeline)
+	public Timeline() {}
+	public Timeline(String timeline)
 	{
-		String url=timeline_url_api+timeline+"&count=200";
+		String url=TIMELINE_URL_API+timeline+"&count=200";
 		APIImpl call=new APIImpl(url);
 		ObjectMapper mapper=new ObjectMapper();
 		mapper.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
@@ -51,7 +51,7 @@ public class Timelines extends Tweets{
 			{
 				Map.Entry<String, JsonNode> entry = (Map.Entry<String, JsonNode>) nodes.next();
 				JsonNode tweets_node=objects_node.path("tweets");
-				temp=mapper.readValue(tweets_node.get(entry.getKey()).toString(), Tweets.class);
+				temp=mapper.readValue(tweets_node.get(entry.getKey()).toString(), Tweet.class);
 				tweets.add(temp);
 			}
 		} catch (JsonMappingException e) {
@@ -66,7 +66,7 @@ public class Timelines extends Tweets{
 	 * @param description
 	 * @param id
 	 */
-	public Timelines(String name, String description, String id) {
+	public Timeline(String name, String description, String id) {
 		this.name = name;
 		this.description = description;
 		this.id = id;
@@ -117,13 +117,13 @@ public class Timelines extends Tweets{
 	/**
 	 * @return the tweets
 	 */
-	public List<Tweets> getTweets() {
+	public List<Tweet> getTweets() {
 		return tweets;
 	}
 	/**
 	 * @param tweets the tweets to set
 	 */
-	public void setTweets(List<Tweets> tweets) {
+	public void setTweets(List<Tweet> tweets) {
 		this.tweets = tweets;
 	}
 	

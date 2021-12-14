@@ -19,28 +19,29 @@ import com.fasterxml.jackson.core.JacksonException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import it.univpm.progetto.model.Accounts;
-import it.univpm.progetto.model.Tweets;
+import it.univpm.progetto.model.Account;
+import it.univpm.progetto.model.Tweet;
 
 /**
  * @author ivan
  *
  */
+@Deprecated
 public abstract  class GetData  {
 	APICall apicall = new APICall();
 
-	public List<Accounts> getAccounts(String query) {
+	public List<Account> getAccounts(String query) {
 
-		List<Accounts> accounts = new ArrayList<Accounts>();
+		List<Account> accounts = new ArrayList<Account>();
 		
 		try {
 			String address = query.replaceAll(" ", "%20");
 			URL url = new URL("https://wd4hfxnxxa.execute-api.us-east-2.amazonaws.com/dev/api/1.1/users/search.json?q="
 					+ address);
 			ObjectMapper mapper=new ObjectMapper();
-			List<Accounts> myObjects = 
+			List<Account> myObjects = 
 					Arrays.asList(mapper.readValue(apicall.array(url), 
-							Accounts[].class));
+							Account[].class));
 			return myObjects;
 			/*JSONArray array = apicall.array(url);
 			for (int i = 0; i < array.length(); i++) 
@@ -66,9 +67,9 @@ public abstract  class GetData  {
 
 	}
 	
-	public ArrayList<Tweets> getTweets(String id) {
+	public ArrayList<Tweet> getTweets(String id) {
 		
-		ArrayList<Tweets> tweets = new ArrayList<Tweets>();
+		ArrayList<Tweet> tweets = new ArrayList<Tweet>();
 		
 		try {
 
