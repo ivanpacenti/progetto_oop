@@ -18,6 +18,7 @@ import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -38,6 +39,7 @@ import it.univpm.progetto.service.APIImpl;
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
+
 public class Tweet {
 	@JsonIgnore
 	private List<Tweet> tweets=new ArrayList<>();
@@ -48,7 +50,7 @@ public class Tweet {
 	@JsonAlias("id_str")
 	private String id;
 	private String text;
-	//@JsonSerialize
+	
 	private List<Entity> entities=new ArrayList<>();	
 	@JsonAlias("retweet_count")
 	private int retweets;//Number of times this Tweet has been retweeted

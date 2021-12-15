@@ -20,6 +20,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
+
 public class Entity {
 	
 	private List<Hashtag> hashtags=new ArrayList<>();

@@ -29,6 +29,8 @@ public class APIImpl  implements API{
 	
 	private String data;
 	
+	public APIImpl() {}
+	
 	public  APIImpl(String address)
 	{
 		try {
