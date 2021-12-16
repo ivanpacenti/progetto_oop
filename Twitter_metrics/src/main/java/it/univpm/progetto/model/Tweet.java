@@ -44,7 +44,7 @@ public class Tweet {
 	private List<Tweet> tweets=new ArrayList<>();
 	@JsonIgnore
 	private static final String TWEET_URL_API="https://wd4hfxnxxa.execute-api.us-east-2.amazonaws.com/dev/user/1.1/statuses/user_timeline.json?id=";
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "EEE MMM dd HH:mm:ss Z yyyy",locale = "en")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "EEE MMM dd HH:mm:ss ZZZZZ yyyy",locale = "en")
 	private Date created_at;
 	@JsonAlias("id_str")
 	private String id;

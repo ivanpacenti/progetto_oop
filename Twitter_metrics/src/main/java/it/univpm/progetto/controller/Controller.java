@@ -107,5 +107,18 @@ public class Controller {
 		
 		
 	}
+	
+	@GetMapping("/filter/date")
+	public ResponseEntity<List<Tweet>> getSearchbyDate
+	(@RequestParam (value="from",required=false) String begindate,
+	 @RequestParam (value="to",required=false) String enddate)
+			 throws ParseException, EmptyCollectionListException 
+			
+	{	
+
+		return new ResponseEntity<List<Tweet>>(DataFilter.searchbyDate(begindate,enddate),HttpStatus.OK);
+		
+		
+	}
 }
 

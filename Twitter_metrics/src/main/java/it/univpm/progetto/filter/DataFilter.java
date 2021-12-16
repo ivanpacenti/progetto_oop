@@ -40,14 +40,19 @@ public final class DataFilter implements Filter<Tweet, Object> {
 	
 
 
-	public  List<Tweet> searchbyDate (String data) throws ParseException, EmptyCollectionListException 
+	public static List<Tweet> searchbyDate (String begindate,String enddate) 
+			throws ParseException, EmptyCollectionListException 
 	{
 		result.clear();
-		Date date=new SimpleDateFormat("EEE MMM dd HH:mm:ss yyyy",Locale.ENGLISH).parse(data);
+		Date parsedbegindate=new SimpleDateFormat("dd MM yy",Locale.ENGLISH).parse(begindate);
+		Date parsedenddate=new SimpleDateFormat("dd MM yy",Locale.ENGLISH).parse(enddate);
 		if(DataService.getTweets().isEmpty()) throw new EmptyCollectionListException("You have to download some tweets before!");
 		else {
-			for(Tweet t:DataService.getTweets()) if(t.getCreated_at().after(date)) result.add(t);
+			for(Tweet t:DataService.getTweets())
+			{
+				if(t.getCreated_at().before(parsedenddate)&&t.getCreated_at().after(parsedbegindate)) result.add(t);
 			}
+		}
 		return result;
 	}
 
