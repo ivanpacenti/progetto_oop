@@ -39,7 +39,6 @@ import it.univpm.progetto.service.APIImpl;
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-
 public class Tweet {
 	@JsonIgnore
 	private List<Tweet> tweets=new ArrayList<>();

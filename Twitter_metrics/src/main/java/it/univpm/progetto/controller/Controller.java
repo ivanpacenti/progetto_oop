@@ -17,6 +17,7 @@ import java.util.Vector;
 import javax.net.ssl.SSLEngineResult.Status;
 import javax.servlet.http.HttpServletRequest;
 
+import org.json.HTTP;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.error.ErrorAttributes;
 import org.springframework.http.HttpStatus;
@@ -93,11 +94,17 @@ public class Controller {
 	
 	@GetMapping("/filter")
 	public ResponseEntity<List<Tweet>> getFilter
-	(@RequestParam (value="name",required=true) String date) throws ParseException, EmptyCollectionListException 
+	(@RequestParam (value="field",required=true) String field,
+	 @RequestParam (value="op",required=true) String op,
+	 @RequestParam(value="val",required=true )String val)
+			 throws ParseException, EmptyCollectionListException 
 			
 	{	
 		
-		 return  new ResponseEntity<List<Tweet>>(DataFilter.searchbyDate( date),HttpStatus.OK);
+		DataFilter filter=new DataFilter(DataService.getTweets());
+		
+		return new ResponseEntity<List<Tweet>>(filter.filterField(field,op,val),HttpStatus.OK);
+		
 		
 	}
 }
