@@ -160,7 +160,8 @@ public class Tweet {
 	 * @param text the text to set
 	 */
 	public void setText(String text) {
-		this.text = text;
+		this.text=text.replaceAll("@.*? ", "").replaceAll("#[^# ]*","").replaceAll("\\b(https?|ftp|file)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]","").replaceAll("\"","").replaceAll("\\n", "");
+		//this.text=text;
 	}
 
 	/**

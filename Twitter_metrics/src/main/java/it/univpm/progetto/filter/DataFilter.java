@@ -44,15 +44,25 @@ public final class DataFilter implements Filter<Tweet, Object> {
 			throws ParseException, EmptyCollectionListException 
 	{
 		result.clear();
-		Date parsedbegindate=new SimpleDateFormat("dd MM yy",Locale.ENGLISH).parse(begindate);
-		Date parsedenddate=new SimpleDateFormat("dd MM yy",Locale.ENGLISH).parse(enddate);
+		
 		if(DataService.getTweets().isEmpty()) throw new EmptyCollectionListException("You have to download some tweets before!");
-		else {
+		if((begindate!=null))
+		{
+			
+			Date parsedbegindate=new SimpleDateFormat("dd MM yy",Locale.ENGLISH).parse(begindate);
 			for(Tweet t:DataService.getTweets())
 			{
-				if(t.getCreated_at().before(parsedenddate)&&t.getCreated_at().after(parsedbegindate)) result.add(t);
+				if(t.getCreated_at().after(parsedbegindate)) result.add(t);
+			}
+		}if((enddate!=null))
+		{
+			Date parsedenddate=new SimpleDateFormat("dd MM yy",Locale.ENGLISH).parse(enddate);
+			for(Tweet t:result)
+			{
+				if(t.getCreated_at().after(parsedenddate)) result.remove(t);
 			}
 		}
+		
 		return result;
 	}
 
