@@ -8,6 +8,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
@@ -43,23 +44,25 @@ public final class DataFilter implements Filter<Tweet, Object> {
 	public static List<Tweet> searchbyDate (String begindate,String enddate) 
 			throws ParseException, EmptyCollectionListException 
 	{
-		result.clear();
+		result=DataService.getTweets();
 		
-		if(DataService.getTweets().isEmpty()) throw new EmptyCollectionListException("You have to download some tweets before!");
+		if(result.isEmpty()) throw new EmptyCollectionListException("You have to download some tweets before!");
 		if((begindate!=null))
 		{
 			
 			Date parsedbegindate=new SimpleDateFormat("dd MM yy",Locale.ENGLISH).parse(begindate);
-			for(Tweet t:DataService.getTweets())
+			for(Iterator<Tweet> iterator=result.iterator();iterator.hasNext();)
 			{
-				if(t.getCreated_at().after(parsedbegindate)) result.add(t);
+				Tweet t=iterator.next();
+				if(t.getCreated_at().after(parsedbegindate)) iterator.remove();
 			}
 		}if((enddate!=null))
 		{
 			Date parsedenddate=new SimpleDateFormat("dd MM yy",Locale.ENGLISH).parse(enddate);
-			for(Tweet t:result)
+			for(Iterator<Tweet> iterator=result.iterator();iterator.hasNext();)
 			{
-				if(t.getCreated_at().after(parsedenddate)) result.remove(t);
+				Tweet t=iterator.next();
+				if(t.getCreated_at().after(parsedenddate)) iterator.remove();
 			}
 		}
 		

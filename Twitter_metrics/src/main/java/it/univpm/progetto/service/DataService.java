@@ -37,7 +37,8 @@ public final class DataService  {
 	
 	private static List<Account> accounts=new ArrayList<>();
 	
-	protected static List<Tweet> tweets=new ArrayList<>();
+	private static List<Tweet> tweets=new ArrayList<>();
+	private static List<Tweet> collection_list=new ArrayList<>();
 	private static Map<String,Timeline> collections=new HashMap<>();
 	
 	private static Timeline tmp;
@@ -70,7 +71,7 @@ public final class DataService  {
 	
 	public static List<Tweet> getTweets(String id)
 	{
-		String url=TWEET_API_URL+id.replaceAll(" ", "%20");
+		String url=TWEET_API_URL+id.replaceAll(" ", "%20")+"&count=100";
 		call=new APIImpl(url);
 		mapper.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
 		try {
@@ -107,7 +108,8 @@ public final class DataService  {
 	
 	public static List<Tweet> getTimelines(String timeline)
 	{
-		String url=TIMELINE_API_URL+timeline+"&count=200";
+		collection_list.clear();
+		String url=TIMELINE_API_URL+timeline+"&count=100";
 		call=new APIImpl(url);
 		mapper.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
 		try {
@@ -118,7 +120,7 @@ public final class DataService  {
 			{
 				Map.Entry<String, JsonNode> entry = (Map.Entry<String, JsonNode>) nodes.next();
 				JsonNode tweets_node=objects_node.path("tweets");
-				getTweets().add(mapper.readValue(tweets_node.get(entry.getKey()).toString(), Tweet.class));
+				collection_list.add(mapper.readValue(tweets_node.get(entry.getKey()).toString(), Tweet.class));
 				//tweets.add(tmp);
 			}
 		} catch (JsonMappingException e) {
@@ -126,7 +128,8 @@ public final class DataService  {
 		} catch (JsonProcessingException e) {
 			e.printStackTrace();
 		}
-		return getTweets();
+		tweets=collection_list;
+		return tweets;
 	}
 
 

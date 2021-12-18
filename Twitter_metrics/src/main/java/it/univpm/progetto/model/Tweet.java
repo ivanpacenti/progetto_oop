@@ -42,8 +42,6 @@ import it.univpm.progetto.service.APIImpl;
 public class Tweet {
 	@JsonIgnore
 	private List<Tweet> tweets=new ArrayList<>();
-	@JsonIgnore
-	private static final String TWEET_URL_API="https://wd4hfxnxxa.execute-api.us-east-2.amazonaws.com/dev/user/1.1/statuses/user_timeline.json?id=";
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "EEE MMM dd HH:mm:ss ZZZZZ yyyy",locale = "en")
 	private Date created_at;
 	@JsonAlias("id_str")
@@ -59,31 +57,7 @@ public class Tweet {
 	private List<Tweet> retweets_status=new ArrayList<>();
 	
 	public Tweet() {}
-	public Tweet(String id) throws IllegalArgumentException, IOException 
-	{
-		
-		String url=TWEET_URL_API+id;
-		APIImpl call=new APIImpl(url);
-		ObjectMapper mapper=new ObjectMapper();
-		mapper.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
-		try {
-			
-			/*JsonNode node=mapper.valueToTree(call.getData());
-			JsonNode ent=node.at("entities");*/
-			
-			//entities=Arrays.asList(mapper.readValue(call.getData(), Entities[].class));
-			
-			tweets = Arrays.asList(mapper.readValue(call.getData(), Tweet[].class));
-			
-			
-		} catch (JsonMappingException e) {
-			e.printStackTrace();
-		} catch (JsonProcessingException e) {
-			e.printStackTrace();
-		}
-		
-		
-	}
+	
 
 	/**
 	 * @return the tweets
