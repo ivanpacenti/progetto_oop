@@ -34,10 +34,10 @@ import it.univpm.progetto.model.Tweet;
 
 public final class DataService  {
 	private static final String ACCOUNTS_API_URL="https://wd4hfxnxxa.execute-api.us-east-2.amazonaws.com/dev/api/1.1/users/search.json?q=";
-	private static final String TWEET_API_URL="https://wd4hfxnxxa.execute-api.us-east-2.amazonaws.com/dev/user/1.1/statuses/user_timeline.json?id=";
+	private static final String TWEET_API_URL="https://wd4hfxnxxa.execute-api.us-east-2.amazonaws.com/dev/user/1.1/statuses/user_timeline.json?id=<id>&count=<count>&include_rts=<rtws>&exclude_replies=<rpls>";
 	private static final String COLLECTIONS_API_URL="https://wd4hfxnxxa.execute-api.us-east-2.amazonaws.com/dev/user/1.1/collections/list.json?user_id=";
 	private static final String TIMELINE_API_URL="https://wd4hfxnxxa.execute-api.us-east-2.amazonaws.com/dev/user/1.1/collections/entries.json?id=";
-	
+	private static final String USER_API_URL="https://wd4hfxnxxa.execute-api.us-east-2.amazonaws.com/dev/user/1.1/users/lookup.json?user_id=<id>&include_entities=false&tweet_mode=false";
 	private static List<Account> accounts=new ArrayList<>();
 	
 	private static List<Tweet> tweets=new ArrayList<>();
@@ -70,9 +70,10 @@ public final class DataService  {
 		return accounts;
 	}
 	
-	public static List<Tweet> getTweets(String id,String count)
+	public static List<Tweet> getTweets(String id,String count,Boolean rtws,Boolean rpls)
 	{
-		String url=TWEET_API_URL+id.replaceAll(" ", "%20")+"&count="+count+"&exclude_replies=false&include_rts=false";
+		String url=TWEET_API_URL.replaceAll("<id>", id).replaceAll("<count>", count)
+				.replaceAll("<rtws>", rtws.toString()).replaceAll("<rpls>",rpls.toString());
 		call=new APIImpl(url);
 		mapper.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
 		try {
@@ -134,7 +135,8 @@ public final class DataService  {
 		filter=new DataFilter(collection_list);
 		return collection_list;
 	}
-
+	
+	
 
 	public static List<Tweet> getTweets() {
 		return tweets;

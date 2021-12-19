@@ -78,10 +78,12 @@ public class Controller {
 	@GetMapping("/tweets")
 	public ResponseEntity<List<Tweet>> getTweets
 	(@RequestParam(value="id",required=true) String id,
-			@RequestParam(value="count", defaultValue = "50")String count)  throws  IllegalArgumentException, IOException
+			@RequestParam(value="count", defaultValue = "50") String count,
+			@RequestParam(value="replies",defaultValue="false") Boolean rpls,
+			@RequestParam(value="retweets",defaultValue="false") Boolean rtws)  throws  IllegalArgumentException, IOException
 			
 	{
-		return new ResponseEntity<List<Tweet>>(DataService.getTweets(id,count),HttpStatus.OK);
+		return new ResponseEntity<List<Tweet>>(DataService.getTweets(id,count,rtws,rtws),HttpStatus.OK);
 	}
 	
 	

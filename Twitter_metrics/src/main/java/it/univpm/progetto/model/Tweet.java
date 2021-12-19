@@ -50,15 +50,19 @@ public class Tweet {
 	private String id;
 	private String text;
 	
-	private Entity entities=new Entity();	
+	private Entity entities=new Entity();
+	@JsonProperty(access=JsonProperty.Access.WRITE_ONLY)
 	@JsonAlias("retweet_count")
 	private int retweets;//Number of times this Tweet has been retweeted
+	@JsonProperty(access=JsonProperty.Access.WRITE_ONLY)
 	@JsonAlias("favorite_count")
 	private int likes;//Nullable. Indicates approximately how many times this Tweet has been liked by Twitter users
-	@JsonAlias("retweeted_status")
-	private List<Tweet> retweets_status=new ArrayList<>();
+	@JsonProperty(access=JsonProperty.Access.WRITE_ONLY)
+	private Account user=new Account();
 	@JsonProperty(access=JsonProperty.Access.READ_ONLY)
 	private DataStats stats;
+	@JsonAlias("retweeted_status")
+	private List<Tweet> original_tweet=new ArrayList<>();
 	
 	public Tweet() {}
 	
@@ -165,15 +169,32 @@ public class Tweet {
 	/**
 	 * @return the retweeted_status
 	 */
-	public List<Tweet> getRetweeted_status() {
-		return retweets_status;
+	public List<Tweet> getOriginal_tweet() {
+		return original_tweet;
 	}
 	/**
 	 * @param retweeted_status the retweeted_status to set
 	 */
-	public void setRetweeted_status(List<Tweet> retweeted_status) {
-		this.retweets_status = retweeted_status;
+	public void setOriginal_tweet(List<Tweet> retweeted_status) {
+		this.original_tweet = retweeted_status;
 		
+	}
+	
+	
+
+	/**
+	 * @return the user
+	 */
+	public Account getUser() {
+		return user;
+	}
+
+
+	/**
+	 * @param user the user to set
+	 */
+	public void setUser(Account user) {
+		this.user = user;
 	}
 
 
@@ -181,7 +202,9 @@ public class Tweet {
 	 * @return the stats
 	 */
 	public DataStats getStats() {
-		this.stats = new DataStats(this.getLikes(), this.getRetweets(),entities.getHashtags(),entities.getMentions());
+		this.stats = new DataStats(this.getLikes(), this.getRetweets(),entities.getHashtags().size(),
+				entities.getMentions().size(),user.getFollowers(),user.getFriends(),
+				user.getListed(),user.getUsername());
 		
 		return stats;
 	}
