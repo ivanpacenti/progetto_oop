@@ -3,6 +3,8 @@
  */
 package it.univpm.progetto.stats;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
 
 import it.univpm.progetto.model.Hashtag;
@@ -21,6 +23,7 @@ public class DataStats {
 	private int followers;
 	private int following;
 	private int listed;//The number of public lists that this user is a member of
+	private double engagement;
 	
 	/**
 	 * @param likes
@@ -42,6 +45,12 @@ public class DataStats {
 		this.following = friends;
 		this.listed = listed;
 		this.username = username;
+		double tot=this.likes+this.hashtags+this.mentions+this.retweets;
+		if(tot==0) this.engagement=0;
+		else {
+			double tmp=tot/this.followers*100;
+			this.engagement=BigDecimal.valueOf(tmp).setScale(3, RoundingMode.HALF_UP).doubleValue();
+			}
 	}
 
 	/**
@@ -50,7 +59,7 @@ public class DataStats {
 	public String getUsername() {
 		return username;
 	}
-
+	
 	/**
 	 * @return the likes
 	 */
@@ -155,6 +164,14 @@ public class DataStats {
 	public void setListed(int listed) {
 		this.listed = listed;
 	}
+
+	/**
+	 * @return the engagement
+	 */
+	public double getEngagement() {
+		return engagement;
+	}
+
 	
 	
 	
