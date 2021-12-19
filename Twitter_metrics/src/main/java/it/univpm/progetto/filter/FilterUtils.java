@@ -5,14 +5,24 @@ package it.univpm.progetto.filter;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Locale;
+
+import it.univpm.progetto.exceptions.EmptyCollectionListException;
+import it.univpm.progetto.model.Tweet;
 
 /**
  * @author ivan
  *
  */
 public   class FilterUtils<T> {
+	
 	public static boolean check(Object value, String operator, Object th) {
 		if (th instanceof Number && value instanceof Number) {	
 			Double thC = ((Number)th).doubleValue();
@@ -58,6 +68,34 @@ public   class FilterUtils<T> {
 		}
 		return out;
 	}
+	public static List<Tweet> selectDate(List<Tweet> tweets, String from, String to)  throws ParseException, EmptyCollectionListException
+	{
+	List<Tweet> result=new ArrayList<>(tweets);
+	Iterator<Tweet> iterator=result.iterator();
+	//if(tweets.isEmpty()) throw new EmptyCollectionListException("You have to download some tweets before!");
+	if((from!=null))
+	{
+		
+		Date parsedbegindate=new SimpleDateFormat("dd MM yy",Locale.ENGLISH).parse(from);
+		while(iterator.hasNext())
+		{
+			Tweet t=iterator.next();
+			if(t.getCreated_at().before(parsedbegindate)) iterator.remove();
+		}
+	}if((to!=null))
+	{
+		Date parsedenddate=new SimpleDateFormat("dd MM yy",Locale.ENGLISH).parse(to);
+		iterator=result.iterator();
+		while(iterator.hasNext())
+		{
+			Tweet t=iterator.next();
+			if(t.getCreated_at().after(parsedenddate)) iterator.remove();
+		}
+	}
+	
+	return result;
+	}
+
 	
 	
 }

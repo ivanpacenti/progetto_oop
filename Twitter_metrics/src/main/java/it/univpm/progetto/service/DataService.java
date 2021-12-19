@@ -3,6 +3,7 @@
  */
 package it.univpm.progetto.service;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -19,6 +20,8 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import it.univpm.progetto.exceptions.EmptyCollectionListException;
+import it.univpm.progetto.filter.DataFilter;
 import it.univpm.progetto.model.Account;
 import it.univpm.progetto.model.Timeline;
 import it.univpm.progetto.model.Tweet;
@@ -43,14 +46,12 @@ public final class DataService  {
 	
 	private static Timeline tmp;
 	private static ObjectMapper mapper=new ObjectMapper();
+	private static DataFilter filter;
 	
 	private static APIImpl call;
 	
 	public DataService() {}
-	public DataService(List<Tweet> service)
-	{
-		service=this.tweets;
-	}
+	
 	
 	
 	public static List<Account> getAccounts(String query)
@@ -69,9 +70,9 @@ public final class DataService  {
 		return accounts;
 	}
 	
-	public static List<Tweet> getTweets(String id)
+	public static List<Tweet> getTweets(String id,String count)
 	{
-		String url=TWEET_API_URL+id.replaceAll(" ", "%20")+"&count=100";
+		String url=TWEET_API_URL+id.replaceAll(" ", "%20")+"&count="+count;
 		call=new APIImpl(url);
 		mapper.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
 		try {
@@ -81,6 +82,7 @@ public final class DataService  {
 		} catch (JsonProcessingException e) {
 			e.printStackTrace();
 		}
+		filter=new DataFilter(tweets);
 		return tweets;
 	}
 	
@@ -128,8 +130,9 @@ public final class DataService  {
 		} catch (JsonProcessingException e) {
 			e.printStackTrace();
 		}
-		tweets=collection_list;
-		return tweets;
+		
+		filter=new DataFilter(collection_list);
+		return collection_list;
 	}
 
 
@@ -142,5 +145,17 @@ public final class DataService  {
 		DataService.tweets = tweets;
 	}
 	
+	public static List<Tweet> filterField(String field,String op, String val)
 	
+	{
+		
+		return filter.filterField(field, op, val);
+		
+	}
+	
+	public static List<Tweet> searchbyDate(String from,String to) throws ParseException, EmptyCollectionListException
+	{
+		
+		return filter.searchbyDate(from,to);
+	}
 }

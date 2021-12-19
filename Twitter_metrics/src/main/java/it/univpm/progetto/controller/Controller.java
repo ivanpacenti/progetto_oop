@@ -77,10 +77,11 @@ public class Controller {
 	
 	@GetMapping("/tweets")
 	public ResponseEntity<List<Tweet>> getTweets
-	(@RequestParam(value="id",required=true) String id)  throws  IllegalArgumentException, IOException
+	(@RequestParam(value="id",required=true) String id,
+			@RequestParam(value="count", defaultValue = "50")String count)  throws  IllegalArgumentException, IOException
 			
 	{
-		return new ResponseEntity<List<Tweet>>(DataService.getTweets(id),HttpStatus.OK);
+		return new ResponseEntity<List<Tweet>>(DataService.getTweets(id,count),HttpStatus.OK);
 	}
 	
 	
@@ -101,22 +102,22 @@ public class Controller {
 			
 	{	
 		
-		DataFilter filter=new DataFilter(DataService.getTweets());
 		
-		return new ResponseEntity<List<Tweet>>(filter.filterField(field,op,val),HttpStatus.OK);
+		
+		return new ResponseEntity<List<Tweet>>(DataService.filterField(field,op,val),HttpStatus.OK);
 		
 		
 	}
 	
 	@GetMapping("/filter/date")
 	public ResponseEntity<List<Tweet>> getSearchbyDate
-	(@RequestParam (value="from",required=false) String begindate,
-	 @RequestParam (value="to",required=false) String enddate)
+	(@RequestParam (value="from",required=false) String from,
+	 @RequestParam (value="to",required=false) String to)
 			 throws ParseException, EmptyCollectionListException 
 			
 	{	
 
-		return new ResponseEntity<List<Tweet>>(DataFilter.searchbyDate(begindate,enddate),HttpStatus.OK);
+		return new ResponseEntity<List<Tweet>>(DataService.searchbyDate(from,to),HttpStatus.OK);
 		
 		
 	}

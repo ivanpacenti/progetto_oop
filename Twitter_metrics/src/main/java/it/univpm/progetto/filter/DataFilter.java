@@ -22,9 +22,9 @@ import it.univpm.progetto.service.DataService;
  * @author ivan
  *
  */
-public final class DataFilter implements Filter<Tweet, Object> {
+public class DataFilter implements Filter<Tweet, Object> {
 	
-	private static List<Tweet> result=new ArrayList<>();
+	private  List<Tweet> tweets=new ArrayList<>();
 	private static FilterUtils<Tweet> utils;
 		
 	
@@ -33,50 +33,24 @@ public final class DataFilter implements Filter<Tweet, Object> {
 	 * @param result
 	 * 
 	 */
-	public DataFilter(List<Tweet> result) {
-		DataFilter.result = result;
+	public DataFilter(List<Tweet> tweets) {
+		this.tweets = tweets;
 		DataFilter.utils=new FilterUtils<Tweet>();
 		
 	}
 	
 
 
-	public static List<Tweet> searchbyDate (String begindate,String enddate) 
+	public List<Tweet> searchbyDate (String from,String to) 
 			throws ParseException, EmptyCollectionListException 
 	{
-		result=DataService.getTweets();
 		
-		if(result.isEmpty()) throw new EmptyCollectionListException("You have to download some tweets before!");
-		if((begindate!=null))
-		{
-			
-			Date parsedbegindate=new SimpleDateFormat("dd MM yy",Locale.ENGLISH).parse(begindate);
-			for(Iterator<Tweet> iterator=result.iterator();iterator.hasNext();)
-			{
-				Tweet t=iterator.next();
-				if(t.getCreated_at().after(parsedbegindate)) iterator.remove();
-			}
-		}if((enddate!=null))
-		{
-			Date parsedenddate=new SimpleDateFormat("dd MM yy",Locale.ENGLISH).parse(enddate);
-			for(Iterator<Tweet> iterator=result.iterator();iterator.hasNext();)
-			{
-				Tweet t=iterator.next();
-				if(t.getCreated_at().after(parsedenddate)) iterator.remove();
-			}
-		}
 		
-		return result;
+		return FilterUtils.selectDate(getTweets(), from, to);
 	}
 
 	
 
-	/**
-	 * @return the result
-	 */
-	public static List<Tweet> getResult() {
-		return result;
-	}
 
 
 
@@ -93,7 +67,24 @@ public final class DataFilter implements Filter<Tweet, Object> {
 	 * @param result the result to set
 	 */
 	public  void setResult(List<Tweet> result) {
-		DataFilter.result = result;
+	}
+	
+
+
+	/**
+	 * @return the tweets
+	 */
+	public  List<Tweet> getTweets() {
+		return tweets;
+	}
+
+
+
+	/**
+	 * @param tweets the tweets to set
+	 */
+	public  void setTweets(List<Tweet> tweets) {
+		this.tweets = tweets;
 	}
 
 
@@ -114,7 +105,7 @@ public final class DataFilter implements Filter<Tweet, Object> {
 		  }  
 		}
 
-	
+	@Override //togliere se non funzia
 	public  List<Tweet> filterField(String fieldName, String operator, String str) {
 		Object value;
 		if(isNumeric(str)) 
@@ -122,7 +113,7 @@ public final class DataFilter implements Filter<Tweet, Object> {
 				value=Double.parseDouble(str);
 			}
 		else value=str;
-		return (List<Tweet>) utils.select(getResult(), fieldName, operator, value);
+		return (List<Tweet>) utils.select(getTweets(), fieldName, operator, value);
 	}
 	
 }
