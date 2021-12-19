@@ -18,6 +18,7 @@ import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonParser;
@@ -32,6 +33,7 @@ import com.fasterxml.jackson.databind.jsontype.BasicPolymorphicTypeValidator;
 import com.fasterxml.jackson.databind.jsontype.PolymorphicTypeValidator;
 
 import it.univpm.progetto.service.APIImpl;
+import it.univpm.progetto.stats.DataStats;
 
 /**
  * @author ivan
@@ -48,13 +50,15 @@ public class Tweet {
 	private String id;
 	private String text;
 	
-	private List<Entity> entities=new ArrayList<>();	
+	private Entity entities=new Entity();	
 	@JsonAlias("retweet_count")
 	private int retweets;//Number of times this Tweet has been retweeted
 	@JsonAlias("favorite_count")
 	private int likes;//Nullable. Indicates approximately how many times this Tweet has been liked by Twitter users
 	@JsonAlias("retweeted_status")
 	private List<Tweet> retweets_status=new ArrayList<>();
+	@JsonProperty(access=JsonProperty.Access.READ_ONLY)
+	private DataStats stats;
 	
 	public Tweet() {}
 	
@@ -90,7 +94,7 @@ public class Tweet {
 	/**
 	 * @return the entities
 	 */
-	public List<Entity> getEntities() {
+	public Entity getEntities() {
 		return entities;
 	}
 
@@ -141,7 +145,7 @@ public class Tweet {
 	/**
 	 * @param entities the entities to set
 	 */
-	public void setEntities(List<Entity> entities) {
+	public void setEntities(Entity entities) {
 		this.entities = entities;
 	}
 
@@ -169,13 +173,22 @@ public class Tweet {
 	 */
 	public void setRetweeted_status(List<Tweet> retweeted_status) {
 		this.retweets_status = retweeted_status;
+		
 	}
-	@Override
-	public String toString() {
-		return "Tweets [tweets=" + tweets + ", created_at=" + created_at + ", id=" + id + ", text=" + text
-				+ ", entities=" + entities + ", retweets=" + retweets + ", likes=" + likes + ", retweeted_status="
-				+ retweets_status + "]";
+
+
+	/**
+	 * @return the stats
+	 */
+	public DataStats getStats() {
+		this.stats = new DataStats(this.getLikes(), this.getRetweets(),entities.getHashtags(),entities.getMentions());
+		
+		return stats;
 	}
+
+
+	
+	
 	
 	
 	/**

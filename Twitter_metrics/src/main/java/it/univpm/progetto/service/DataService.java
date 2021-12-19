@@ -72,7 +72,7 @@ public final class DataService  {
 	
 	public static List<Tweet> getTweets(String id,String count)
 	{
-		String url=TWEET_API_URL+id.replaceAll(" ", "%20")+"&count="+count;
+		String url=TWEET_API_URL+id.replaceAll(" ", "%20")+"&count="+count+"&exclude_replies=false&include_rts=false";
 		call=new APIImpl(url);
 		mapper.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
 		try {
