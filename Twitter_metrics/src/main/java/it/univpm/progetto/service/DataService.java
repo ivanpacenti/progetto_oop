@@ -109,10 +109,10 @@ public final class DataService  {
 		return collections;
 	}
 	
-	public static List<Tweet> getTimelines(String timeline)
+	public static List<Tweet> getTimelines(String timeline,String count)
 	{
 		collection_list.clear();
-		String url=TIMELINE_API_URL+timeline+"&count=100";
+		String url=TIMELINE_API_URL+timeline+"&count="+count;
 		call=new APIImpl(url);
 		mapper.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
 		try {

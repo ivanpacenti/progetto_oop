@@ -89,10 +89,11 @@ public class Controller {
 	
 	@GetMapping("/collections")
 	public ResponseEntity<List<Tweet>> getCollections
-	(@RequestParam (value="timeline",required=true) String timeline) 
+	(@RequestParam (value="timeline",required=true) String timeline,
+			@RequestParam(value="count",defaultValue="50")String count) 
 			throws IllegalArgumentException, IOException 
 	{
-		return new ResponseEntity<List<Tweet>>(DataService.getTimelines(timeline),HttpStatus.OK);
+		return new ResponseEntity<List<Tweet>>(DataService.getTimelines(timeline,count),HttpStatus.OK);
 	}
 	
 	@GetMapping("/filter")

@@ -7,6 +7,8 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import it.univpm.progetto.model.Hashtag;
 import it.univpm.progetto.model.Mention;
 
@@ -23,6 +25,7 @@ public class DataStats {
 	private int followers;
 	private int following;
 	private int listed;//The number of public lists that this user is a member of
+	
 	private double engagement;
 	
 	/**
@@ -45,12 +48,7 @@ public class DataStats {
 		this.following = friends;
 		this.listed = listed;
 		this.username = username;
-		double tot=this.likes+this.hashtags+this.mentions+this.retweets;
-		if(tot==0) this.engagement=0;
-		else {
-			double tmp=tot/this.followers*100;
-			this.engagement=BigDecimal.valueOf(tmp).setScale(3, RoundingMode.HALF_UP).doubleValue();
-			}
+		setEngagement();
 	}
 
 	/**
@@ -171,7 +169,17 @@ public class DataStats {
 	public double getEngagement() {
 		return engagement;
 	}
-
+	
+	public void setEngagement()
+	{
+		double tot=this.likes+this.retweets;
+		if(tot==0||this.followers==0) this.engagement=0;
+		else {
+			double tmp=(tot/this.followers)*100;
+			this.engagement=BigDecimal.valueOf(tmp).setScale(5, RoundingMode.HALF_UP).doubleValue();
+			}
+		
+	}
 	
 	
 	
