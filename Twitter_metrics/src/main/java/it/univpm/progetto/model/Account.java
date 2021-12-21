@@ -50,7 +50,7 @@ public class Account {
 	private int statuses;
 	@JsonIgnore
 	private String profile_image_url;
-	
+	@JsonIgnore
 	private static final String ACCOUNTS_API_URL="https://wd4hfxnxxa.execute-api.us-east-2.amazonaws.com/dev/api/1.1/users/search.json?q=";
 	@JsonIgnore
 	List<Account> accounts=new ArrayList<>();

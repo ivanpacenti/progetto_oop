@@ -23,6 +23,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import it.univpm.progetto.exceptions.EmptyCollectionListException;
 import it.univpm.progetto.filter.DataFilter;
 import it.univpm.progetto.model.Account;
+import it.univpm.progetto.model.Collectionz;
 import it.univpm.progetto.model.Timeline;
 import it.univpm.progetto.model.Tweet;
 
@@ -37,16 +38,20 @@ public final class DataService  {
 	private static final String TWEET_API_URL="https://wd4hfxnxxa.execute-api.us-east-2.amazonaws.com/dev/user/1.1/statuses/user_timeline.json?id=<id>&count=<count>&include_rts=<rtws>&exclude_replies=<rpls>";
 	private static final String COLLECTIONS_API_URL="https://wd4hfxnxxa.execute-api.us-east-2.amazonaws.com/dev/user/1.1/collections/list.json?user_id=";
 	private static final String TIMELINE_API_URL="https://wd4hfxnxxa.execute-api.us-east-2.amazonaws.com/dev/user/1.1/collections/entries.json?id=";
-	private static final String USER_API_URL="https://wd4hfxnxxa.execute-api.us-east-2.amazonaws.com/dev/user/1.1/users/lookup.json?user_id=<id>&include_entities=false&tweet_mode=false";
+	private static final String USER_API_URL="https://wd4hfxnxxa.execute-api.us-east-2.amazonaws.com/dev/user/1.1/users/show.json?user_id=<id>&include_entities=false&tweet_mode=false";
 	private static List<Account> accounts=new ArrayList<>();
 	
 	private static List<Tweet> tweets=new ArrayList<>();
 	private static List<Tweet> collection_list=new ArrayList<>();
+	
 	private static Map<String,Timeline> collections=new HashMap<>();
+	private static Collectionz asd=new Collectionz();
 	
 	private static Timeline tmp;
+	private static Tweet tweettmp=new Tweet();
 	private static ObjectMapper mapper=new ObjectMapper();
 	private static DataFilter filter;
+	private static Account user=new Account();
 	
 	private static APIImpl call;
 	
@@ -123,8 +128,9 @@ public final class DataService  {
 			{
 				Map.Entry<String, JsonNode> entry = (Map.Entry<String, JsonNode>) nodes.next();
 				JsonNode tweets_node=objects_node.path("tweets");
-				collection_list.add(mapper.readValue(tweets_node.get(entry.getKey()).toString(), Tweet.class));
-				//tweets.add(tmp);
+				tweettmp=mapper.readValue(tweets_node.get(entry.getKey()).toString(), Tweet.class);
+				tweettmp.setUser(getUser(tweettmp.getUser().getId()));
+				tweets.add(tweettmp);
 			}
 		} catch (JsonMappingException e) {
 			e.printStackTrace();
@@ -133,9 +139,28 @@ public final class DataService  {
 		}
 		
 		filter=new DataFilter(collection_list);
-		return collection_list;
+		return tweets;
 	}
 	
+	
+	
+	public static Account getUser(String id)
+	{
+		String url=USER_API_URL.replaceAll("<id>", id);
+		call=new APIImpl(url);
+		mapper.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
+		try {
+			user=mapper.readValue(call.getData(), Account.class);
+			
+			System.out.print(accounts);
+		} catch (JsonMappingException e) {
+			e.printStackTrace();
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
+		
+		return user;
+	}
 	
 
 	public static List<Tweet> getTweets() {

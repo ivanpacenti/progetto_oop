@@ -39,7 +39,7 @@ import it.univpm.progetto.deprecated.APICall;
 import it.univpm.progetto.exceptions.EmptyCollectionListException;
 import it.univpm.progetto.filter.DataFilter;
 import it.univpm.progetto.model.Account;
-import it.univpm.progetto.model.Collection;
+import it.univpm.progetto.model.Collectionz;
 import it.univpm.progetto.model.Timeline;
 import it.univpm.progetto.model.Tweet;
 import it.univpm.progetto.service.DataService;
@@ -95,6 +95,8 @@ public class Controller {
 	{
 		return new ResponseEntity<List<Tweet>>(DataService.getTimelines(timeline,count),HttpStatus.OK);
 	}
+	
+	
 	
 	@GetMapping("/filter")
 	public ResponseEntity<List<Tweet>> getFilter

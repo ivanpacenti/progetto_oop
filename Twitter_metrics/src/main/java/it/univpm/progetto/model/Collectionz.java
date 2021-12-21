@@ -17,6 +17,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
+import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -31,23 +33,53 @@ import it.univpm.progetto.service.APIImpl;
  *
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Collection {
 
+public class Collectionz {
+	@JsonIgnore
 	private Map<String,Timeline > map=new HashMap<>();
 	private String name;
 	private Timeline timeline=new Timeline();
 	private String description;
+	private List<Tweet> tweets=new ArrayList<>();
 	
+	/**
+	 * @return the timeline
+	 */
+	public Timeline getTimeline() {
+		return timeline;
+	}
+
+	/**
+	 * @return the tweets
+	 */
+	public List<Tweet> getTweets() {
+		return tweets;
+	}
+
+	/**
+	 * @param timeline the timeline to set
+	 */
+	public void setTimeline(Timeline timeline) {
+		this.timeline = timeline;
+	}
+
+	/**
+	 * @param tweets the tweets to set
+	 */
+	public void setTweets(List<Tweet> tweets) {
+		this.tweets = tweets;
+	}
+
 	//private List<Collection> collection =new ArrayList<>();
 	private static final String COLLECTIONS_URL_API="https://wd4hfxnxxa.execute-api.us-east-2.amazonaws.com/dev/user/1.1/collections/list.json?user_id=";
 
 	/**
 	 * 
 	 */
-	public Collection() {
+	public Collectionz() {
 	}
 	
-	public Collection(String id) throws IllegalArgumentException, IOException 
+	public Collectionz(String id) throws IllegalArgumentException, IOException 
 	{
 		
 		String url=COLLECTIONS_URL_API+id;
