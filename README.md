@@ -1,12 +1,13 @@
 <div id="top"></div>
 <!-- PROJECT LOGO -->
 <br />
-<div align="center">
+<div align="center ">
   <a href="https://github.com/ivanpacenti/progetto_oop">
-    <img src="logo.png" alt="Logo" width="80" height="80">
+    <img src="logo.png" alt="Logo" width="140" height="140" >
   </a>
+ <h3 align="center" size=90>Twitter Metrics</h3>
 
-<h3 align="center">Twitter Metrics</h3>
+
 
   <p align="center">
      </p>
