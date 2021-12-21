@@ -151,8 +151,6 @@ public final class DataService  {
 		mapper.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
 		try {
 			user=mapper.readValue(call.getData(), Account.class);
-			
-			System.out.print(accounts);
 		} catch (JsonMappingException e) {
 			e.printStackTrace();
 		} catch (JsonProcessingException e) {
