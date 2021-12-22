@@ -58,7 +58,7 @@ public class Controller {
 	
 	@GetMapping("/search/accounts")
 	public ResponseEntity<List<Account>> 
-	searchAccounts(@RequestParam(value="query",required=true) String query) 
+	searchAccounts(@RequestParam(value="query",required=true) String query) throws IOException 
 	
 	{
 		

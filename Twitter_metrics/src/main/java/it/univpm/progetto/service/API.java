@@ -6,6 +6,8 @@ package it.univpm.progetto.service;
 
 
 
+import java.io.InputStream;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
@@ -18,8 +20,8 @@ import org.json.simple.JSONObject;
 public interface API {
 	
 	
-	void setData(String url);
-	String getData();
+	
+	InputStream getData(String address);
 
 	
 }

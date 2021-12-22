@@ -63,7 +63,7 @@ public class Account {
 	 * @throws JsonProcessingException 
 	 * 
 	 */	
-	public Account(String query) 
+	/*public Account(String query) 
 	{
 		
 		String url=ACCOUNTS_API_URL+query.replaceAll(" ", "%20");
@@ -78,7 +78,7 @@ public class Account {
 		}
 		
 		
-	}
+	}*/
 
 	/**
 	 * @param id

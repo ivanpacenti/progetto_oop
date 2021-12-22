@@ -36,10 +36,10 @@ public class Timeline {
 	private static final String TIMELINE_URL_API="https://wd4hfxnxxa.execute-api.us-east-2.amazonaws.com/dev/user/1.1/collections/entries.json?id=";
 	
 	public Timeline() {}
-	public Timeline(String timeline)
+	/*public Timeline(String timeline)
 	{
 		String url=TIMELINE_URL_API+timeline+"&count=200";
-		APIImpl call=new APIImpl(url);
+		//APIImpl call=new APIImpl(url);
 		ObjectMapper mapper=new ObjectMapper();
 		mapper.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
 		try {
@@ -61,7 +61,7 @@ public class Timeline {
 		} catch (JsonProcessingException e) {
 			e.printStackTrace();
 		}
-	}
+	}*/
 	
 	/**
 	 * @param name

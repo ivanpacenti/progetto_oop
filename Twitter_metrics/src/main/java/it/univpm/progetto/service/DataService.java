@@ -3,6 +3,7 @@
  */
 package it.univpm.progetto.service;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -53,20 +54,20 @@ public final class DataService  {
 	private static DataFilter filter;
 	private static Account user=new Account();
 	
-	private static APIImpl call;
+	private static APIImpl call=new APIImpl();
 	
 	public DataService() {}
 	
 	
 	
-	public static List<Account> getAccounts(String query)
+	public static List<Account> getAccounts(String query) throws IOException
 	{
 		
 		String url=ACCOUNTS_API_URL+query.replaceAll(" ", "%20");
-		call=new APIImpl(url);
-		mapper.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
+		//call=new APIImpl(url);
+		//mapper.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
 		try {
-			accounts = Arrays.asList(mapper.readValue(call.getData(), Account[].class));
+			accounts = Arrays.asList(mapper.readValue(call.getData(url), Account[].class));
 		} catch (JsonMappingException e) {
 			e.printStackTrace();
 		} catch (JsonProcessingException e) {
@@ -75,15 +76,15 @@ public final class DataService  {
 		return accounts;
 	}
 	
-	public static List<Tweet> getTweets(String id,String count,Boolean rtws,Boolean rpls)
+	public static List<Tweet> getTweets(String id,String count,Boolean rtws,Boolean rpls) throws IOException
 	{
 		String url=TWEET_API_URL.replaceAll("<id>", id).replaceAll("<count>", count)
 				.replaceAll("<rtws>", rtws.toString()).replaceAll("<rpls>",rpls.toString());
-		call=new APIImpl(url);
-		mapper.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
+		//call=new APIImpl(url);
+		//mapper.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
 		
 		try {
-			tweets = Arrays.asList(mapper.readValue(call.getData(), Tweet[].class));
+			tweets = Arrays.asList(mapper.readValue(call.getData(url), Tweet[].class));
 		} catch (JsonMappingException e) {
 			e.printStackTrace();
 		} catch (JsonProcessingException e) {
@@ -93,13 +94,13 @@ public final class DataService  {
 		return tweets;
 	}
 	
-	public static Map<String,Timeline> getCollections(String id) throws JsonMappingException, JsonProcessingException
+	public static Map<String,Timeline> getCollections(String id) throws IOException
 	{
 		String url=COLLECTIONS_API_URL+id;
-		call=new APIImpl(url);
-		mapper.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
+		//call=new APIImpl(url);
+		//mapper.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
 		
-		JsonNode node=mapper.readTree(call.getData());
+		JsonNode node=mapper.readTree(call.getData(url));
 		JsonNode tls=node.path("objects");
 		if(!tls.isEmpty()) {
 		Iterator<Entry<String, JsonNode>> nodes = tls.get("timelines").fields();
@@ -116,14 +117,14 @@ public final class DataService  {
 		return collections;
 	}
 	
-	public static List<Tweet> getTimelines(String timeline,String count)
+	public static List<Tweet> getTimelines(String timeline,String count) throws IOException
 	{
-		tweets.clear();
+		tweets=new ArrayList<>();
 		String url=TIMELINE_API_URL+timeline+"&count="+count;
-		call=new APIImpl(url);
-		mapper.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
+		//call=new APIImpl(url);
+		//mapper.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
 		try {
-			JsonNode node=mapper.readTree(call.getData());
+			JsonNode node=mapper.readTree(call.getData(url));
 			JsonNode objects_node=node.path("objects");
 			Iterator<Entry<String, JsonNode>> nodes = objects_node.get("tweets").fields();
 			while (nodes.hasNext()) 
@@ -147,13 +148,13 @@ public final class DataService  {
 	
 	
 	
-	public static Account getUser(String id)
+	public static Account getUser(String id) throws IOException
 	{
 		String url=USER_API_URL.replaceAll("<id>", id);
-		call=new APIImpl(url);
-		mapper.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
+		//call=new APIImpl(url);
+		//mapper.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
 		try {
-			user=mapper.readValue(call.getData(), Account.class);
+			user=mapper.readValue(call.getData(url), Account.class);
 		} catch (JsonMappingException e) {
 			e.printStackTrace();
 		} catch (JsonProcessingException e) {
