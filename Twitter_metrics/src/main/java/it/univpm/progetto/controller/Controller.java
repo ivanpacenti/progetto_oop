@@ -139,5 +139,14 @@ public class Controller {
 		
 		
 	}
+	
+	@GetMapping("/filter/stats")
+	public ResponseEntity<Map<String,Object>> getStats()
+			 throws ParseException, EmptyCollectionListException 
+			
+	{	
+
+		return new ResponseEntity<Map<String,Object>>(DataService.analyze(),HttpStatus.OK);		
+	}
 }
 

@@ -12,9 +12,11 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import it.univpm.progetto.exceptions.EmptyCollectionListException;
 import it.univpm.progetto.model.Tweet;
@@ -70,7 +72,7 @@ public   class FilterUtils<T> {
 		}
 		return out;
 	}
-	public static List<Tweet> selectDate(List<Tweet> tweets, String from, String to)  throws ParseException, EmptyCollectionListException
+	public  List<Tweet> selectDate(List<Tweet> tweets, String from, String to)  throws ParseException, EmptyCollectionListException
 	{
 	List<Tweet> result=new ArrayList<>(tweets);
 	Iterator<Tweet> iterator=result.iterator();
@@ -82,7 +84,7 @@ public   class FilterUtils<T> {
 		while(iterator.hasNext())
 		{
 			Tweet t=iterator.next();
-			//if(t.getCreated_at().before(parsedbegindate)) iterator.remove();
+			if(t.getCreated_at().before(parsedbegindate)) iterator.remove();
 		}
 	}if((to!=null))
 	{
@@ -91,13 +93,13 @@ public   class FilterUtils<T> {
 		while(iterator.hasNext())
 		{
 			Tweet t=iterator.next();
-			//if(t.getCreated_at().after(parsedenddate)) iterator.remove();
+			if(t.getCreated_at().after(parsedenddate)) iterator.remove();
 		}
 	}
 	return result;
 	}
 	
-	public static List<Tweet> selectHour(List<Tweet> tweets, String from, String to)  
+	public  List<Tweet> selectHour(List<Tweet> tweets, String from, String to)  
 			throws ParseException, EmptyCollectionListException
 	{
 	List<Tweet> result=new ArrayList<>(tweets);
@@ -136,6 +138,20 @@ public   class FilterUtils<T> {
 	}
 	
 	return result;
+	}
+
+	public Map<String,Object> analyze(List<Tweet> tmp) {
+		Double tot=0.0;
+		for(Tweet t:tmp) tot+=t.getEngagement();
+		Double average=tot/tmp.size();
+		tot=0.0;
+		for(Tweet t:tmp) tot+=Math.pow((t.getEngagement()-average), 2);
+		Double variance=tot/tmp.size();
+		Map<String,Object> map=new HashMap<>();
+		map.put("Tweets analized", tmp.size());
+		map.put("Average engagement", average);
+		map.put("Variance of engagement", variance);
+		return map;
 	}
 
 	

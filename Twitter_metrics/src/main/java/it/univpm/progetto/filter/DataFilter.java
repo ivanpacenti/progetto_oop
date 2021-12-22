@@ -12,6 +12,7 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
@@ -26,7 +27,8 @@ import it.univpm.progetto.service.DataService;
 public class DataFilter implements Filter<Tweet, Object> {
 	
 	private  List<Tweet> tweets=new ArrayList<>();
-	private static FilterUtils<Tweet> utils;
+	private  List<Tweet> tmp=new ArrayList<>();
+	private  FilterUtils<Tweet> utils;
 		
 	
 	
@@ -36,7 +38,7 @@ public class DataFilter implements Filter<Tweet, Object> {
 	 */
 	public DataFilter(List<Tweet> tweets) {
 		this.tweets = tweets;
-		DataFilter.utils=new FilterUtils<Tweet>();
+		this.utils=new FilterUtils<Tweet>();
 		
 	}
 
@@ -74,7 +76,7 @@ public class DataFilter implements Filter<Tweet, Object> {
 	 * @param utils the utils to set
 	 */
 	public void setUtils(FilterUtils<Tweet> utils) {
-		DataFilter.utils = utils;
+		this.utils = utils;
 	}
 	
 	public static boolean isNumeric(String str) { 
@@ -101,15 +103,23 @@ public class DataFilter implements Filter<Tweet, Object> {
 			throws ParseException, EmptyCollectionListException 
 	{
 		
-		
-		return FilterUtils.selectDate(getTweets(), from, to);
+		this.tmp=utils.selectDate(getTweets(), from, to);
+		return tmp;
 	}
 	
 	public List<Tweet> searchbyHour(String from,String to)
 			throws ParseException, EmptyCollectionListException 
 	{
 		
+		this.tmp=utils.selectHour(getTweets(), from, to);
+		return tmp;
+	}
+	
+	public Map<String, Object> analyze()
+			throws ParseException, EmptyCollectionListException 
+	{
 		
-		return FilterUtils.selectHour(getTweets(), from, to);
+		
+		return utils.analyze(this.tmp);
 	}
 }
