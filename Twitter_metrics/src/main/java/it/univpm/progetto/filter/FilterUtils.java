@@ -11,12 +11,15 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.NoSuchElementException;
 
 import it.univpm.progetto.exceptions.EmptyCollectionListException;
 import it.univpm.progetto.model.Tweet;
@@ -142,15 +145,29 @@ public   class FilterUtils<T> {
 
 	public Map<String,Object> analyze(List<Tweet> tmp) {
 		Double tot=0.0;
-		for(Tweet t:tmp) tot+=t.getEngagement();
+		
+		for(Tweet t:tmp) 
+			{
+				tot+=t.getEngagement();
+			}
 		Double average=tot/tmp.size();
 		tot=0.0;
 		for(Tweet t:tmp) tot+=Math.pow((t.getEngagement()-average), 2);
 		Double variance=tot/tmp.size();
-		Map<String,Object> map=new HashMap<>();
+		Tweet min = tmp
+			      .stream()
+			      .min(Comparator.comparing(Tweet::getEngagement))
+			      .orElseThrow(NoSuchElementException::new);
+		Tweet max = tmp
+			      .stream()
+			      .max(Comparator.comparing(Tweet::getEngagement))
+			      .orElseThrow(NoSuchElementException::new);
+		Map<String,Object> map=new LinkedHashMap<>();
 		map.put("Tweets analized", tmp.size());
 		map.put("Average engagement", average);
 		map.put("Variance of engagement", variance);
+		map.put("Higher engagement", max.getEngagement());
+		map.put("Lower engagement", min.getEngagement());
 		return map;
 	}
 
