@@ -11,6 +11,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.TimeZone;
 
 import org.springframework.stereotype.Component;
 
@@ -48,7 +49,7 @@ public final class DataService  {
 	
 	private static Timeline tmp;
 	private static Tweet tweettmp=new Tweet();
-	private static ObjectMapper mapper=new ObjectMapper();
+	private static ObjectMapper mapper=new ObjectMapper().setTimeZone(TimeZone.getTimeZone("ECT"));
 	private static DataFilter filter;
 	private static Account user=new Account();
 	
@@ -64,7 +65,6 @@ public final class DataService  {
 		String url=ACCOUNTS_API_URL+query.replaceAll(" ", "%20");
 		call=new APIImpl(url);
 		mapper.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
-		mapper.disable(DeserializationFeature.ADJUST_DATES_TO_CONTEXT_TIME_ZONE);
 		try {
 			accounts = Arrays.asList(mapper.readValue(call.getData(), Account[].class));
 		} catch (JsonMappingException e) {
@@ -81,7 +81,7 @@ public final class DataService  {
 				.replaceAll("<rtws>", rtws.toString()).replaceAll("<rpls>",rpls.toString());
 		call=new APIImpl(url);
 		mapper.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
-		mapper.disable(DeserializationFeature.ADJUST_DATES_TO_CONTEXT_TIME_ZONE);
+		
 		try {
 			tweets = Arrays.asList(mapper.readValue(call.getData(), Tweet[].class));
 		} catch (JsonMappingException e) {
@@ -98,7 +98,7 @@ public final class DataService  {
 		String url=COLLECTIONS_API_URL+id;
 		call=new APIImpl(url);
 		mapper.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
-		mapper.disable(DeserializationFeature.ADJUST_DATES_TO_CONTEXT_TIME_ZONE);
+		
 		JsonNode node=mapper.readTree(call.getData());
 		JsonNode tls=node.path("objects");
 		if(!tls.isEmpty()) {
@@ -122,7 +122,6 @@ public final class DataService  {
 		String url=TIMELINE_API_URL+timeline+"&count="+count;
 		call=new APIImpl(url);
 		mapper.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
-		mapper.disable(DeserializationFeature.ADJUST_DATES_TO_CONTEXT_TIME_ZONE);
 		try {
 			JsonNode node=mapper.readTree(call.getData());
 			JsonNode objects_node=node.path("objects");
@@ -134,6 +133,7 @@ public final class DataService  {
 				tweettmp=mapper.readValue(tweets_node.get(entry.getKey()).toString(), Tweet.class);
 				tweettmp.setUser(getUser(tweettmp.getUser().getId()));
 				tweets.add(tweettmp);
+				
 			}
 		} catch (JsonMappingException e) {
 			e.printStackTrace();
@@ -152,7 +152,6 @@ public final class DataService  {
 		String url=USER_API_URL.replaceAll("<id>", id);
 		call=new APIImpl(url);
 		mapper.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
-		mapper.disable(DeserializationFeature.ADJUST_DATES_TO_CONTEXT_TIME_ZONE);
 		try {
 			user=mapper.readValue(call.getData(), Account.class);
 		} catch (JsonMappingException e) {

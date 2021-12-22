@@ -102,8 +102,8 @@ public   class FilterUtils<T> {
 	{
 	List<Tweet> result=new ArrayList<>(tweets);
 	Iterator<Tweet> iterator=result.iterator();
-	Calendar first = Calendar.getInstance(Locale.US);
-	Calendar last = Calendar.getInstance(Locale.US);
+	Calendar getdate = Calendar.getInstance(Locale.US);
+	Calendar midnight = Calendar.getInstance(Locale.US);
 	//if(tweets.isEmpty()) throw new EmptyCollectionListException("You have to download some tweets before!");
 	if((from!=null))
 	{
@@ -114,37 +114,24 @@ public   class FilterUtils<T> {
 		while(iterator.hasNext())
 		{	
 			Tweet t=iterator.next();
-			Date d=t.getCreated_at();
-			last.setTime(d);
-			first.setTime(d);
-			first.set(Calendar.HOUR_OF_DAY, hour);
-			first.set(Calendar.MINUTE, 00);
-			first.set(Calendar.SECOND, 00);
-			
-			System.out.println(t.toString());
-			System.out.println(last.getTime());
-			
-			
-			if(last.before(first)) iterator.remove();
-				
-			
+			getdate.setTime(t.getCreated_at());
+			getdate.set(Calendar.HOUR_OF_DAY, hour);
+			getdate.set(Calendar.MINUTE, 00);
+			getdate.set(Calendar.SECOND, 00);
+			if(t.getCreated_at().before(getdate.getTime())) iterator.remove();
 		}
 	}if((to!=null))
 	{
 		int hour=Integer.parseInt(to);
-		
-		//Date parsedendhour=new SimpleDateFormat("HH").parse(tmp);
 		iterator=result.iterator();
 		while(iterator.hasNext())
 		{
 			Tweet t=iterator.next();
-			//first.setTime(t.getCreated_at());
-			
-			first.set(Calendar.HOUR_OF_DAY, hour);
-			first.set(Calendar.MINUTE, 00);
-			first.set(Calendar.SECOND, 00);
-			//last.setTime(t.getCreated_at());
-			if(last.after(first)) iterator.remove();
+			getdate.setTime(t.getCreated_at());
+			getdate.set(Calendar.HOUR_OF_DAY, hour);
+			getdate.set(Calendar.MINUTE, 00);
+			getdate.set(Calendar.SECOND, 00);
+			if(t.getCreated_at().after(getdate.getTime())) iterator.remove();
 		}
 	}
 	

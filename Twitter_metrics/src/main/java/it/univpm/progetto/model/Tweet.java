@@ -47,7 +47,7 @@ import it.univpm.progetto.stats.DataStats;
 public class Tweet {
 	@JsonIgnore
 	private List<Tweet> tweets=new ArrayList<>();
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "E MMM dd HH:mm:ss Z yyyy",locale = "en",timezone="Italy/Rome")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "E MMM dd HH:mm:ss Z yyyy",locale = "en")
 	private Date created_at;
 	@JsonAlias("id_str")
 	private String id;
