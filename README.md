@@ -3,7 +3,7 @@
 <br />
 <div align="center ">
   <a href="https://github.com/ivanpacenti/progetto_oop">
-    <img src="logo1.png" alt="Logo" width="140" height="140" >
+    <img src="images/logo1.png" alt="Logo" width="140" height="140" >
   </a>
  <h3 align="center" size=90>Twitter Metrics</h3>
 
@@ -152,7 +152,7 @@ Occorre avere a disposizione il software Eclipse, con installato il plugin Sprin
 
 
 
->>>>>>> branch 'main' of https://github.com/ivanpacenti/progetto_oop
+
 <table>
 <tbody>
 <tr>
