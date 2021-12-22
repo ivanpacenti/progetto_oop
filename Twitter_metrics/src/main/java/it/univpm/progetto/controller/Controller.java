@@ -4,6 +4,7 @@
 package it.univpm.progetto.controller;
 
 import java.io.IOException;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -39,7 +40,6 @@ import it.univpm.progetto.deprecated.APICall;
 import it.univpm.progetto.exceptions.EmptyCollectionListException;
 import it.univpm.progetto.filter.DataFilter;
 import it.univpm.progetto.model.Account;
-import it.univpm.progetto.model.Collectionz;
 import it.univpm.progetto.model.Timeline;
 import it.univpm.progetto.model.Tweet;
 import it.univpm.progetto.service.DataService;
@@ -123,6 +123,19 @@ public class Controller {
 	{	
 
 		return new ResponseEntity<List<Tweet>>(DataService.searchbyDate(from,to),HttpStatus.OK);
+		
+		
+	}
+	
+	@GetMapping("/filter/hour")
+	public ResponseEntity<List<Tweet>> getSearchbyHour
+	(@RequestParam (value="from",required=false) String from,
+	 @RequestParam (value="to",required=false) String to)
+			 throws ParseException, EmptyCollectionListException 
+			
+	{	
+
+		return new ResponseEntity<List<Tweet>>(DataService.searchbyHour(from,to),HttpStatus.OK);
 		
 		
 	}

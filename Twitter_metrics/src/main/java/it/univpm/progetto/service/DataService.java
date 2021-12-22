@@ -23,7 +23,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import it.univpm.progetto.exceptions.EmptyCollectionListException;
 import it.univpm.progetto.filter.DataFilter;
 import it.univpm.progetto.model.Account;
-import it.univpm.progetto.model.Collectionz;
 import it.univpm.progetto.model.Timeline;
 import it.univpm.progetto.model.Tweet;
 
@@ -42,10 +41,10 @@ public final class DataService  {
 	private static List<Account> accounts=new ArrayList<>();
 	
 	private static List<Tweet> tweets=new ArrayList<>();
-	private static List<Tweet> collection_list=new ArrayList<>();
+	//private static List<Tweet> collection_list=new ArrayList<>();
 	
 	private static Map<String,Timeline> collections=new HashMap<>();
-	private static Collectionz asd=new Collectionz();
+
 	
 	private static Timeline tmp;
 	private static Tweet tweettmp=new Tweet();
@@ -65,6 +64,7 @@ public final class DataService  {
 		String url=ACCOUNTS_API_URL+query.replaceAll(" ", "%20");
 		call=new APIImpl(url);
 		mapper.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
+		mapper.disable(DeserializationFeature.ADJUST_DATES_TO_CONTEXT_TIME_ZONE);
 		try {
 			accounts = Arrays.asList(mapper.readValue(call.getData(), Account[].class));
 		} catch (JsonMappingException e) {
@@ -81,6 +81,7 @@ public final class DataService  {
 				.replaceAll("<rtws>", rtws.toString()).replaceAll("<rpls>",rpls.toString());
 		call=new APIImpl(url);
 		mapper.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
+		mapper.disable(DeserializationFeature.ADJUST_DATES_TO_CONTEXT_TIME_ZONE);
 		try {
 			tweets = Arrays.asList(mapper.readValue(call.getData(), Tweet[].class));
 		} catch (JsonMappingException e) {
@@ -97,6 +98,7 @@ public final class DataService  {
 		String url=COLLECTIONS_API_URL+id;
 		call=new APIImpl(url);
 		mapper.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
+		mapper.disable(DeserializationFeature.ADJUST_DATES_TO_CONTEXT_TIME_ZONE);
 		JsonNode node=mapper.readTree(call.getData());
 		JsonNode tls=node.path("objects");
 		if(!tls.isEmpty()) {
@@ -116,10 +118,11 @@ public final class DataService  {
 	
 	public static List<Tweet> getTimelines(String timeline,String count)
 	{
-		collection_list.clear();
+		tweets.clear();
 		String url=TIMELINE_API_URL+timeline+"&count="+count;
 		call=new APIImpl(url);
 		mapper.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
+		mapper.disable(DeserializationFeature.ADJUST_DATES_TO_CONTEXT_TIME_ZONE);
 		try {
 			JsonNode node=mapper.readTree(call.getData());
 			JsonNode objects_node=node.path("objects");
@@ -138,7 +141,7 @@ public final class DataService  {
 			e.printStackTrace();
 		}
 		
-		filter=new DataFilter(collection_list);
+		filter=new DataFilter(tweets);
 		return tweets;
 	}
 	
@@ -149,6 +152,7 @@ public final class DataService  {
 		String url=USER_API_URL.replaceAll("<id>", id);
 		call=new APIImpl(url);
 		mapper.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
+		mapper.disable(DeserializationFeature.ADJUST_DATES_TO_CONTEXT_TIME_ZONE);
 		try {
 			user=mapper.readValue(call.getData(), Account.class);
 		} catch (JsonMappingException e) {
@@ -182,5 +186,11 @@ public final class DataService  {
 	{
 		
 		return filter.searchbyDate(from,to);
+	}
+	
+	public static List<Tweet> searchbyHour(String from,String to) throws ParseException, EmptyCollectionListException
+	{
+		
+		return filter.searchbyHour(from,to);
 	}
 }

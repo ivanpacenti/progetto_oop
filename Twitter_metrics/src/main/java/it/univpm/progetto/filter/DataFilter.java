@@ -4,6 +4,7 @@
 package it.univpm.progetto.filter;
 
 import java.text.ParseException;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -38,21 +39,6 @@ public class DataFilter implements Filter<Tweet, Object> {
 		DataFilter.utils=new FilterUtils<Tweet>();
 		
 	}
-	
-
-
-	public List<Tweet> searchbyDate (String from,String to) 
-			throws ParseException, EmptyCollectionListException 
-	{
-		
-		
-		return FilterUtils.selectDate(getTweets(), from, to);
-	}
-
-	
-
-
-
 
 	/**
 	 * @return the utils
@@ -61,15 +47,12 @@ public class DataFilter implements Filter<Tweet, Object> {
 		return utils;
 	}
 
-
-
 	/**
 	 * @param result the result to set
 	 */
 	public  void setResult(List<Tweet> result) {
 	}
 	
-
 
 	/**
 	 * @return the tweets
@@ -79,14 +62,12 @@ public class DataFilter implements Filter<Tweet, Object> {
 	}
 
 
-
 	/**
 	 * @param tweets the tweets to set
 	 */
 	public  void setTweets(List<Tweet> tweets) {
 		this.tweets = tweets;
 	}
-
 
 
 	/**
@@ -116,4 +97,19 @@ public class DataFilter implements Filter<Tweet, Object> {
 		return (List<Tweet>) utils.select(getTweets(), fieldName, operator, value);
 	}
 	
+	public List<Tweet> searchbyDate (String from,String to) 
+			throws ParseException, EmptyCollectionListException 
+	{
+		
+		
+		return FilterUtils.selectDate(getTweets(), from, to);
+	}
+	
+	public List<Tweet> searchbyHour(String from,String to)
+			throws ParseException, EmptyCollectionListException 
+	{
+		
+		
+		return FilterUtils.selectHour(getTweets(), from, to);
+	}
 }

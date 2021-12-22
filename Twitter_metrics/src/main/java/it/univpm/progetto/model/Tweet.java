@@ -4,8 +4,10 @@
 package it.univpm.progetto.model;
 
 import java.io.IOException;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -16,6 +18,7 @@ import org.json.JSONObject;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonFormat.Shape;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -44,12 +47,13 @@ import it.univpm.progetto.stats.DataStats;
 public class Tweet {
 	@JsonIgnore
 	private List<Tweet> tweets=new ArrayList<>();
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "EEE MMM dd HH:mm:ss ZZZZZ yyyy",locale = "en")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "E MMM dd HH:mm:ss Z yyyy",locale = "en",timezone="Italy/Rome")
 	private Date created_at;
 	@JsonAlias("id_str")
 	private String id;
 	private String text;
-	
+	@JsonIgnore
+	private Double engagement;
 	private Entity entities=new Entity();
 	@JsonProperty(access=JsonProperty.Access.WRITE_ONLY)
 	@JsonAlias("retweet_count")
@@ -77,6 +81,7 @@ public class Tweet {
 	/**
 	 * @return the created_at
 	 */
+	
 	public Date getCreated_at() {
 		return created_at;
 	}
@@ -127,6 +132,7 @@ public class Tweet {
 	 * @param created_at the created_at to set
 	 * @throws ParseException 
 	 */
+	
 	public void setCreated_at(Date created_at)  {
 		this.created_at = created_at;
 	}
@@ -209,6 +215,22 @@ public class Tweet {
 		return stats;
 	}
 
+
+	/**
+	 * @return the engagement
+	 */
+	public Double getEngagement() {
+		return stats.getEngagement();
+	}
+
+
+	@Override
+	public String toString() {
+		return "Tweet [created_at=" + created_at + ", id=" + id + "]";
+	}
+
+
+	
 
 	
 	

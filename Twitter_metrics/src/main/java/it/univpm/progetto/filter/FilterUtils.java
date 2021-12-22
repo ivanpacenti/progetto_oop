@@ -4,10 +4,12 @@
 package it.univpm.progetto.filter;
 
 import java.lang.reflect.InvocationTargetException;
+
 import java.lang.reflect.Method;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Iterator;
@@ -80,7 +82,7 @@ public   class FilterUtils<T> {
 		while(iterator.hasNext())
 		{
 			Tweet t=iterator.next();
-			if(t.getCreated_at().before(parsedbegindate)) iterator.remove();
+			//if(t.getCreated_at().before(parsedbegindate)) iterator.remove();
 		}
 	}if((to!=null))
 	{
@@ -89,7 +91,60 @@ public   class FilterUtils<T> {
 		while(iterator.hasNext())
 		{
 			Tweet t=iterator.next();
-			if(t.getCreated_at().after(parsedenddate)) iterator.remove();
+			//if(t.getCreated_at().after(parsedenddate)) iterator.remove();
+		}
+	}
+	return result;
+	}
+	
+	public static List<Tweet> selectHour(List<Tweet> tweets, String from, String to)  
+			throws ParseException, EmptyCollectionListException
+	{
+	List<Tweet> result=new ArrayList<>(tweets);
+	Iterator<Tweet> iterator=result.iterator();
+	Calendar first = Calendar.getInstance(Locale.US);
+	Calendar last = Calendar.getInstance(Locale.US);
+	//if(tweets.isEmpty()) throw new EmptyCollectionListException("You have to download some tweets before!");
+	if((from!=null))
+	{
+		int hour=Integer.parseInt(from);
+		
+		//Date parsedbeginhour=new SimpleDateFormat("HH").parse(from);
+		
+		while(iterator.hasNext())
+		{	
+			Tweet t=iterator.next();
+			Date d=t.getCreated_at();
+			last.setTime(d);
+			first.setTime(d);
+			first.set(Calendar.HOUR_OF_DAY, hour);
+			first.set(Calendar.MINUTE, 00);
+			first.set(Calendar.SECOND, 00);
+			
+			System.out.println(t.toString());
+			System.out.println(last.getTime());
+			
+			
+			if(last.before(first)) iterator.remove();
+				
+			
+		}
+	}if((to!=null))
+	{
+		int hour=Integer.parseInt(to);
+		
+		//Date parsedendhour=new SimpleDateFormat("HH").parse(tmp);
+		iterator=result.iterator();
+		while(iterator.hasNext())
+		{
+			Tweet t=iterator.next();
+			//first.setTime(t.getCreated_at());
+			
+			first.set(Calendar.HOUR_OF_DAY, hour);
+			first.set(Calendar.MINUTE, 00);
+			first.set(Calendar.SECOND, 00);
+			//last.setTime(t.getCreated_at());
+			if(last.after(first)) iterator.remove();
 		}
 	}
 	
