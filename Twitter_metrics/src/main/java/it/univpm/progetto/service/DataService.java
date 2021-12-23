@@ -71,10 +71,10 @@ public final class DataService  {
 		return accounts;
 	}
 	
-	public static List<Tweet> getTweets(String id,String count,Boolean rtws,Boolean rpls) throws IOException
+	public static List<Tweet> getTweets(String id,String count,Boolean show_retweets,Boolean show_replies) throws IOException
 	{
 		String url=TWEET_API_URL.replaceAll("<id>", id).replaceAll("<count>", count)
-				.replaceAll("<rtws>", rtws.toString()).replaceAll("<rpls>",rpls.toString());
+				.replaceAll("<rtws>", show_retweets.toString()).replaceAll("<rpls>",show_replies.toString());
 		//call=new APIImpl(url);
 		//mapper.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
 		

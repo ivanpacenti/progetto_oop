@@ -79,11 +79,11 @@ public class Controller {
 	public ResponseEntity<List<Tweet>> getTweets
 	(@RequestParam(value="id",required=true) String id,
 			@RequestParam(value="count", defaultValue = "50") String count,
-			@RequestParam(value="replies",defaultValue="false") Boolean rpls,
-			@RequestParam(value="retweets",defaultValue="false") Boolean rtws)  throws  IllegalArgumentException, IOException
+			@RequestParam(value="replies",defaultValue="false") Boolean show_replies,
+			@RequestParam(value="retweets",defaultValue="false") Boolean show_retweets)  throws  IllegalArgumentException, IOException
 			
 	{
-		return new ResponseEntity<List<Tweet>>(DataService.getTweets(id,count,rtws,rtws),HttpStatus.OK);
+		return new ResponseEntity<List<Tweet>>(DataService.getTweets(id,count,show_retweets,!show_replies),HttpStatus.OK);
 	}
 	
 	

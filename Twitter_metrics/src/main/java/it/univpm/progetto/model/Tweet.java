@@ -66,6 +66,9 @@ public class Tweet {
 	private Account user=new Account();
 	@JsonProperty(access=JsonProperty.Access.READ_ONLY)
 	private DataStats stats;
+	@JsonAlias("in_reply_to_screen_name")
+	@JsonInclude(JsonInclude.Include.NON_NULL)
+	private String reply_to;
 	@JsonAlias("retweeted_status")
 	@JsonInclude(JsonInclude.Include.NON_NULL)
 	private Tweet original_tweet;
@@ -194,6 +197,23 @@ public class Tweet {
 
 
 	/**
+	 * @return the reply_to
+	 */
+	public String getReply_to() {
+		if(reply_to==null) return null;
+		else return "@"+reply_to;
+	}
+
+
+	/**
+	 * @param reply_to the reply_to to set
+	 */
+	public void setReply_to(String reply_to) {
+		this.reply_to = reply_to;
+	}
+
+
+	/**
 	 * @param user the user to set
 	 */
 	public void setUser(Account user) {
@@ -252,12 +272,7 @@ public class Tweet {
 		this.quoted_tweet = quoted_tweet;
 	}
 
-	
-	
 
-	
-	
-	
 	
 	/**
 	 * @param created_at
