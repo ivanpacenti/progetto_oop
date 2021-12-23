@@ -21,6 +21,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonFormat.Shape;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.core.JsonFactory;
@@ -66,7 +67,12 @@ public class Tweet {
 	@JsonProperty(access=JsonProperty.Access.READ_ONLY)
 	private DataStats stats;
 	@JsonAlias("retweeted_status")
-	private List<Tweet> original_tweet=new ArrayList<>();
+	@JsonInclude(JsonInclude.Include.NON_NULL)
+	private Tweet original_tweet;
+	@JsonAlias("quoted_status")
+	@JsonInclude(JsonInclude.Include.NON_NULL)
+	private Tweet quoted_tweet;
+	
 	
 	public Tweet() {}
 	
@@ -175,16 +181,7 @@ public class Tweet {
 	/**
 	 * @return the retweeted_status
 	 */
-	public List<Tweet> getOriginal_tweet() {
-		return original_tweet;
-	}
-	/**
-	 * @param retweeted_status the retweeted_status to set
-	 */
-	public void setOriginal_tweet(List<Tweet> retweeted_status) {
-		this.original_tweet = retweeted_status;
-		
-	}
+	
 	
 	
 
@@ -224,12 +221,38 @@ public class Tweet {
 	}
 
 
-	@Override
-	public String toString() {
-		return "Tweet [created_at=" + created_at + ", id=" + id + "]";
+	/**
+	 * @return the original_tweet
+	 */
+	public Tweet getOriginal_tweet() {
+		return original_tweet;
 	}
 
 
+	/**
+	 * @param original_tweet the original_tweet to set
+	 */
+	public void setOriginal_tweet(Tweet original_tweet) {
+		this.original_tweet = original_tweet;
+	}
+
+
+	/**
+	 * @return the quoted_tweet
+	 */
+	public Tweet getQuoted_tweet() {
+		return quoted_tweet;
+	}
+
+
+	/**
+	 * @param quoted_tweet the quoted_tweet to set
+	 */
+	public void setQuoted_tweet(Tweet quoted_tweet) {
+		this.quoted_tweet = quoted_tweet;
+	}
+
+	
 	
 
 	

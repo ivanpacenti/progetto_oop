@@ -109,7 +109,7 @@ public class DataFilter implements Filter<Tweet, Object> {
 				(utils.selectDate(getTweets(), from_day, to_day), from_hour, to_hour);
 		Map<String,Object> map=utils.analyze(this.tmp);
 		Map<String,Object> prova=new LinkedHashMap<>();
-		prova.put("analisys", map);
+		prova.put("analytics", map);
 		prova.put("tweets", tmp);
 		return prova;
 		//return tmp;
