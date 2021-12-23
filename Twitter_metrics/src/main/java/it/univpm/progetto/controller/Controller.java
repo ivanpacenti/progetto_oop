@@ -115,38 +115,40 @@ public class Controller {
 	}
 	
 	@GetMapping("/filter/date")
-	public ResponseEntity<List<Tweet>> getSearchbyDate
+	public ResponseEntity<Map<String, Object>> getSearchbyDate
+	(@RequestParam (value="from_hour",required=false) String from_hour,
+	 @RequestParam (value="to_hour",required=false) String to_hour,
+	 @RequestParam (value="from_day",required=false) String from_day,
+	 @RequestParam (value="to_day",required=false) String to_day)
+			 throws ParseException, EmptyCollectionListException 
+			
+	{	
+
+		return new ResponseEntity<Map<String, Object>>(DataService.searchbyDate(from_hour,to_hour,from_day,to_day),HttpStatus.OK);
+		
+		
+	}
+	
+	/*@GetMapping("/filter/hour")
+	public ResponseEntity<Map<String, Object>> getSearchbyHour
 	(@RequestParam (value="from",required=false) String from,
 	 @RequestParam (value="to",required=false) String to)
 			 throws ParseException, EmptyCollectionListException 
 			
 	{	
 
-		return new ResponseEntity<List<Tweet>>(DataService.searchbyDate(from,to),HttpStatus.OK);
+		return new ResponseEntity<Map<String, Object>>(DataService.searchbyHour(from,to),HttpStatus.OK);
 		
 		
-	}
+	}*/
 	
-	@GetMapping("/filter/hour")
-	public ResponseEntity<List<Tweet>> getSearchbyHour
-	(@RequestParam (value="from",required=false) String from,
-	 @RequestParam (value="to",required=false) String to)
-			 throws ParseException, EmptyCollectionListException 
-			
-	{	
-
-		return new ResponseEntity<List<Tweet>>(DataService.searchbyHour(from,to),HttpStatus.OK);
-		
-		
-	}
-	
-	@GetMapping("/filter/stats")
+	/*@GetMapping("/filter/stats")
 	public ResponseEntity<Map<String,Object>> getStats()
 			 throws ParseException, EmptyCollectionListException 
 			
 	{	
 
 		return new ResponseEntity<Map<String,Object>>(DataService.analyze(),HttpStatus.OK);		
-	}
+	}*/
 }
 

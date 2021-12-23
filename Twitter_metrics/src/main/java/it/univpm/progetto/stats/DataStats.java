@@ -17,15 +17,15 @@ import it.univpm.progetto.model.Mention;
  *
  */
 public class DataStats {
+	
 	private String username;
+	private int followers;
+	private int following;
+	private int listed;//The number of public lists that this user is a member of
 	private int likes;
 	private int retweets;
 	private int hashtags;
 	private int mentions;
-	private int followers;
-	private int following;
-	private int listed;//The number of public lists that this user is a member of
-	
 	private double engagement;
 	
 	/**

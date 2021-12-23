@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -99,27 +100,39 @@ public class DataFilter implements Filter<Tweet, Object> {
 		return (List<Tweet>) utils.select(getTweets(), fieldName, operator, value);
 	}
 	
-	public List<Tweet> searchbyDate (String from,String to) 
+	public Map<String, Object> searchbyDate (String from_day,String to_day, String from_hour, String to_hour) 
 			throws ParseException, EmptyCollectionListException 
 	{
 		
-		this.tmp=utils.selectDate(getTweets(), from, to);
-		return tmp;
+		
+		this.tmp=utils.selectHour
+				(utils.selectDate(getTweets(), from_day, to_day), from_hour, to_hour);
+		Map<String,Object> map=utils.analyze(this.tmp);
+		Map<String,Object> prova=new LinkedHashMap<>();
+		prova.put("analisys", map);
+		prova.put("tweets", tmp);
+		return prova;
+		//return tmp;
 	}
 	
-	public List<Tweet> searchbyHour(String from,String to)
+	/*public Map<String, Object> searchbyHour(String from,String to)
 			throws ParseException, EmptyCollectionListException 
 	{
 		
 		this.tmp=utils.selectHour(getTweets(), from, to);
-		return tmp;
-	}
+		Map<String,Object> map=utils.analyze(this.tmp);
+		Map<String,Object> prova=new LinkedHashMap<>();
+		prova.put("analisys", map);
+		prova.put("tweets", tmp);
+		return prova;
+		//return tmp;
+	}*/
 	
-	public Map<String, Object> analyze()
+	/*public Map<String, Object> analyze()
 			throws ParseException, EmptyCollectionListException 
 	{
 		
 		
 		return utils.analyze(this.tmp);
-	}
+	}*/
 }

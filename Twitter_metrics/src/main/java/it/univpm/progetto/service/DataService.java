@@ -170,21 +170,21 @@ public final class DataService  {
 		
 	}
 	
-	public static List<Tweet> searchbyDate(String from,String to) throws ParseException, EmptyCollectionListException
+	public static Map<String, Object> searchbyDate(String from_hour,String to_hour, String from_day, String to_day) throws ParseException, EmptyCollectionListException
 	{
 		
-		return filter.searchbyDate(from,to);
+		return filter.searchbyDate(from_day,to_day,from_hour,to_hour);
 	}
 	
-	public static List<Tweet> searchbyHour(String from,String to) throws ParseException, EmptyCollectionListException
+	/*public static Map<String, Object> searchbyHour(String from,String to) throws ParseException, EmptyCollectionListException
 	{
 		
 		return filter.searchbyHour(from,to);
-	}
+	}*/
 	
-	public static Map<String, Object> analyze() throws ParseException, EmptyCollectionListException
+	/*public static Map<String, Object> analyze() throws ParseException, EmptyCollectionListException
 	{
 		
 		return filter.analyze();
-	}
+	}*/
 }
