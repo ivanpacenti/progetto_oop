@@ -108,7 +108,6 @@ public   class FilterUtils<T> {
 	List<Tweet> result=new ArrayList<>(tweets);
 	Iterator<Tweet> iterator=result.iterator();
 	Calendar getdate = Calendar.getInstance(Locale.US);
-	Calendar midnight = Calendar.getInstance(Locale.US);
 	//if(tweets.isEmpty()) throw new EmptyCollectionListException("You have to download some tweets before!");
 	if((from!=null))
 	{

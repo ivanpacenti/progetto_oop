@@ -40,6 +40,7 @@ import it.univpm.progetto.deprecated.APICall;
 import it.univpm.progetto.exceptions.EmptyCollectionListException;
 import it.univpm.progetto.filter.DataFilter;
 import it.univpm.progetto.model.Account;
+import it.univpm.progetto.model.Metadata;
 import it.univpm.progetto.model.Timeline;
 import it.univpm.progetto.model.Tweet;
 import it.univpm.progetto.service.DataService;
@@ -129,18 +130,15 @@ public class Controller {
 		
 	}
 	
-	/*@GetMapping("/filter/hour")
-	public ResponseEntity<Map<String, Object>> getSearchbyHour
-	(@RequestParam (value="from",required=false) String from,
-	 @RequestParam (value="to",required=false) String to)
-			 throws ParseException, EmptyCollectionListException 
-			
+	@GetMapping("/metadata/{type}")
+	public ResponseEntity<List<Object>> getMetadata
+	(@PathVariable String type)
 	{	
 
-		return new ResponseEntity<Map<String, Object>>(DataService.searchbyHour(from,to),HttpStatus.OK);
+		return new ResponseEntity<List<Object>> (DataService.getMetadata(type),HttpStatus.OK);
 		
 		
-	}*/
+	}
 	
 	/*@GetMapping("/filter/stats")
 	public ResponseEntity<Map<String,Object>> getStats()

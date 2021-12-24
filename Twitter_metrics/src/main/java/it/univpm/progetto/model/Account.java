@@ -43,7 +43,7 @@ public class Account {
 	@JsonAlias("followers_count")
 	private int followers;
 	@JsonAlias("friends_count")
-	private int friends;
+	private int following;
 	@JsonAlias("listed_count")
 	private int listed;
 	@JsonAlias("statuses_count")
@@ -96,7 +96,7 @@ public class Account {
 		this.name = name;
 		this.username = username;
 		this.followers = followers;
-		this.friends = friends;
+		this.following = friends;
 		this.listed = listed;
 		this.statuses = statuses;
 		this.profile_image_url = profile_image_url;
@@ -129,7 +129,7 @@ public class Account {
 	 * @return the friends
 	 */
 	public int getFriends() {
-		return friends;
+		return following;
 	}
 	/**
 	 * @return the listed
@@ -183,7 +183,7 @@ public class Account {
 	 * @param friends the friends to set
 	 */
 	public void setFriends(int friends) {
-		this.friends = friends;
+		this.following = friends;
 	}
 	/**
 	 * @param listed the listed to set

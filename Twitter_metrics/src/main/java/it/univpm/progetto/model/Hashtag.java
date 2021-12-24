@@ -26,7 +26,8 @@ public class Hashtag {
 	 * @return the text
 	 */
 	public String getText() {
-		return text;
+		if(text==null) return null;
+		else return "#"+text;
 	}
 
 	/**
