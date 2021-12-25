@@ -24,6 +24,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import it.univpm.progetto.exceptions.EmptyCollectionListException;
+import it.univpm.progetto.exceptions.StreamException;
 import it.univpm.progetto.filter.DataFilter;
 import it.univpm.progetto.model.Account;
 import it.univpm.progetto.model.Metadata;
@@ -60,7 +61,7 @@ public final class DataService  {
 	
 	
 	
-	public static List<Account> getAccounts(String query) throws IOException
+	public static List<Account> getAccounts(String query) throws IOException, StreamException, EmptyCollectionListException
 	{
 		
 		String url=ACCOUNTS_API_URL+query.replaceAll(" ", "%20");
@@ -71,10 +72,11 @@ public final class DataService  {
 		} catch (JsonProcessingException e) {
 			e.printStackTrace();
 		}
+		if(accounts.isEmpty()) throw new EmptyCollectionListException("No users found");
 		return accounts;
 	}
 	
-	public static List<Tweet> getTweets(String id,String count,Boolean show_retweets,Boolean show_replies) throws IOException
+	public static List<Tweet> getTweets(String id,String count,Boolean show_retweets,Boolean show_replies) throws IOException, EmptyCollectionListException, StreamException
 	{
 		String url=TWEET_API_URL.replaceAll("<id>", id).replaceAll("<count>", count)
 				.replaceAll("<rtws>", show_retweets.toString()).replaceAll("<rpls>",show_replies.toString());
@@ -89,10 +91,11 @@ public final class DataService  {
 			e.printStackTrace();
 		}
 		filter=new DataFilter(tweets);
+		if(tweets.isEmpty()) throw new EmptyCollectionListException("The user has no tweets yet");
 		return tweets;
 	}
 	
-	public static Map<String,Timeline> getCollections(String id) throws IOException
+	public static Map<String,Timeline> getCollections(String id) throws IOException, EmptyCollectionListException, StreamException
 	{
 		collections=new HashMap<>();
 		String url=COLLECTIONS_API_URL+id;
@@ -110,10 +113,11 @@ public final class DataService  {
 			collections.put(tl_id.get(entry.getKey()).get("name").asText(),tmp);
 		}
 		}
+		if(collections.isEmpty()) throw new EmptyCollectionListException("The user has no collections yet");
 		return collections;
 	}
 	
-	public static List<Tweet> getTimelines(String timeline,String count) throws IOException
+	public static List<Tweet> getTimelines(String timeline,String count) throws IOException, EmptyCollectionListException, StreamException
 	{
 		tweets=new ArrayList<>();
 		String url=TIMELINE_API_URL+timeline+"&count="+count;
@@ -137,12 +141,13 @@ public final class DataService  {
 		}
 		
 		filter=new DataFilter(tweets);
+		if(tweets.isEmpty()) throw new EmptyCollectionListException("The user has not added anything to this collection yet");
 		return tweets;
 	}
 	
 	
 	
-	public static Account getUser(String id) throws IOException
+	public static Account getUser(String id) throws IOException, StreamException
 	{
 		String url=USER_API_URL.replaceAll("<id>", id);
 		try {
@@ -156,7 +161,7 @@ public final class DataService  {
 		return user;
 	}
 	
-	public static List<Object> getMetadata(String type)
+	public static List<Object> getMetadata(String type) throws EmptyCollectionListException
 	{
 		
 		
@@ -241,8 +246,8 @@ public final class DataService  {
 			case"collections":{ return collections_data;}
 			case"tweets":{return tweets_data;}
 			case"analytics":{ return analytics_data;}
+			default:{throw new EmptyCollectionListException("There is no param such as "+type+"\nPlease use //accounts\n//collections\n//tweets\n//analytics");}
 		}
-		return null;
 	}
 	
 	public static List<Tweet> getTweets() {
