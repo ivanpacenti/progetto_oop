@@ -118,6 +118,7 @@ public   class FilterUtils<T> {
 	public  List<Tweet> selectHour(List<Tweet> tweets, String from, String to)  
 			throws ParseException, EmptyCollectionListException, InvalidHourException
 	{
+	
 	List<Tweet> result=new ArrayList<>(tweets);
 	Iterator<Tweet> iterator=result.iterator();
 	Calendar getdate = Calendar.getInstance(Locale.US);
@@ -159,29 +160,38 @@ public   class FilterUtils<T> {
 
 	public Map<String,Object> analyze(List<Tweet> tmp) {
 		Double tot=0.0;
-		
-		for(Tweet t:tmp) 
+		Double average=0.0;
+		Double variance=0.0;
+		Double maxengagement=0.0;
+		Double minengagement=0.0;
+		if(!tmp.isEmpty()) 
+		{
+			for(Tweet t:tmp) 
 			{
 				tot+=t.getEngagement();
 			}
-		Double average=tot/tmp.size();
-		tot=0.0;
-		for(Tweet t:tmp) tot+=Math.pow((t.getEngagement()-average), 2);
-		Double variance=tot/tmp.size();
-		Tweet min = tmp
-			      .stream()
-			      .min(Comparator.comparing(Tweet::getEngagement))
-			      .orElseThrow(NoSuchElementException::new);
-		Tweet max = tmp
-			      .stream()
-			      .max(Comparator.comparing(Tweet::getEngagement))
-			      .orElseThrow(NoSuchElementException::new);
+			average=tot/tmp.size();
+			tot=0.0;
+			for(Tweet t:tmp) tot+=Math.pow((t.getEngagement()-average), 2);
+			variance=tot/tmp.size();
+			minengagement = tmp
+					.stream()
+					.min(Comparator.comparing(Tweet::getEngagement))
+					.orElseThrow(NoSuchElementException::new)
+					.getEngagement();
+			maxengagement = tmp
+					.stream()
+					.max(Comparator.comparing(Tweet::getEngagement))
+					.orElseThrow(NoSuchElementException::new)
+					.getEngagement();
+
+		}
 		Map<String,Object> map=new LinkedHashMap<>();
 		map.put("Tweets analized", tmp.size());
 		map.put("Average engagement", average);
 		map.put("Variance of engagement", variance);
-		map.put("Higher engagement", max.getEngagement());
-		map.put("Lower engagement", min.getEngagement());
+		map.put("Higher engagement", maxengagement);
+		map.put("Lower engagement", minengagement);
 		return map;
 	}
 

@@ -29,6 +29,7 @@ import it.univpm.progetto.exceptions.InvalidFilterException;
 import it.univpm.progetto.exceptions.StreamException;
 import it.univpm.progetto.exceptions.InvalidHourException;
 import it.univpm.progetto.filter.DataFilter;
+import it.univpm.progetto.filter.Filter;
 import it.univpm.progetto.model.Account;
 import it.univpm.progetto.model.Metadata;
 import it.univpm.progetto.model.Timeline;
@@ -40,7 +41,7 @@ import it.univpm.progetto.model.Tweet;
  */
 @Component
 
-public final class DataService  {
+public final class DataService {
 	private static final String ACCOUNTS_API_URL="https://wd4hfxnxxa.execute-api.us-east-2.amazonaws.com/dev/api/1.1/users/search.json?q=";
 	private static final String TWEET_API_URL="https://wd4hfxnxxa.execute-api.us-east-2.amazonaws.com/dev/user/1.1/statuses/user_timeline.json?id=<id>&count=<count>&include_rts=<rtws>&exclude_replies=<rpls>";
 	private static final String COLLECTIONS_API_URL="https://wd4hfxnxxa.execute-api.us-east-2.amazonaws.com/dev/user/1.1/collections/list.json?user_id=";
@@ -273,7 +274,7 @@ public final class DataService  {
 	
 	public static Map<String, Object> searchbyDate(String from_hour,String to_hour, String from_day, String to_day) throws ParseException, EmptyCollectionListException, InvalidHourException, InvalidDateException
 	{
-		
+		if(filter==null)  throw new EmptyCollectionListException("Please download some tweet before filtering");
 		return filter.searchbyDate(from_day,to_day,from_hour,to_hour);
 	}
 	

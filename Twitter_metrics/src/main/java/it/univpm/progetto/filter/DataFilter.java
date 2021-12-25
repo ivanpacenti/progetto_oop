@@ -28,7 +28,7 @@ import it.univpm.progetto.service.DataService;
  * @author ivan
  *
  */
-public class DataFilter implements Filter<Tweet, Object> {
+public class DataFilter implements Filter<Tweet> {
 	
 	private  List<Tweet> tweets=new ArrayList<>();
 	private  List<Tweet> tmp=new ArrayList<>();
@@ -92,7 +92,6 @@ public class DataFilter implements Filter<Tweet, Object> {
 		  }  
 		}
 
-	@Override //togliere se non funzia
 	public  List<Tweet> filterField(String fieldName, String operator, String str) throws InvalidFilterException {
 		Object value;
 		if(isNumeric(str)) 
