@@ -184,9 +184,6 @@ public class Tweet {
 	/**
 	 * @return the retweeted_status
 	 */
-	
-	
-	
 
 	/**
 	 * @return the user
@@ -272,35 +269,4 @@ public class Tweet {
 		this.quoted_tweet = quoted_tweet;
 	}
 
-
-	
-	/**
-	 * @param created_at
-	 * @param id
-	 * @param text
-	 * @param entities
-	 */
-	/*public Tweets(String created_at, String id, String text, JSONObject entitiesobj,int retweets,int favorite_count) {
-		this.created_at = created_at;
-		this.id = id;
-		this.text = text;
-		JSONArray hashtag_json=entitiesobj.getJSONArray("hashtags");
-		for (int i = 0; i < hashtag_json.length(); i++) {
-			JSONObject obj = hashtag_json.getJSONObject(i);
-			hashtags.add(new Hashtags(obj.getString("text")));
-		}
-		this.entities=new Entities(hashtags);
-		this.retweets=retweets;
-		this.favorite_count=favorite_count;
-		
-	}*/
-	
-	
-
-	
-	
-	
-	
-	
-	
 }

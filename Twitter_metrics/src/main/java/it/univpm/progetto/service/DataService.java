@@ -250,7 +250,7 @@ public final class DataService {
 			case"collections":{ return collections_data;}
 			case"tweets":{return tweets_data;}
 			case"analytics":{ return analytics_data;}
-			default:{throw new EmptyCollectionListException("There is no param such as "+type+"\nPlease use //accounts\n//collections\n//tweets\n//analytics");}
+			default:{throw new EmptyCollectionListException("There is no param such as "+type+". Please use /accounts /collections /tweets /analytics");}
 		}
 	}
 	
