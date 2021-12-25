@@ -10,7 +10,7 @@ import java.net.MalformedURLException;
  * @author ivan
  *
  */
-public class StreamException extends Exception {
+public class InputStreamException extends Exception {
 
 	/**
 	 * 
@@ -20,7 +20,7 @@ public class StreamException extends Exception {
 	/**
 	 * @param message
 	 */
-	public StreamException(String message) {
+	public InputStreamException(String message) {
 		super(message);
 		
 	}

@@ -20,7 +20,7 @@ import it.univpm.progetto.exceptions.InvalidHourException;
 	public interface Filter<E> {
 		
 		Collection<E> filterField(String fieldName, String operator, String value) throws InvalidFilterException;
-		Map<String, Object> searchbyDate (String from_day,String to_day, String from_hour, String to_hour) throws ParseException, EmptyCollectionListException, InvalidHourException, InvalidDateException;
+		Map<String, Object> analyzeTweets (String from_day,String to_day, String from_hour, String to_hour) throws ParseException, EmptyCollectionListException, InvalidHourException, InvalidDateException;
 		
 	}
 

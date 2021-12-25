@@ -26,7 +26,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import it.univpm.progetto.exceptions.EmptyCollectionListException;
 import it.univpm.progetto.exceptions.InvalidDateException;
 import it.univpm.progetto.exceptions.InvalidFilterException;
-import it.univpm.progetto.exceptions.StreamException;
+import it.univpm.progetto.exceptions.InputStreamException;
 import it.univpm.progetto.exceptions.InvalidHourException;
 import it.univpm.progetto.filter.DataFilter;
 import it.univpm.progetto.filter.Filter;
@@ -65,7 +65,7 @@ public final class DataService {
 	
 	
 	
-	public static List<Account> getAccounts(String query) throws IOException, StreamException, EmptyCollectionListException
+	public static List<Account> getAccounts(String query) throws IOException, InputStreamException, EmptyCollectionListException
 	{
 		
 		String url=ACCOUNTS_API_URL+query.replaceAll(" ", "%20");
@@ -80,9 +80,9 @@ public final class DataService {
 		return accounts;
 	}
 	
-	public static List<Tweet> getTweets(String id,String count,Boolean show_retweets,Boolean show_replies) throws IOException, EmptyCollectionListException, StreamException
+	public static List<Tweet> getTweets(String id,int count,Boolean show_retweets,Boolean show_replies) throws IOException, EmptyCollectionListException, InputStreamException
 	{
-		String url=TWEET_API_URL.replaceAll("<id>", id).replaceAll("<count>", count)
+		String url=TWEET_API_URL.replaceAll("<id>", id).replace("<count>", Integer.toString(count))
 				.replaceAll("<rtws>", show_retweets.toString()).replaceAll("<rpls>",show_replies.toString());
 		//call=new APIImpl(url);
 		//mapper.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
@@ -99,7 +99,7 @@ public final class DataService {
 		return tweets;
 	}
 	
-	public static Map<String,Timeline> getCollections(String id) throws IOException, EmptyCollectionListException, StreamException
+	public static Map<String,Timeline> getCollections(String id) throws IOException, EmptyCollectionListException, InputStreamException
 	{
 		collections=new HashMap<>();
 		String url=COLLECTIONS_API_URL+id;
@@ -121,7 +121,7 @@ public final class DataService {
 		return collections;
 	}
 	
-	public static List<Tweet> getTimelines(String timeline,String count) throws IOException, EmptyCollectionListException, StreamException
+	public static List<Tweet> getTimelines(String timeline,String count) throws IOException, EmptyCollectionListException, InputStreamException
 	{
 		tweets=new ArrayList<>();
 		String url=TIMELINE_API_URL+timeline+"&count="+count;
@@ -151,7 +151,7 @@ public final class DataService {
 	
 	
 	
-	public static Account getUser(String id) throws IOException, StreamException
+	public static Account getUser(String id) throws IOException, InputStreamException
 	{
 		String url=USER_API_URL.replaceAll("<id>", id);
 		try {
@@ -275,7 +275,7 @@ public final class DataService {
 	public static Map<String, Object> searchbyDate(String from_hour,String to_hour, String from_day, String to_day) throws ParseException, EmptyCollectionListException, InvalidHourException, InvalidDateException
 	{
 		if(filter==null)  throw new EmptyCollectionListException("Please download some tweet before filtering");
-		return filter.searchbyDate(from_day,to_day,from_hour,to_hour);
+		return filter.analyzeTweets(from_day,to_day,from_hour,to_hour);
 	}
 	
 	/*public static Map<String, Object> searchbyHour(String from,String to) throws ParseException, EmptyCollectionListException

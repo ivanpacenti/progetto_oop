@@ -102,7 +102,7 @@ public class DataFilter implements Filter<Tweet> {
 		return (List<Tweet>) utils.select(getTweets(), fieldName, operator, value);
 	}
 	
-	public Map<String, Object> searchbyDate (String from_day,String to_day, String from_hour, String to_hour) 
+	public Map<String, Object> analyzeTweets (String from_day,String to_day, String from_hour, String to_hour) 
 			throws ParseException, EmptyCollectionListException, InvalidHourException, InvalidDateException 
 	{
 		
@@ -117,24 +117,5 @@ public class DataFilter implements Filter<Tweet> {
 		//return tmp;
 	}
 	
-	/*public Map<String, Object> searchbyHour(String from,String to)
-			throws ParseException, EmptyCollectionListException 
-	{
-		
-		this.tmp=utils.selectHour(getTweets(), from, to);
-		Map<String,Object> map=utils.analyze(this.tmp);
-		Map<String,Object> prova=new LinkedHashMap<>();
-		prova.put("analisys", map);
-		prova.put("tweets", tmp);
-		return prova;
-		//return tmp;
-	}*/
 	
-	/*public Map<String, Object> analyze()
-			throws ParseException, EmptyCollectionListException 
-	{
-		
-		
-		return utils.analyze(this.tmp);
-	}*/
 }

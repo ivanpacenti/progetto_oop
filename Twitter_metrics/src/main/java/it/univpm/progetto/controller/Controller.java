@@ -41,7 +41,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import it.univpm.progetto.exceptions.EmptyCollectionListException;
 import it.univpm.progetto.exceptions.InvalidDateException;
 import it.univpm.progetto.exceptions.InvalidFilterException;
-import it.univpm.progetto.exceptions.StreamException;
+import it.univpm.progetto.exceptions.InputStreamException;
 import it.univpm.progetto.exceptions.InvalidHourException;
 import it.univpm.progetto.filter.DataFilter;
 import it.univpm.progetto.model.Account;
@@ -64,7 +64,7 @@ public class Controller {
 	
 	@GetMapping("/search/accounts")
 	public ResponseEntity<List<Account>> 
-	searchAccounts(@RequestParam(value="query",required=true) String query) throws IOException, StreamException, EmptyCollectionListException 
+	searchAccounts(@RequestParam(value="query",required=true) String query) throws IOException, InputStreamException, EmptyCollectionListException 
 	
 	{
 		
@@ -76,7 +76,7 @@ public class Controller {
 	@GetMapping("/search/collections")
 	public ResponseEntity<Map<String,Timeline>> searchCollections
 	(@RequestParam(value="id", required=true) String id) 
-			throws IllegalArgumentException, IOException, EmptyCollectionListException, StreamException
+			throws IllegalArgumentException, IOException, EmptyCollectionListException, InputStreamException
 	{
 		return new ResponseEntity<Map<String,Timeline>>(DataService.getCollections(id),HttpStatus.OK);
 	}
@@ -84,9 +84,9 @@ public class Controller {
 	@GetMapping("/tweets")
 	public ResponseEntity<List<Tweet>> getTweets
 	(@RequestParam(value="id",required=true) String id,
-			@RequestParam(value="count", defaultValue = "50") String count,
+			@RequestParam(value="count", defaultValue = "50") int count,
 			@RequestParam(value="replies",defaultValue="false") Boolean show_replies,
-			@RequestParam(value="retweets",defaultValue="false") Boolean show_retweets)  throws  IllegalArgumentException, IOException, EmptyCollectionListException, StreamException
+			@RequestParam(value="retweets",defaultValue="false") Boolean show_retweets)  throws  IllegalArgumentException, IOException, EmptyCollectionListException, InputStreamException
 			
 	{
 		return new ResponseEntity<List<Tweet>>(DataService.getTweets(id,count,show_retweets,!show_replies),HttpStatus.OK);
@@ -97,7 +97,7 @@ public class Controller {
 	public ResponseEntity<List<Tweet>> getCollections
 	(@RequestParam (value="timeline",required=true) String timeline,
 			@RequestParam(value="count",defaultValue="50")String count) 
-			throws IllegalArgumentException, IOException, EmptyCollectionListException, StreamException 
+			throws IllegalArgumentException, IOException, EmptyCollectionListException, InputStreamException 
 	{
 		return new ResponseEntity<List<Tweet>>(DataService.getTimelines(timeline,count),HttpStatus.OK);
 	}

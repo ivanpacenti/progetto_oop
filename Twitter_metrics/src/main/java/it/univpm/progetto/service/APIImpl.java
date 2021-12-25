@@ -20,7 +20,7 @@ import org.json.simple.parser.ParseException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import it.univpm.progetto.exceptions.StreamException;
+import it.univpm.progetto.exceptions.InputStreamException;
 
 
 
@@ -34,7 +34,7 @@ public class APIImpl implements API{
 	
 	private InputStream is;
 
-	public InputStream getData(String address) throws StreamException
+	public InputStream getData(String address) throws InputStreamException
 	{
 		
 		try {
@@ -46,7 +46,7 @@ public class APIImpl implements API{
 			 
 		} catch (IOException e) 
 			{
-			throw new StreamException("The user has a private profile or is non-existent");
+			throw new InputStreamException("The user has a private profile or is non-existent");
 			}
 		return is;
 		}

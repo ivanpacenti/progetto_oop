@@ -11,7 +11,7 @@ import java.io.InputStream;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
-import it.univpm.progetto.exceptions.StreamException;
+import it.univpm.progetto.exceptions.InputStreamException;
 
 
 /**
@@ -23,7 +23,7 @@ public interface API {
 	
 	
 	
-	InputStream getData(String address) throws StreamException ;
+	InputStream getData(String address) throws InputStreamException ;
 
 	
 }

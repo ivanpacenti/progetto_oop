@@ -31,7 +31,7 @@ import it.univpm.progetto.model.Tweet;
  * @author ivan
  *
  */
-public   class FilterUtils<T> {
+public   class FilterUtils<T> implements Utils{
 	
 	public static boolean check(Object value, String operator, Object th) {
 		if (th instanceof Number && value instanceof Number) {	
@@ -89,25 +89,27 @@ public   class FilterUtils<T> {
 		
 		try{
 			Date parsedbegindate=new SimpleDateFormat("dd MM yy",Locale.ENGLISH).parse(from);
-		
-		while(iterator.hasNext())
-		{
-			Tweet t=iterator.next();
-			if(t.getCreated_at().before(parsedbegindate)) iterator.remove();
-		}}catch(ParseException e)
+
+			while(iterator.hasNext())
+			{
+				Tweet t=iterator.next();
+				if(t.getCreated_at().before(parsedbegindate)) iterator.remove();
+			}
+		}catch(ParseException e)
 		{
 			throw new InvalidDateException("Please insert a valid date of the format: dd mm yy");
 		}
 	}if((to!=null))
 	{
 		try {
-		Date parsedenddate=new SimpleDateFormat("dd MM yy",Locale.ENGLISH).parse(to);
-		iterator=result.iterator();
-		while(iterator.hasNext())
-		{
-			Tweet t=iterator.next();
-			if(t.getCreated_at().after(parsedenddate)) iterator.remove();
-		}}catch(ParseException e)
+			Date parsedenddate=new SimpleDateFormat("dd MM yy",Locale.ENGLISH).parse(to);
+			iterator=result.iterator();
+			while(iterator.hasNext())
+			{
+				Tweet t=iterator.next();
+				if(t.getCreated_at().after(parsedenddate)) iterator.remove();
+			}
+		}catch(ParseException e)
 		{
 			throw new InvalidDateException("Please insert a valid date of the format: dd mm yy");
 		}
@@ -118,47 +120,48 @@ public   class FilterUtils<T> {
 	public  List<Tweet> selectHour(List<Tweet> tweets, String from, String to)  
 			throws ParseException, EmptyCollectionListException, InvalidHourException
 	{
-	
-	List<Tweet> result=new ArrayList<>(tweets);
-	Iterator<Tweet> iterator=result.iterator();
-	Calendar getdate = Calendar.getInstance(Locale.US);
-	//if(tweets.isEmpty()) throw new EmptyCollectionListException("You have to download some tweets before!");
-	if((from!=null))
-	{
-		int hour=Integer.parseInt(from);
-		if(hour<0||hour>24) throw new InvalidHourException("Please insert a valid hour of the format: hh");
-		
-		//Date parsedbeginhour=new SimpleDateFormat("HH").parse(from);
-		
-		while(iterator.hasNext())
-		{	
-			Tweet t=iterator.next();
-			getdate.setTime(t.getCreated_at());
-			getdate.set(Calendar.HOUR_OF_DAY, hour);
-			getdate.set(Calendar.MINUTE, 00);
-			getdate.set(Calendar.SECOND, 00);
-			if(t.getCreated_at().before(getdate.getTime())) iterator.remove();
-		}
-	}if((to!=null))
-	{
-		int hour=Integer.parseInt(to);
-		if(hour<0||hour>24) throw new InvalidHourException("Please insert a valid hour of the format: hh");
-		iterator=result.iterator();
-		while(iterator.hasNext())
+
+		List<Tweet> result=new ArrayList<>(tweets);
+		Iterator<Tweet> iterator=result.iterator();
+		Calendar getdate = Calendar.getInstance(Locale.US);
+		//if(tweets.isEmpty()) throw new EmptyCollectionListException("You have to download some tweets before!");
+		if((from!=null))
 		{
-			Tweet t=iterator.next();
-			getdate.setTime(t.getCreated_at());
-			getdate.set(Calendar.HOUR_OF_DAY, hour);
-			getdate.set(Calendar.MINUTE, 00);
-			getdate.set(Calendar.SECOND, 00);
-			if(t.getCreated_at().after(getdate.getTime())) iterator.remove();
+			int hour=Integer.parseInt(from);
+			if(hour<0||hour>24) throw new InvalidHourException("Please insert a valid hour of the format: hh");
+
+			//Date parsedbeginhour=new SimpleDateFormat("HH").parse(from);
+
+			while(iterator.hasNext())
+			{	
+				Tweet t=iterator.next();
+				getdate.setTime(t.getCreated_at());
+				getdate.set(Calendar.HOUR_OF_DAY, hour);
+				getdate.set(Calendar.MINUTE, 00);
+				getdate.set(Calendar.SECOND, 00);
+				if(t.getCreated_at().before(getdate.getTime())) iterator.remove();
+			}
+		}if((to!=null))
+		{
+			int hour=Integer.parseInt(to);
+			if(hour<0||hour>24) throw new InvalidHourException("Please insert a valid hour of the format: hh");
+			iterator=result.iterator();
+			while(iterator.hasNext())
+			{
+				Tweet t=iterator.next();
+				getdate.setTime(t.getCreated_at());
+				getdate.set(Calendar.HOUR_OF_DAY, hour);
+				getdate.set(Calendar.MINUTE, 00);
+				getdate.set(Calendar.SECOND, 00);
+				if(t.getCreated_at().after(getdate.getTime())) iterator.remove();
+			}
 		}
-	}
-	
-	return result;
+
+		return result;
 	}
 
-	public Map<String,Object> analyze(List<Tweet> tmp) {
+	public Map<String,Object> analyze(List<Tweet> tmp) 
+	{
 		Double tot=0.0;
 		Double average=0.0;
 		Double variance=0.0;
