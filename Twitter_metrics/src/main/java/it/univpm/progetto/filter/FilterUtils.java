@@ -22,6 +22,9 @@ import java.util.Map;
 import java.util.NoSuchElementException;
 
 import it.univpm.progetto.exceptions.EmptyCollectionListException;
+import it.univpm.progetto.exceptions.InvalidDateException;
+import it.univpm.progetto.exceptions.InvalidFilterException;
+import it.univpm.progetto.exceptions.InvalidHourException;
 import it.univpm.progetto.model.Tweet;
 
 /**
@@ -45,7 +48,8 @@ public   class FilterUtils<T> {
 		return false;		
 	}
 	
-	public Collection<T> select(Collection<T> src, String fieldName, String operator, Object value) {
+	public Collection<T> select(Collection<T> src, String fieldName, String operator, Object value) throws InvalidFilterException {
+		
 		Collection<T> out = new ArrayList<T>();
 		for(T item:src) {
 			try {
@@ -67,7 +71,7 @@ public   class FilterUtils<T> {
 				}
 			} catch (NoSuchMethodException e) {
 				
-				e.printStackTrace();
+				throw new InvalidFilterException("No such attribute exists");
 			} catch (SecurityException e) {
 				
 				e.printStackTrace();
@@ -75,7 +79,7 @@ public   class FilterUtils<T> {
 		}
 		return out;
 	}
-	public  List<Tweet> selectDate(List<Tweet> tweets, String from, String to)  throws ParseException, EmptyCollectionListException
+	public  List<Tweet> selectDate(List<Tweet> tweets, String from, String to)  throws ParseException, EmptyCollectionListException, InvalidDateException
 	{
 	List<Tweet> result=new ArrayList<>(tweets);
 	Iterator<Tweet> iterator=result.iterator();
@@ -83,27 +87,36 @@ public   class FilterUtils<T> {
 	if((from!=null))
 	{
 		
-		Date parsedbegindate=new SimpleDateFormat("dd MM yy",Locale.ENGLISH).parse(from);
+		try{
+			Date parsedbegindate=new SimpleDateFormat("dd MM yy",Locale.ENGLISH).parse(from);
+		
 		while(iterator.hasNext())
 		{
 			Tweet t=iterator.next();
 			if(t.getCreated_at().before(parsedbegindate)) iterator.remove();
+		}}catch(ParseException e)
+		{
+			throw new InvalidDateException("Please insert a valid date of the format: dd mm yy");
 		}
 	}if((to!=null))
 	{
+		try {
 		Date parsedenddate=new SimpleDateFormat("dd MM yy",Locale.ENGLISH).parse(to);
 		iterator=result.iterator();
 		while(iterator.hasNext())
 		{
 			Tweet t=iterator.next();
 			if(t.getCreated_at().after(parsedenddate)) iterator.remove();
+		}}catch(ParseException e)
+		{
+			throw new InvalidDateException("Please insert a valid date of the format: dd mm yy");
 		}
 	}
 	return result;
 	}
 	
 	public  List<Tweet> selectHour(List<Tweet> tweets, String from, String to)  
-			throws ParseException, EmptyCollectionListException
+			throws ParseException, EmptyCollectionListException, InvalidHourException
 	{
 	List<Tweet> result=new ArrayList<>(tweets);
 	Iterator<Tweet> iterator=result.iterator();
@@ -112,6 +125,7 @@ public   class FilterUtils<T> {
 	if((from!=null))
 	{
 		int hour=Integer.parseInt(from);
+		if(hour<0||hour>24) throw new InvalidHourException("Please insert a valid hour of the format: hh");
 		
 		//Date parsedbeginhour=new SimpleDateFormat("HH").parse(from);
 		
@@ -127,6 +141,7 @@ public   class FilterUtils<T> {
 	}if((to!=null))
 	{
 		int hour=Integer.parseInt(to);
+		if(hour<0||hour>24) throw new InvalidHourException("Please insert a valid hour of the format: hh");
 		iterator=result.iterator();
 		while(iterator.hasNext())
 		{

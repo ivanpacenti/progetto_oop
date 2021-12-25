@@ -18,6 +18,9 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 import it.univpm.progetto.exceptions.EmptyCollectionListException;
+import it.univpm.progetto.exceptions.InvalidDateException;
+import it.univpm.progetto.exceptions.InvalidFilterException;
+import it.univpm.progetto.exceptions.InvalidHourException;
 import it.univpm.progetto.model.Tweet;
 import it.univpm.progetto.service.DataService;
 
@@ -90,7 +93,7 @@ public class DataFilter implements Filter<Tweet, Object> {
 		}
 
 	@Override //togliere se non funzia
-	public  List<Tweet> filterField(String fieldName, String operator, String str) {
+	public  List<Tweet> filterField(String fieldName, String operator, String str) throws InvalidFilterException {
 		Object value;
 		if(isNumeric(str)) 
 			{
@@ -101,7 +104,7 @@ public class DataFilter implements Filter<Tweet, Object> {
 	}
 	
 	public Map<String, Object> searchbyDate (String from_day,String to_day, String from_hour, String to_hour) 
-			throws ParseException, EmptyCollectionListException 
+			throws ParseException, EmptyCollectionListException, InvalidHourException, InvalidDateException 
 	{
 		
 		

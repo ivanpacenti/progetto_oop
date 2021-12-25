@@ -39,7 +39,10 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 
 
 import it.univpm.progetto.exceptions.EmptyCollectionListException;
+import it.univpm.progetto.exceptions.InvalidDateException;
+import it.univpm.progetto.exceptions.InvalidFilterException;
 import it.univpm.progetto.exceptions.StreamException;
+import it.univpm.progetto.exceptions.InvalidHourException;
 import it.univpm.progetto.filter.DataFilter;
 import it.univpm.progetto.model.Account;
 import it.univpm.progetto.model.Metadata;
@@ -106,7 +109,7 @@ public class Controller {
 	(@RequestParam (value="field",required=true) String field,
 	 @RequestParam (value="op",required=true) String op,
 	 @RequestParam(value="val",required=true )String val)
-			 throws ParseException, EmptyCollectionListException 
+			 throws ParseException, EmptyCollectionListException, InvalidFilterException 
 			
 	{	
 		
@@ -123,7 +126,7 @@ public class Controller {
 	 @RequestParam (value="to_hour",required=false) String to_hour,
 	 @RequestParam (value="from_day",required=false) String from_day,
 	 @RequestParam (value="to_day",required=false) String to_day)
-			 throws ParseException, EmptyCollectionListException 
+			 throws ParseException, EmptyCollectionListException, InvalidHourException, InvalidDateException 
 			
 	{	
 

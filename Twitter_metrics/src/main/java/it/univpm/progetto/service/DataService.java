@@ -24,7 +24,10 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import it.univpm.progetto.exceptions.EmptyCollectionListException;
+import it.univpm.progetto.exceptions.InvalidDateException;
+import it.univpm.progetto.exceptions.InvalidFilterException;
 import it.univpm.progetto.exceptions.StreamException;
+import it.univpm.progetto.exceptions.InvalidHourException;
 import it.univpm.progetto.filter.DataFilter;
 import it.univpm.progetto.model.Account;
 import it.univpm.progetto.model.Metadata;
@@ -259,15 +262,16 @@ public final class DataService  {
 		DataService.tweets = tweets;
 	}
 	
-	public static List<Tweet> filterField(String field,String op, String val)
+	public static List<Tweet> filterField(String field,String op, String val) throws InvalidFilterException, EmptyCollectionListException
 	
 	{
-		
+		if(filter==null)  throw new EmptyCollectionListException("Please download some tweet before filtering");
+		if(!op.matches("<|>|==")) throw new InvalidFilterException("Please insert a valid operator : < > ==");
 		return filter.filterField(field, op, val);
 		
 	}
 	
-	public static Map<String, Object> searchbyDate(String from_hour,String to_hour, String from_day, String to_day) throws ParseException, EmptyCollectionListException
+	public static Map<String, Object> searchbyDate(String from_hour,String to_hour, String from_day, String to_day) throws ParseException, EmptyCollectionListException, InvalidHourException, InvalidDateException
 	{
 		
 		return filter.searchbyDate(from_day,to_day,from_hour,to_hour);
