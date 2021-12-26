@@ -28,9 +28,6 @@ import it.univpm.progetto.service.DataService;
 @RestController
 public class Controller {
 	
-	
-	
-	
 	/**Restituisce un elenco di accounts relativi alla query inserita
 	 * @param query parola chiave relativa all'account che cerchiamo
 	 * @return una lista di oggetti di tipo Account
@@ -38,6 +35,7 @@ public class Controller {
 	 * @throws InputStreamException eccezione personalizzata per gestire eventuali problemi di lettura dei dati
 	 * @throws EmptyCollectionListException eccezione personalizzata per gestire l'output di eventuali liste vuote 
 	 */
+	
 	@GetMapping("/search/accounts")
 	public ResponseEntity<List<Account>> 
 	searchAccounts(@RequestParam(value="query",required=true) String query) 
@@ -46,7 +44,6 @@ public class Controller {
 		return new ResponseEntity<List<Account>>(DataService.getAccounts(query),HttpStatus.OK);
 	}
 	
-
 	/**Restituisce una lista di collezioni di tweet, relativa all'id utente inserito
 	 * @param id identificativo dell'account utente di cui vogliamo cercare eventuali collezioni 
 	 * @return una mappa (tabella) che contiene il nome della collezione, seguito da altri valori 
@@ -84,7 +81,6 @@ public class Controller {
 		return new ResponseEntity<List<Tweet>>(DataService.getTweets(id,count,show_retweets,!show_replies),HttpStatus.OK);
 	}
 	
-	
 	/**Restituisce i tweet relativi all'id collezione inserito
 	 * @param timeline identificativo della collezione che vogliamo visualizzare	
 	 * @param count numero di tweet che vogliamo scaricare, il massimo è 200
@@ -102,14 +98,11 @@ public class Controller {
 		return new ResponseEntity<List<Tweet>>(DataService.getTimelines(timeline,count),HttpStatus.OK);
 	}
 	
-	
-	
 	/**Filtra l'ultima lista di tweet scaricata
 	 * @param field campo del tweet che vogliamo utilizzare come filtro
 	 * @param op operatore per filtrare, accettati solo > < ==
 	 * @param val valore che si vuole usare per filtrare i tweet
 	 * @return lista di oggetti di tipo Tweet filtrati
-	 * @throws ParseException Eccezione relativa ad eventuali problemi con valori di tipo Data
 	 * @throws EmptyCollectionListException eccezione personalizzata per gestire l'output di eventuali liste vuote 
 	 * @throws InvalidFilterException eccezione personalizzata per gestire eventuali campi field invalidi
 	 */
@@ -118,7 +111,7 @@ public class Controller {
 	(@RequestParam (value="field",required=true) String field,
 	 @RequestParam (value="op",required=true) String op,
 	 @RequestParam(value="val",required=true )String val)
-			 throws ParseException, EmptyCollectionListException, InvalidFilterException 
+			 throws EmptyCollectionListException, InvalidFilterException 
 			
 	{	
 		return new ResponseEntity<List<Tweet>>(DataService.filterField(field,op,val),HttpStatus.OK);
@@ -159,7 +152,5 @@ public class Controller {
 	{	
 		return new ResponseEntity<List<Object>> (DataService.getMetadata(type),HttpStatus.OK);
 	}
-	
-	
 }
 

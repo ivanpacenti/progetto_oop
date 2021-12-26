@@ -7,11 +7,12 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-/**
- * @author ivan
+
+/**Classe necessaria a contenere dati della proprietà "entities" del JSON in entrata
+ * contiene una lista di hashtag e menzioni
+ * @author Ivan Pacenti
  *
  */
-
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Entity {
 	

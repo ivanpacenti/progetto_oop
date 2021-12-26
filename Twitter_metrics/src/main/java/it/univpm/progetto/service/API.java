@@ -6,9 +6,10 @@ import java.io.InputStream;
 import it.univpm.progetto.exceptions.InputStreamException;
 
 
-/**
- * @author ivan
- * @param <T>
+
+/**Interfaccia conenente un motodo per il download dei dati 
+ * dall'API di twitter
+ * @author Ivan Pacenti
  *
  */
 public interface API {

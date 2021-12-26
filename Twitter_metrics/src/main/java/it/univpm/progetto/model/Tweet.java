@@ -13,15 +13,20 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import it.univpm.progetto.stats.DataStats;
 
-/**
- * @author ivan
+
+/**classe utilizzata per contenere dati dell'oggetto tweet, presente nel JSON ricevuto da twitter
+ * @author Ivan Pacenti
  *
  */
-
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Tweet {
 	@JsonIgnore
 	private List<Tweet> tweets=new ArrayList<>();
+	/**fornisce alla libreria jackson il metodo per formattare la data dei tweet in ingresso
+	 * @param shape indica che la data in entrata è di tipo stringa
+	 * @param pattern indica la formattazione della stringa da convertire
+	 * @param locale indica che i giorni della settimana e i mesi sono in lingua inglese
+	 */
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "E MMM dd HH:mm:ss Z yyyy",locale = "en")
 	private Date created_at;
 	@JsonAlias("id_str")
@@ -30,16 +35,23 @@ public class Tweet {
 	@JsonIgnore
 	private Double engagement;
 	private Entity entities=new Entity();
+	/**@param access indica che Jackson,per questo attributo, deve avere un accesso di sola scrittura
+	 */
 	@JsonProperty(access=JsonProperty.Access.WRITE_ONLY)
 	@JsonAlias("retweet_count")
-	private int retweets;//Number of times this Tweet has been retweeted
+	private int retweets;
 	@JsonProperty(access=JsonProperty.Access.WRITE_ONLY)
 	@JsonAlias("favorite_count")
-	private int likes;//Nullable. Indicates approximately how many times this Tweet has been liked by Twitter users
+	private int likes;
 	@JsonProperty(access=JsonProperty.Access.WRITE_ONLY)
 	private Account user=new Account();
+	/** @param access in questo caso Jackson è in sola lettura
+	 */
 	@JsonProperty(access=JsonProperty.Access.READ_ONLY)
 	private DataStats stats;
+	/**@param JsonInclude indica la modalità di inclusione dell'attributo nel JSON in uscita
+	 * @param NON_NULL indica che verrà inserito solo se non nullo
+	 */
 	@JsonAlias("in_reply_to_screen_name")
 	@JsonInclude(JsonInclude.Include.NON_NULL)
 	private String reply_to;
@@ -127,7 +139,11 @@ public class Tweet {
 		this.id = id;
 	}
 
-	/**
+	/**Jackson utilizza i setters per la serializzazione dei dati in entrata, 
+	 * quindi per un testo dei tweet più chiaro da leggere
+	 * vengono rimossi eventuali hashtag, menzioni e link URL
+	 * i metodi ReplaceAll leggono una espressione regex, che indica un insieme di stringhe della stringa @param text
+	 * e le cancellano tutte
 	 * @param text the text to set
 	 */
 	public void setText(String text) {
@@ -192,7 +208,8 @@ public class Tweet {
 	}
 
 
-	/**
+	/**inizializza un oggetto di tipo DataStats passando dei valori che verranno utilizzati per il calcolo
+	 * delle statistiche
 	 * @return the stats
 	 */
 	public DataStats getStats() {

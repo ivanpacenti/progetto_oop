@@ -91,7 +91,6 @@ public class FilterUtils<T> implements Utils{
 		return out;
 	}
 	
-	
 	/**metodo che filtra i tweet per data 
 	 * @param tweets lista di tweet da filtrare
 	 * @param from stringa contenente una data per filtrare
@@ -252,4 +251,3 @@ public class FilterUtils<T> implements Utils{
 	}
 
 }
-

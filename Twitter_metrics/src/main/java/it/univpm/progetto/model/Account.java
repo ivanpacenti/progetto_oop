@@ -1,42 +1,39 @@
 package it.univpm.progetto.model;
 
-import java.util.ArrayList;
-
-
-import java.util.List;
-
 import com.fasterxml.jackson.annotation.JsonAlias;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 
-/**
- * @author ivan
+
+/**Classe utilizzata per la deserializzazione di dati contenenti account, ricevuti dalla API di twitter
+ * @author Ivan Pacenti
  *
  */
-@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonIgnoreProperties(ignoreUnknown = true) //ignora le proprietà del file JSON che non corrispondono a nessuno degli attributi di questa classe
 public class Account {
-	@JsonAlias("id_str")
+	@JsonAlias("id_str")//significa che in lettura, i valori "id_str" andranno nella variabile "id"
 	private String id;
 	private String name;
 	@JsonAlias("screen_name")
 	private String username;
 	@JsonAlias("followers_count")
-	private int followers;
+	private int followers;	
+	/**rappresenta il numero di utenti che l'account segue
+	 */
 	@JsonAlias("friends_count")
 	private int following;
+	/**rappresenta il numero di liste in cui l'utente è stato inserito
+	 */
 	@JsonAlias("listed_count")
 	private int listed;
+	/**rappresenta il totale dei tweet creati dall'utente, dalla creazione dell'account
+	 */
 	@JsonAlias("statuses_count")
 	private int statuses;
-	@JsonIgnore
-	private String profile_image_url;
-	@JsonIgnore
-	private static final String ACCOUNTS_API_URL="https://wd4hfxnxxa.execute-api.us-east-2.amazonaws.com/dev/api/1.1/users/search.json?q=";
-	@JsonIgnore
-	List<Account> accounts=new ArrayList<>();
 	
 	
+	/**costruttore vuoto necessario per il funzionamento della libreria Jackson
+	 */
 	public Account() {}
 
 	/**
@@ -82,18 +79,6 @@ public class Account {
 		return statuses;
 	}
 	/**
-	 * @return the profile_image_url
-	 */
-	public String getProfile_image_url() {
-		return profile_image_url;
-	}
-	/**
-	 * @return the accountsApiUrl
-	 */
-	public static String getAccountsApiUrl() {
-		return ACCOUNTS_API_URL;
-	}
-	/**
 	 * @param id the id to set
 	 */
 	public void setId(String id) {
@@ -135,23 +120,6 @@ public class Account {
 	public void setStatuses(int statuses) {
 		this.statuses = statuses;
 	}
-	/**
-	 * @param profile_image_url the profile_image_url to set
-	 */
-	public void setProfile_image_url(String profile_image_url) {
-		this.profile_image_url = profile_image_url;
-	}
-	/**
-	 * @return the accounts
-	 */
-	public List<Account> getaccounts() {
-		return accounts;
-	}
-	/**
-	 * @param accounts the accounts to set
-	 */
-	public void setaccounts(List<Account> accounts) {
-		this.accounts = accounts;
-	}
+	
 	
 }

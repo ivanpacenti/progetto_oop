@@ -15,8 +15,9 @@ import org.junit.jupiter.api.Test;
 import it.univpm.progetto.exceptions.InvalidDateException;
 import it.univpm.progetto.model.Tweet;
 
-/**
- * @author ivan
+
+/**classe per testare il parsing delle date 
+ * @author Ivan Pacenti
  *
  */
 class DateExceptionTest {
@@ -43,6 +44,9 @@ class DateExceptionTest {
 	 */
 	@Test
 	void testSelectHour() {
+		/*verifica che venga lanciata l'eccezione in caso le date da convertire siano scritte
+		 * in modo scorretto
+		 */
 		InvalidDateException thrown = assertThrows(
 		           InvalidDateException.class,
 		           () -> prova.selectDate(tweets, "01 as 20", "01 02 21"),

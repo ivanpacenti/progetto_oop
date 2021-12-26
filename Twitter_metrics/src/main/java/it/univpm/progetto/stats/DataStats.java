@@ -10,37 +10,45 @@ import java.math.RoundingMode;
  *
  */
 public class DataStats {
-	
+	/*dati dall'account del tweet
+	 */
 	private String username;
 	private int followers;
 	private int following;
-	private int listed;//The number of public lists that this user is a member of
+	/*numero di liste pubbliche di tweet in cui l'utente compare
+	 */
+	private int listed;
+	
+	/*statistiche del tweet
+	 */
 	private int likes;
 	private int retweets;
 	private int hashtags;
 	private int mentions;
 	private double engagement;
 	
-	/**
-	 * @param likes
-	 * @param retweets
-	 * @param hashtags
-	 * @param mentions
-	 * @param followers
-	 * @param friends
-	 * @param listed
-	 * @param username
+	/**costruttore che inzializza le variabili
+	 * @param likes numero di likes del tweet
+	 * @param retweets numero di retweet
+	 * @param hashtags totale degli hashtag
+	 * @param mentions totale delle menzioni
+	 * @param followers totale dei followers dell'utente che ha creato il tweet
+	 * @param following totale di account che l'utente "segue"
+	 * @param listed totale di liste pubbliche in cui l'utente compare
+	 * @param username username dell'utente 
 	 */
-	public DataStats(int likes, int retweets, int hashtags, int mentions, int followers, int friends, int listed,
+	public DataStats(int likes, int retweets, int hashtags, int mentions, int followers, int following, int listed,
 			String username) {
 		this.likes = likes;
 		this.retweets = retweets;
 		this.hashtags = hashtags;
 		this.mentions = mentions;
 		this.followers = followers;
-		this.following = friends;
+		this.following = following;
 		this.listed = listed;
 		this.username = username;
+		/*metodo che calcola l'engagement del tweet
+		 */
 		setEngagement();
 	}
 
@@ -163,6 +171,12 @@ public class DataStats {
 		return engagement;
 	}
 	
+	/**metodo che calcola l'engagement del tweet
+	 * l'engagement è una percentuale che rappresenta il rapporto tra interazioni effettuate su un tweet e 
+	 * il totale dei followers dell'utente
+	 * per un valore più preciso ho utilizzato la classe BigDecimal che permette di definire i numeri dopo la virgola
+	 * e l'arrotondamento
+	 */
 	public void setEngagement()
 	{
 		double tot=this.likes+this.retweets;
@@ -170,8 +184,8 @@ public class DataStats {
 		else {
 			double tmp=(tot/this.followers)*100;
 			this.engagement=BigDecimal.valueOf(tmp).setScale(5, RoundingMode.HALF_UP).doubleValue();
-			}
-		
+		}
+
 	}
 
 }

@@ -6,8 +6,9 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-/**
- * @author ivan
+
+/**classe tulizzata per contenere i dati delle collezioni
+ * @author Ivan Pacenti
  *
  */
 @JsonIgnoreProperties(ignoreUnknown = true)

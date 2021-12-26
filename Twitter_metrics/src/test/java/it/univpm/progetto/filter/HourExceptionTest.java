@@ -13,12 +13,9 @@ import it.univpm.progetto.exceptions.InvalidHourException;
 import it.univpm.progetto.filter.FilterUtils;
 import it.univpm.progetto.model.Tweet;
 
-/**
- * 
- */
 
-/**
- * @author ivan
+/**classe che testa il lancio dell'eccezione in caso di ora scritta in modo sbagliato
+ * @author Ivan Pacenti
  *
  */
 class HourExceptionTest {
@@ -43,6 +40,8 @@ class HourExceptionTest {
 	 */
 	@Test
 	void testSelectHour() {
+		/*verifica che venga lanciata l'eccezione in caso le ore siano minori di 0 o maggiori di 24
+		 */
 		InvalidHourException thrown = assertThrows(
 		           InvalidHourException.class,
 		           () -> prova.selectHour(tweets, "31", "18"),

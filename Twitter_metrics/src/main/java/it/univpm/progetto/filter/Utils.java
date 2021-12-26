@@ -9,8 +9,8 @@ import it.univpm.progetto.exceptions.InvalidDateException;
 import it.univpm.progetto.exceptions.InvalidHourException;
 import it.univpm.progetto.model.Tweet;
 
-/**
- * @author ivan
+/**Interfaccia con metodi di filtraggio e analisi
+ * @author Ivan Pacenti
  *
  */
 public interface Utils {

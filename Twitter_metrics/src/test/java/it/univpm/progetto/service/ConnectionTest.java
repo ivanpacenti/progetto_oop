@@ -1,6 +1,3 @@
-/**
- * 
- */
 package it.univpm.progetto.service;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -13,8 +10,9 @@ import org.junit.jupiter.api.Test;
 import it.univpm.progetto.service.APIImpl;
 import it.univpm.progetto.service.DataService;
 
-/**
- * @author ivan
+
+/**classe che testa l'effettivo download di dati
+ * @author Ivan Pacenti
  *
  */
 class ConnectionTest {
@@ -46,7 +44,8 @@ class ConnectionTest {
 	 */
 	@Test
 	void testGetData() {
-		
+		/*verifica che i dati ricevuti non siano nulli
+		 */
 		assertNotEquals(DataService.getTweets(), "");
 	}
 
