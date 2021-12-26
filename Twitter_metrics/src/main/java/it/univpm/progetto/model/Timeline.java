@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 
-/**classe tulizzata per contenere i dati delle collezioni
+/**classe utilizzata per contenere i dati delle collezioni
  * @author Ivan Pacenti
  *
  */
