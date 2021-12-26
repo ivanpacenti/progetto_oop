@@ -1,6 +1,3 @@
-/**
- * 
- */
 package it.univpm.progetto.filter;
 
 import java.text.ParseException;
@@ -12,15 +9,17 @@ import it.univpm.progetto.exceptions.InvalidDateException;
 import it.univpm.progetto.exceptions.InvalidFilterException;
 import it.univpm.progetto.exceptions.InvalidHourException;
 
-/**
- * @author ivan
- *
- */
 
-	public interface Filter<E> {
-		
-		Collection<E> filterField(String fieldName, String operator, String value) throws InvalidFilterException;
-		Map<String, Object> analyzeTweets (String from_day,String to_day, String from_hour, String to_hour) throws ParseException, EmptyCollectionListException, InvalidHourException, InvalidDateException;
-		
-	}
+
+/**Interfaccia contenente metodi per filtrare
+ * @author Ivan Pacenti
+ *
+ * @param <E> parametro generico
+ */
+public interface Filter<E> {
+
+	Collection<E> filterField(String fieldName, String operator, String value) throws InvalidFilterException;
+	Map<String, Object> analyzeTweets (String from_day,String to_day, String from_hour, String to_hour) throws ParseException, EmptyCollectionListException, InvalidHourException, InvalidDateException;
+
+}
 

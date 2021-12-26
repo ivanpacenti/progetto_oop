@@ -1,19 +1,12 @@
-/**
- * 
- */
 package it.univpm.progetto.stats;
 
 import java.math.BigDecimal;
+
 import java.math.RoundingMode;
-import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 
-import it.univpm.progetto.model.Hashtag;
-import it.univpm.progetto.model.Mention;
-
-/**
- * @author ivan
+/**Classe per il calcolo delle statistiche dei singoli tweet
+ * @author Ivan Pacenti
  *
  */
 public class DataStats {
@@ -180,9 +173,5 @@ public class DataStats {
 			}
 		
 	}
-	
-	
-	
-
 
 }

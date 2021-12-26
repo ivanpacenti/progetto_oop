@@ -1,9 +1,7 @@
-/**
- * 
- */
 package it.univpm.progetto.service;
 
 import java.io.IOException;
+
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -13,9 +11,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.TimeZone;
-
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -29,7 +24,6 @@ import it.univpm.progetto.exceptions.InvalidFilterException;
 import it.univpm.progetto.exceptions.InputStreamException;
 import it.univpm.progetto.exceptions.InvalidHourException;
 import it.univpm.progetto.filter.DataFilter;
-import it.univpm.progetto.filter.Filter;
 import it.univpm.progetto.model.Account;
 import it.univpm.progetto.model.Metadata;
 import it.univpm.progetto.model.Timeline;
@@ -278,15 +272,5 @@ public final class DataService {
 		return filter.analyzeTweets(from_day,to_day,from_hour,to_hour);
 	}
 	
-	/*public static Map<String, Object> searchbyHour(String from,String to) throws ParseException, EmptyCollectionListException
-	{
-		
-		return filter.searchbyHour(from,to);
-	}*/
 	
-	/*public static Map<String, Object> analyze() throws ParseException, EmptyCollectionListException
-	{
-		
-		return filter.analyze();
-	}*/
 }

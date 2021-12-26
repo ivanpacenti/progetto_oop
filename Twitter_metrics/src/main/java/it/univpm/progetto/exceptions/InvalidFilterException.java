@@ -1,6 +1,3 @@
-/**
- * 
- */
 package it.univpm.progetto.exceptions;
 
 
@@ -15,7 +12,6 @@ public class InvalidFilterException extends Exception{
 
 	public InvalidFilterException(String message) {
 		super(message);
-		// TODO Auto-generated constructor stub
 	}
 
 }

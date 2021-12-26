@@ -1,6 +1,3 @@
-/**
- * 
- */
 package it.univpm.progetto.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;

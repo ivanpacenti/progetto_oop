@@ -1,6 +1,3 @@
-/**
- * 
- */
 package it.univpm.progetto.exceptions;
 
 

@@ -1,10 +1,4 @@
-/**
- * 
- */
 package it.univpm.progetto.exceptions;
-
-import java.io.IOException;
-import java.net.MalformedURLException;
 
 
 /**Classe che gestisce eventuali errori durante lo stream di lettura dall'API di Twitter

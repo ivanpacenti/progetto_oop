@@ -1,10 +1,7 @@
-/**
- * 
- */
 package it.univpm.progetto.model;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**

@@ -1,15 +1,7 @@
-/**
- * 
- */
 package it.univpm.progetto.service;
-
-
-
 
 import java.io.InputStream;
 
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
 
 import it.univpm.progetto.exceptions.InputStreamException;
 
@@ -21,9 +13,5 @@ import it.univpm.progetto.exceptions.InputStreamException;
  */
 public interface API {
 	
-	
-	
-	InputStream getData(String address) throws InputStreamException ;
-
-	
+	InputStream getData(String address) throws InputStreamException ;	
 }

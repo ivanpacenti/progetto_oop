@@ -1,6 +1,3 @@
-/**
- * 
- */
 package it.univpm.progetto.filter;
 
 import java.text.ParseException;

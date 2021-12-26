@@ -1,6 +1,3 @@
-/**
- * 
- */
 package it.univpm.progetto.controller;
 
 import java.io.IOException;

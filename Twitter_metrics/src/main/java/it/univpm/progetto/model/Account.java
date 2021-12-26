@@ -1,32 +1,13 @@
-/**
- * 
- */
 package it.univpm.progetto.model;
 
 import java.util.ArrayList;
 
-import java.util.Arrays;
-import java.util.List;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.simple.JSONValue;
-import org.json.simple.parser.ParseException;
-import org.springframework.http.HttpStatus;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-
-import it.univpm.progetto.service.APIImpl;
 
 
 /**
@@ -57,50 +38,7 @@ public class Account {
 	
 	
 	public Account() {}
-	
-	/**
-	 * @throws JsonMappingException 
-	 * @throws JsonProcessingException 
-	 * 
-	 */	
-	/*public Account(String query) 
-	{
-		
-		String url=ACCOUNTS_API_URL+query.replaceAll(" ", "%20");
-		APIImpl call=new APIImpl(url);
-		ObjectMapper mapper=new ObjectMapper();
-		try {
-			accounts = Arrays.asList(mapper.readValue(call.getData(), Account[].class));
-		} catch (JsonMappingException e) {
-			e.printStackTrace();
-		} catch (JsonProcessingException e) {
-			e.printStackTrace();
-		}
-		
-		
-	}*/
 
-	/**
-	 * @param id
-	 * @param name
-	 * @param username
-	 * @param followers
-	 * @param friends
-	 * @param listed
-	 * @param statuses
-	 * @param profile_image_url
-	 */
-	public Account(String id, String name, String username, int followers, int friends,
-			int listed, int statuses, String profile_image_url) {
-		this.id = id;
-		this.name = name;
-		this.username = username;
-		this.followers = followers;
-		this.following = friends;
-		this.listed = listed;
-		this.statuses = statuses;
-		this.profile_image_url = profile_image_url;
-	}
 	/**
 	 * @return the id
 	 */
@@ -215,14 +153,5 @@ public class Account {
 	public void setaccounts(List<Account> accounts) {
 		this.accounts = accounts;
 	}
-	
-	
-	 
-	
-	
-
-	
-	
-	
 	
 }
