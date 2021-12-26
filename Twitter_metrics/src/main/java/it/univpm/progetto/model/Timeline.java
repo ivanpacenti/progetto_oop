@@ -19,6 +19,9 @@ public class Timeline {
 	@JsonIgnore
 	private List<Tweet> tweets=new ArrayList<>();
 	Tweet temp=new Tweet();
+	
+	/**costruttore vuoto per la libreria Jackson
+	 */
 	public Timeline() {}
 	
 	/**
