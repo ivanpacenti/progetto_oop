@@ -1,5 +1,6 @@
-package it.univpm.progetto.service;
+package it.univpm.progetto.tests;
 import static org.junit.jupiter.api.Assertions.*;
+
 
 
 
@@ -7,6 +8,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import it.univpm.progetto.exceptions.InputStreamException;
+import it.univpm.progetto.service.DataService;
 
 /**
  * 
@@ -27,10 +29,9 @@ class PrivateUserTest {
 	/**
 	 * Viene utilizzato un id utente privato per 
 	 * verificare il funzionamento dell'eccezione apposita
-	 * @throws java.lang.Exception
 	 */
 	@BeforeEach
-	void setUp() throws Exception {
+	void setUp()  {
 		 thrown = assertThrows(
 				InputStreamException.class,
 		           () -> service.getTweets("806926892129456129",200,false,false));		

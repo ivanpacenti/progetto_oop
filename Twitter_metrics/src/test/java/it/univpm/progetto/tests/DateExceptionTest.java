@@ -1,18 +1,19 @@
 /**
  * 
  */
-package it.univpm.progetto.filter;
+package it.univpm.progetto.tests;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import it.univpm.progetto.exceptions.InvalidDateException;
+import it.univpm.progetto.filter.FilterUtils;
 import it.univpm.progetto.model.Tweet;
 
 
@@ -25,20 +26,18 @@ import it.univpm.progetto.model.Tweet;
 class DateExceptionTest {
 	FilterUtils prova=new FilterUtils();
 	List<Tweet> tweets=new ArrayList<>();
+	InvalidDateException thrown;
+	
 	/**
+	 * Si immette una data in modo volutamente scorretto
+	 * per verificare il lancio dell'eccezione
 	 * @throws java.lang.Exception
 	 */
 	@BeforeEach
 	void setUp() throws Exception {
-		
-		
-	}
-
-	/**
-	 * @throws java.lang.Exception
-	 */
-	@AfterEach
-	void tearDown() throws Exception {
+		thrown = assertThrows(
+		           InvalidDateException.class,
+		           () -> prova.selectDate(tweets, "01 as 20", "01 02 21"));		
 	}
 
 	/**
@@ -48,12 +47,6 @@ class DateExceptionTest {
 	 */
 	@Test
 	void testSelectHour() {
-		
-		InvalidDateException thrown = assertThrows(
-		           InvalidDateException.class,
-		           () -> prova.selectDate(tweets, "01 as 20", "01 02 21"),
-		           "asd");
-
 		    assertTrue(thrown.getMessage().contains("Please insert a valid date of the format: dd mm yy"));
 	}
 

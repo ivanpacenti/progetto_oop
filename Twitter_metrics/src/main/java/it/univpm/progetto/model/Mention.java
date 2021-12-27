@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
  * Classe contente dati della proprietà "mentions" del JSON in entrata.
+ * <p>
  * Rappresenta una menzione: contiene il nome dell'utente menzionato,
  * il suo username preceduto da @ e il suo identificativo.
  * 

@@ -8,15 +8,25 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 
 /**
- * classe utilizzata per contenere i dati delle collezioni
+ * Classe utilizzata per contenere i dati delle collezioni
+ * 
  * @param JsonIgnoreProperties ignora le proprietà del file JSON che non corrispondono a nessuno degli attributi di questa classe
  * @author Ivan Pacenti
  *
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Timeline {
+	/**
+	 * nome della collezione
+	 */
 	private String name;
+	/**
+	 * descrizione della collezione
+	 */
 	private String description;
+	/**
+	 * identificativo della collezione
+	 */
 	private String id;
 	@JsonIgnore
 	private List<Tweet> tweets=new ArrayList<>();

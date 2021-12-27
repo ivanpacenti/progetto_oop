@@ -9,8 +9,9 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 
 /**
- * Classe necessaria a contenere dati della proprietà "entities" del JSON in entrata
- * contiene una lista di hashtag e menzioni
+ * Classe necessaria a contenere dati della proprietà "entities" del JSON in entrata.
+ * <p>
+ * Contiene una lista di hashtag e menzioni
  * 
  * @param JsonIgnoreProperties ignora le proprietà del file JSON che non corrispondono a nessuno degli attributi di questa classe
  * @author Ivan Pacenti

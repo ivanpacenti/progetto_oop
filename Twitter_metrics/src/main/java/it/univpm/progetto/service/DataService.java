@@ -24,6 +24,7 @@ import it.univpm.progetto.exceptions.InvalidFilterException;
 import it.univpm.progetto.exceptions.InputStreamException;
 import it.univpm.progetto.exceptions.InvalidHourException;
 import it.univpm.progetto.filter.DataFilter;
+import it.univpm.progetto.filter.Filter;
 import it.univpm.progetto.model.Account;
 import it.univpm.progetto.model.Metadata;
 import it.univpm.progetto.model.Timeline;
@@ -31,16 +32,17 @@ import it.univpm.progetto.model.Tweet;
 
 
 /**
- * Classe che gestisce la struttura dati 
- * l'annotazione @Component è necessaria affinchè Springboot 
+ * Classe che gestisce la struttura dati.
+ * <p>
+ * L'annotazione @Component è necessaria affinchè Springboot 
  * utilizzi questa classe per l'iniezione delle dipendenze richieste
- * nel {@link it.univpm.progetto.controller.controller.java} con l'annotazione @Autowired 
+ * nel {{@link it.univpm.progetto.controller.Controller} con l'annotazione @Autowired 
  * 
  * @author Ivan Pacenti
  * 
  */
 @Component
-public class DataService {
+public class DataService implements Filter{
 	
 	/**
 	 * indirizzi delle API di Twitter 
@@ -173,7 +175,8 @@ public class DataService {
 	{
 		collections=new HashMap<>();
 		String url=COLLECTIONS_API_URL+id;
-		/**la variabile node di tipo JsonNode, prende i valori dello stream in ingresso grazie all'Object Mapper
+		/**
+		 * la variabile node di tipo JsonNode, prende i valori dello stream in ingresso grazie all'Object Mapper
 		 * successivamente viene creato un altro nodo json solo dei valori contenuti nella proprietà "objects"
 		 */
 		JsonNode node=mapper.readTree(call.getData(url));
@@ -239,7 +242,8 @@ public class DataService {
 		} catch (JsonProcessingException e) {
 			e.printStackTrace();
 		}
-		/*inizializza l'oggetto filter con la lista di tweet
+		/**
+		 * inizializza l'oggetto filter con la lista di tweet
 		 */
 		filter=new DataFilter(tweets);
 		if(tweets.isEmpty()) throw new EmptyCollectionListException("The user has not added anything to this collection yet");
@@ -350,16 +354,13 @@ public class DataService {
 		analytics_data.add(tweets_map);
 		switch(type)
 		{
-		case "accounts":{return accounts_data;}
+		case"accounts":{return accounts_data;}
 		case"collections":{ return collections_data;}
 		case"tweets":{return tweets_data;}
 		case"analytics":{ return analytics_data;}
 		default:{throw new EmptyCollectionListException("There is no param such as "+type+". Please use /accounts /collections /tweets /analytics");}
 		}
 	}
-
-	
-
 
 	/**
 	 * setta i tweets
@@ -377,9 +378,10 @@ public class DataService {
 	 * @param op operatore per filtrare, accettati solo > < ==
 	 * @param val valore che si vuole usare per filtrare i tweet
 	 * @return lista di oggetti di tipo Tweet filtrati
-	 * @throws EmptyCollectionListException eccezione personalizzata per gestire l'output di eventuali liste vuote 
 	 * @throws InvalidFilterException eccezione personalizzata per gestire eventuali campi field invalidi
+	 * @throws EmptyCollectionListException 
 	 */
+	@Override
 	public List<Tweet> filterField(String field,String op, String val) throws InvalidFilterException, EmptyCollectionListException
 	{
 		if(filter==null)  throw new EmptyCollectionListException("Please download some tweet before filtering");
@@ -400,10 +402,11 @@ public class DataService {
 	 * @throws InvalidHourException eccezione lanciata in caso di formati invalidi dei parametri *_hour in input
 	 * @throws InvalidDateException eccezione lanciata in caso di formati invalidi dei parametri *_day in input
 	 */
-	public Map<String, Object> searchbyDate(String from_hour,String to_hour, String from_day, String to_day) 
+	public Map<String, Object> analyzeTweets(String from_hour,String to_hour, String from_day, String to_day) 
 			throws ParseException, EmptyCollectionListException, InvalidHourException, InvalidDateException
 	{
-		/*lancia un'eccezione in caso di oggetto filter non inizializzato
+		/**
+		 * lancia un'eccezione in caso di oggetto filter non inizializzato
 		 */
 		if(filter==null)  throw new EmptyCollectionListException("Please download some tweet before filtering");
 		return filter.analyzeTweets(from_day,to_day,from_hour,to_hour);

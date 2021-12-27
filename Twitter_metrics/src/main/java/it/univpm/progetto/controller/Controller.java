@@ -77,7 +77,8 @@ public class Controller {
 	 * 
 	 * @param id identificativo dell'account utente di cui vogliamo cercare eventuali tweet 
 	 * @param count numero di tweet che vogliamo scaricare, il massimo è 200
-	 * @param show_replies valore booleano, inserire true se si vogliono visualizzare anche le risposte effettuate dall'utente
+	 * @param show_replies valore booleano, inserire true se si vogliono visualizzare anche le risposte effettuate dall'utente.
+	 * Twitter utilizza una logica contraria (exclude_replies), quindi utilizzo il ! per correggere la chiamata all'API
 	 * @param show_retweets valore booleano, inserire true se si vogliono visualizzare anche i retweet fatti dall'utente
 	 * @return una lista di oggetti di tipo Tweet
 	 * @throws IOException in caso di problemi nella lettura dei dati dalla API di twitter
@@ -158,7 +159,7 @@ public class Controller {
 			 throws ParseException, EmptyCollectionListException, InvalidHourException, InvalidDateException 
 			
 	{	
-		return new ResponseEntity<Map<String, Object>>(service.searchbyDate(from_hour,to_hour,from_day,to_day),HttpStatus.OK);
+		return new ResponseEntity<Map<String, Object>>(service.analyzeTweets(from_hour,to_hour,from_day,to_day),HttpStatus.OK);
 	}
 	
 	/**

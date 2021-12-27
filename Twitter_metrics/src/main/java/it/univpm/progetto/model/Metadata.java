@@ -5,19 +5,25 @@ package it.univpm.progetto.model;
  * Contiene i metadati del JSON in output
  * 
  * @author Ivan Pacenti
- * @param alias indica il nome del parametro
- * @param sourceField indica la descrizione
- * @param type indica il tipo
  *
  */
 public class Metadata {
+	/**
+	 * nome della proprietà JSON
+	 */
 	String alias;
+	/**
+	 * descrizione della proprietà JSON
+	 */
 	String sourceField;
+	/**
+	 * tipo della proprietà JSON
+	 */
 	String type;
 	/**
-	 * @param alias
-	 * @param sourceField
-	 * @param type
+	 * @param alias indica il nome del parametro
+	 * @param sourceField indica la descrizione
+	 * @param type indica il tipo
 	 */
 	public Metadata(String alias, String sourceField, String type) {
 		this.alias = alias;

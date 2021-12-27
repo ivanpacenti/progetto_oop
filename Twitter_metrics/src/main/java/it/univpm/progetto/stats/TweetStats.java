@@ -11,17 +11,8 @@ import java.math.RoundingMode;
  * @author Ivan Pacenti
  *
  */
-public class DataStats {
-	/*
-	 * dati dall'account del tweet
-	 */
-	private String username;
-	private int followers;
-	private int following;
-	/*
-	 * numero di liste pubbliche di tweet in cui l'utente compare
-	 */
-	private int listed;
+public class TweetStats extends UserStats{
+	
 	/*
 	 * statistiche del tweet
 	 */
@@ -32,7 +23,7 @@ public class DataStats {
 	private double engagement;
 	
 	/**
-	 * costruttore che inzializza le variabili
+	 * Costruttore che inzializza le variabili
 	 * 
 	 * @param likes numero di likes del tweet
 	 * @param retweets numero di retweet
@@ -43,26 +34,16 @@ public class DataStats {
 	 * @param listed totale di liste pubbliche in cui l'utente compare
 	 * @param username username dell'utente 
 	 */
-	public DataStats(int likes, int retweets, int hashtags, int mentions, int followers, int following, int listed,
+	public TweetStats(int likes, int retweets, int hashtags, int mentions, int followers, int following, int listed,
 			String username) {
+		super(username, followers, following, listed);
 		this.likes = likes;
 		this.retweets = retweets;
 		this.hashtags = hashtags;
 		this.mentions = mentions;
-		this.followers = followers;
-		this.following = following;
-		this.listed = listed;
-		this.username = username;
 		/*metodo che calcola l'engagement del tweet
 		 */
 		setEngagement();
-	}
-
-	/**
-	 * @return the username
-	 */
-	public String getUsername() {
-		return username;
 	}
 	
 	/**
@@ -93,33 +74,6 @@ public class DataStats {
 		return mentions;
 	}
 
-	/**
-	 * @return the followers
-	 */
-	public int getFollowers() {
-		return followers;
-	}
-
-	/**
-	 * @return the following
-	 */
-	public int getFollowing() {
-		return following;
-	}
-
-	/**
-	 * @return the listed
-	 */
-	public int getListed() {
-		return listed;
-	}
-
-	/**
-	 * @param username the username to set
-	 */
-	public void setUsername(String username) {
-		this.username = username;
-	}
 
 	/**
 	 * @param likes the likes to set
@@ -150,45 +104,25 @@ public class DataStats {
 	}
 
 	/**
-	 * @param followers the followers to set
-	 */
-	public void setFollowers(int followers) {
-		this.followers = followers;
-	}
-
-	/**
-	 * @param following the following to set
-	 */
-	public void setFollowing(int following) {
-		this.following = following;
-	}
-
-	/**
-	 * @param listed the listed to set
-	 */
-	public void setListed(int listed) {
-		this.listed = listed;
-	}
-
-	/**
 	 * @return the engagement
 	 */
 	public double getEngagement() {
 		return engagement;
 	}
 	/**
-	 * metodo che calcola l'engagement del tweet
-	 * l'engagement è una percentuale che rappresenta il rapporto tra interazioni effettuate su un tweet e 
-	 * il totale dei followers dell'utente
-	 * per un valore più preciso ho utilizzato la classe BigDecimal che permette di definire i numeri dopo la virgola
+	 * Metodo che calcola l'engagement del tweet.
+	 * <p>
+	 * L'engagement è una percentuale che rappresenta il rapporto tra interazioni effettuate su un tweet e 
+	 * il totale dei followers dell'utente.
+	 * Per un valore più preciso si è utilizzato la classe BigDecimal che permette di definire i numeri dopo la virgola
 	 * e l'arrotondamento
 	 */
 	public void setEngagement()
 	{
 		double tot=this.likes+this.retweets;
-		if(tot==0||this.followers==0) this.engagement=0;
+		if(tot==0||getFollowers()==0) this.engagement=0;
 		else {
-			double tmp=(tot/this.followers)*100;
+			double tmp=(tot/getFollowers())*100;
 			this.engagement=BigDecimal.valueOf(tmp).setScale(5, RoundingMode.HALF_UP).doubleValue();
 		}
 

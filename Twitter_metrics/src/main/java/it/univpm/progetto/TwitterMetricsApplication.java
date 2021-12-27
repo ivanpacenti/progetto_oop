@@ -12,6 +12,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class TwitterMetricsApplication {
 
+	/**Main dell'applicazione
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		SpringApplication.run(TwitterMetricsApplication.class, args);
 	}

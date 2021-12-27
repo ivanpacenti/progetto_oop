@@ -29,9 +29,10 @@ public interface Filter{
 	 * @param str valore da usare per filtrare
 	 * @return lista di oggetti di tipo Tweet filtrati dalla classe FilterUtils
 	 * @throws InvalidFilterException eccezione personalizzata per gestire eventuali campi field invalidi
+	 * @throws EmptyCollectionListException 
 	 *
 	 */
-	List<Tweet> filterField(String fieldName, String operator, String str) throws InvalidFilterException;
+	List<Tweet> filterField(String fieldName, String operator, String str) throws InvalidFilterException, EmptyCollectionListException;
 	/**
 	 * Metodo che restituisce una tabella con una lista di tweet analizzati e le relative statistiche
 	 * 

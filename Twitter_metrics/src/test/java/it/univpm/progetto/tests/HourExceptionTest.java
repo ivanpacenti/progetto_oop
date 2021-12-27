@@ -1,15 +1,16 @@
-package it.univpm.progetto.filter;
+package it.univpm.progetto.tests;
 import static org.junit.jupiter.api.Assertions.*;
+
 
 
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import it.univpm.progetto.exceptions.InvalidHourException;
+import it.univpm.progetto.filter.FilterUtils;
 import it.univpm.progetto.model.Tweet;
 
 

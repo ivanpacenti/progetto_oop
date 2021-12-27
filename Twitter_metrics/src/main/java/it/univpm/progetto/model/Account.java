@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
  * Classe utilizzata per la deserializzazione di dati contenenti account, ricevuti dalla API di twitter
+ * 
  * @param JsonIgnoreProperties ignora le proprietà del file JSON che non corrispondono a nessuno degli attributi di questa classe
  * @author Ivan Pacenti
  *
@@ -14,7 +15,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties(ignoreUnknown = true) 
 public class Account {
 	/**
-	 * significa che in lettura, i valori "id_str" andranno nella variabile "id"
+	 * Significa che in lettura, i valori "id_str" andranno nella variabile "id"
 	 */
 	@JsonAlias("id_str")
 	private String id;

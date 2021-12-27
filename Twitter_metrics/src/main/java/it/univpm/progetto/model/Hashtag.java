@@ -3,8 +3,9 @@ package it.univpm.progetto.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
- * Classe contenente i dati della proprietà "hashtag" del JSON in entrata
- * contiene il testo di un hashtag
+ * Classe contenente i dati della proprietà "hashtag" del JSON in entrata.
+ * <p>
+ * Contiene il testo di un hashtag.
  * 
  * @author Ivan Pacenti
  *

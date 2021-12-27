@@ -133,9 +133,10 @@ public class DataFilter implements Filter {
 	 */
 	@Override
 	public Map<String, Object> analyzeTweets (String from_day,String to_day, String from_hour, String to_hour) 
-			throws ParseException, EmptyCollectionListException, InvalidHourException, InvalidDateException 
+			throws ParseException, InvalidHourException, InvalidDateException, EmptyCollectionListException 
 	{
-		/*Qui ci sono dei filtri innestati: prima si esegue il filtraggio dei tweet a seconda della data,
+		/**
+		 * Qui ci sono dei filtri innestati: prima si esegue il filtraggio dei tweet a seconda della data,
 		 *successivamente i tweet filtrati vengono ri-filtrati a seconda dell'ora immessa
 		 */
 		this.tmp=utils.selectHour

@@ -1,6 +1,5 @@
 package it.univpm.progetto.model;
 
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -11,11 +10,11 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import it.univpm.progetto.stats.DataStats;
+import it.univpm.progetto.stats.TweetStats;
 
 
 /**
- * classe utilizzata per contenere dati dell'oggetto tweet, presente nel JSON ricevuto da twitter
+ * Classe utilizzata per contenere dati dell'oggetto tweet, presente nel JSON ricevuto da twitter
  * 
  * @param JsonIgnoreProperties ignora le proprietà del file JSON che non corrispondono a nessuno degli attributi di questa classe
  * @author Ivan Pacenti
@@ -26,7 +25,7 @@ public class Tweet {
 	@JsonIgnore
 	private List<Tweet> tweets=new ArrayList<>();
 	/**
-	 * fornisce alla libreria jackson il metodo per formattare la data dei tweet in ingresso
+	 * Fornisce alla libreria jackson il metodo per formattare la data dei tweet in ingresso
 	 * 
 	 * @param shape indica che la data in entrata è di tipo stringa
 	 * @param pattern indica la formattazione della stringa da convertire
@@ -55,7 +54,7 @@ public class Tweet {
 	 * @param access in questo caso Jackson è in sola lettura
 	 */
 	@JsonProperty(access=JsonProperty.Access.READ_ONLY)
-	private DataStats stats;
+	private TweetStats stats;
 	/**
 	 * @param JsonInclude indica la modalità di inclusione dell'attributo nel JSON in uscita
 	 * @param NON_NULL indica che verrà inserito solo se non nullo
@@ -133,7 +132,6 @@ public class Tweet {
 
 	/**
 	 * @param created_at the created_at to set
-	 * @throws ParseException 
 	 */
 	
 	public void setCreated_at(Date created_at)  {
@@ -148,6 +146,8 @@ public class Tweet {
 	}
 
 	/**
+	 * Metodo per inserire nella struttura dati il testo di un tweet
+	 * <p>
 	 * Jackson utilizza i setters per la serializzazione dei dati in entrata, 
 	 * quindi per un testo dei tweet più chiaro da leggere
 	 * vengono rimossi eventuali hashtag, menzioni e link URL
@@ -218,12 +218,16 @@ public class Tweet {
 	}
 
 
-	/**inizializza un oggetto di tipo DataStats passando dei valori che verranno utilizzati per il calcolo
+	/**
+	 * Metodo che crea e fornisce statistiche del tweet
+	 * <p>
+	 * Inizializza un oggetto di tipo DataStats passando dei valori che verranno utilizzati per il calcolo
 	 * delle statistiche
+	 * 
 	 * @return the stats
 	 */
-	public DataStats getStats() {
-		this.stats = new DataStats(this.getLikes(), this.getRetweets(),entities.getHashtags().size(),
+	public TweetStats getStats() {
+		this.stats = new TweetStats(this.getLikes(), this.getRetweets(),entities.getHashtags().size(),
 				entities.getMentions().size(),user.getFollowers(),user.getFriends(),
 				user.getListed(),user.getUsername());
 		
