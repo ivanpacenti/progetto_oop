@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.util.List;
 import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,30 +23,41 @@ import it.univpm.progetto.model.Timeline;
 import it.univpm.progetto.model.Tweet;
 import it.univpm.progetto.service.DataService;
 
-/**Classe che gestisce le chiamate all'applicazione
+/**
+ * Classe che gestisce le chiamate all'applicazione
+ * 
  * @author Ivan Pacenti
- *
  */
 @RestController
 public class Controller {
+	/*
+	 * Annotazione necessaria affinchè vengano usate
+	 * le dipendenze delle classi gestite da Springboot tramite
+	 * l'annotazione @Component
+	 */
+	@Autowired 
+	private DataService service;
 	
-	/**Restituisce un elenco di accounts relativi alla query inserita
+	/**
+	 * Restituisce un elenco di accounts relativi alla query inserita
+	 * 
 	 * @param query parola chiave relativa all'account che cerchiamo
 	 * @return una lista di oggetti di tipo Account
 	 * @throws IOException in caso di problemi nella lettura dei dati dalla API di twitter
 	 * @throws InputStreamException eccezione personalizzata per gestire eventuali problemi di lettura dei dati
 	 * @throws EmptyCollectionListException eccezione personalizzata per gestire l'output di eventuali liste vuote 
 	 */
-	
 	@GetMapping("/search/accounts")
 	public ResponseEntity<List<Account>> 
 	searchAccounts(@RequestParam(value="query",required=true) String query) 
 			throws IOException, InputStreamException, EmptyCollectionListException 
 	{
-		return new ResponseEntity<List<Account>>(DataService.getAccounts(query),HttpStatus.OK);
+		return new ResponseEntity<List<Account>>(service.getAccounts(query),HttpStatus.OK);
 	}
 	
-	/**Restituisce una lista di collezioni di tweet, relativa all'id utente inserito
+	/**
+	 * Restituisce una lista di collezioni di tweet, relativa all'id utente inserito
+	 * 
 	 * @param id identificativo dell'account utente di cui vogliamo cercare eventuali collezioni 
 	 * @return una mappa (tabella) che contiene il nome della collezione, seguito da altri valori 
 	 * @throws IOException in caso di problemi nella lettura dei dati dalla API di twitter
@@ -56,11 +69,12 @@ public class Controller {
 	(@RequestParam(value="id", required=true) String id) 
 			throws IOException, EmptyCollectionListException, InputStreamException
 	{
-		return new ResponseEntity<Map<String,Timeline>>(DataService.getCollections(id),HttpStatus.OK);
+		return new ResponseEntity<Map<String,Timeline>>(service.getCollections(id),HttpStatus.OK);
 	}
 	
-	/**Restituisce una lista di tweets, in base all'id utente inserito
-	 * E' possibile specificare ulteriori parametri
+	/**
+	 * Restituisce una lista di tweets, in base all'id utente inserito
+	 * 
 	 * @param id identificativo dell'account utente di cui vogliamo cercare eventuali tweet 
 	 * @param count numero di tweet che vogliamo scaricare, il massimo è 200
 	 * @param show_replies valore booleano, inserire true se si vogliono visualizzare anche le risposte effettuate dall'utente
@@ -78,10 +92,12 @@ public class Controller {
 			@RequestParam(value="retweets",defaultValue="false") Boolean show_retweets)  throws  IOException, EmptyCollectionListException, InputStreamException
 			
 	{
-		return new ResponseEntity<List<Tweet>>(DataService.getTweets(id,count,show_retweets,!show_replies),HttpStatus.OK);
+		return new ResponseEntity<List<Tweet>>(service.getTweets(id,count,show_retweets,!show_replies),HttpStatus.OK);
 	}
 	
-	/**Restituisce i tweet relativi all'id collezione inserito
+	/**
+	 * Restituisce i tweet relativi all'id collezione inserito
+	 * 
 	 * @param timeline identificativo della collezione che vogliamo visualizzare	
 	 * @param count numero di tweet che vogliamo scaricare, il massimo è 200
 	 * @return una lista di oggetti di tipo Tweet
@@ -95,10 +111,12 @@ public class Controller {
 			@RequestParam(value="count",defaultValue="50")String count) 
 			throws IOException, EmptyCollectionListException, InputStreamException 
 	{
-		return new ResponseEntity<List<Tweet>>(DataService.getTimelines(timeline,count),HttpStatus.OK);
+		return new ResponseEntity<List<Tweet>>(service.getTimelines(timeline,count),HttpStatus.OK);
 	}
 	
-	/**Filtra l'ultima lista di tweet scaricata
+	/**
+	 * Filtra l'ultima lista di tweet scaricata
+	 * 
 	 * @param field campo del tweet che vogliamo utilizzare come filtro
 	 * @param op operatore per filtrare, accettati solo > < ==
 	 * @param val valore che si vuole usare per filtrare i tweet
@@ -114,13 +132,16 @@ public class Controller {
 			 throws EmptyCollectionListException, InvalidFilterException 
 			
 	{	
-		return new ResponseEntity<List<Tweet>>(DataService.filterField(field,op,val),HttpStatus.OK);
+		return new ResponseEntity<List<Tweet>>(service.filterField(field,op,val),HttpStatus.OK);
 	}
 	
-	/**Restituisce dei tweet filtrati a seconda dei parametri inseriti, insieme a delle statistiche 
+	/**
+	 * Restituisce dei tweet filtrati a seconda dei parametri inseriti, 
+	 * insieme a delle statistiche 
+	 * 
 	 * @param from_hour accetta solo valori del tipo HH, inserire per visualizzare i tweet creati dopo l'ora inserita
 	 * @param to_hour accetta solo valori del tipo HH, inserire per visualizzare i tweet creati prima dell'ora inserita
-	 * @param from_day acccetta solo valori del tipo dd mm yy,inserire per visualizzare i tweet creati dopo la data inserita
+	 * @param from_day accetta solo valori del tipo dd mm yy,inserire per visualizzare i tweet creati dopo la data inserita
 	 * @param to_day acccetta solo valori del tipo dd mm yy,inserire per visualizzare i tweet creati prima della data inserita
 	 * @return una lista di oggetti filtrati di tipo Tweet
 	 * @throws ParseException Eccezione relativa ad eventuali problemi con valori di tipo Data
@@ -137,10 +158,12 @@ public class Controller {
 			 throws ParseException, EmptyCollectionListException, InvalidHourException, InvalidDateException 
 			
 	{	
-		return new ResponseEntity<Map<String, Object>>(DataService.searchbyDate(from_hour,to_hour,from_day,to_day),HttpStatus.OK);
+		return new ResponseEntity<Map<String, Object>>(service.searchbyDate(from_hour,to_hour,from_day,to_day),HttpStatus.OK);
 	}
 	
-	/**Restitiusce i metadati relativi alla path variable inserita
+	/**
+	 * Restitiusce i metadati relativi alla path variable inserita
+	 * 
 	 * @param type stringa relativa al tipo di metadati che si vogliono ottenere,
 	 * accetta solo i valori tweets, collections, accounts e analytics
 	 * @return tabelle di metadati relativi al parametro inserito
@@ -150,7 +173,7 @@ public class Controller {
 	public ResponseEntity<List<Object>> getMetadata
 	(@PathVariable String type) throws EmptyCollectionListException
 	{	
-		return new ResponseEntity<List<Object>> (DataService.getMetadata(type),HttpStatus.OK);
+		return new ResponseEntity<List<Object>> (service.getMetadata(type),HttpStatus.OK);
 	}
 }
 

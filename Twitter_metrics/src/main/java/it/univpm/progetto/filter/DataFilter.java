@@ -14,33 +14,37 @@ import it.univpm.progetto.exceptions.InvalidHourException;
 import it.univpm.progetto.model.Tweet;
 
 
-/**Classe che gestisce il filtraggio dei tweet
+/**
+ * Classe che gestisce il filtraggio dei tweet
+ * 
  * @author Ivan Pacenti
  *
  */
-public class DataFilter implements Filter<Tweet> {
+public class DataFilter implements Filter {
 	
 	private  List<Tweet> tweets=new ArrayList<>();
 	private  List<Tweet> tmp=new ArrayList<>();
-	private  FilterUtils<Tweet> utils;
+	private  FilterUtils utils;
 		
 	
 	
 	
-	/**Costruttore della classe
+	/**
+	 * Costruttore della classe
+	 * 
 	 * @param tweets lista di tweets presi in input
 	 * @param utils oggetto della classe FilterUtils per filtrare
 	 */
 	public DataFilter(List<Tweet> tweets) {
 		this.tweets = tweets;
-		this.utils=new FilterUtils<Tweet>();
+		this.utils=new FilterUtils();
 		
 	}
 
 	/**
 	 * @return the utils
 	 */
-	public FilterUtils<Tweet> getUtils() {
+	public FilterUtils getUtils() {
 		return utils;
 	}
 
@@ -70,11 +74,13 @@ public class DataFilter implements Filter<Tweet> {
 	/**
 	 * @param utils the utils to set
 	 */
-	public void setUtils(FilterUtils<Tweet> utils) {
+	public void setUtils(FilterUtils utils) {
 		this.utils = utils;
 	}
 	
-	/**Metodo per controllare se il valore è numerico
+	/**
+	 * Metodo per controllare se il valore è numerico
+	 * 
 	 * @param str valore in input
 	 * @return true se il valore è numerico, al contrario ritorna false
 	 */
@@ -87,7 +93,9 @@ public class DataFilter implements Filter<Tweet> {
 		}  
 	}
 
-	/**Metodo che passa i valori alla classe FilterUtils, controllando che il valore insierito come parametro sia numerico
+	/**
+	 * Metodo che passa i valori alla classe FilterUtils, controllando che il valore insierito come parametro sia numerico
+	 * 
 	 * @param fieldName nome del campo da usare come filtro
 	 * @param operator operatore per filtrare (< > ==)
 	 * @param str valore da usare per filtrare
@@ -95,9 +103,10 @@ public class DataFilter implements Filter<Tweet> {
 	 * @throws InvalidFilterException eccezione personalizzata per gestire eventuali campi field invalidi
 	 *
 	 */
+	@Override
 	public  List<Tweet> filterField(String fieldName, String operator, String str) throws InvalidFilterException {
 		Object value;
-		if(isNumeric(str)) 
+		if(isNumeric(str)&&!(fieldName.equals("id"))) 
 		{
 			value=Double.parseDouble(str);
 		}
@@ -105,7 +114,9 @@ public class DataFilter implements Filter<Tweet> {
 		return (List<Tweet>) utils.select(getTweets(), fieldName, operator, value);
 	}
 	
-	/**Metodo che restituisce una tabella con una lista di tweet analizzati e le relative statistiche
+	/**
+	 * Metodo che restituisce una tabella con una lista di tweet analizzati e le relative statistiche
+	 * 
 	 * @param from_hour accetta solo valori del tipo HH, inserire per visualizzare i tweet creati dopo l'ora inserita
 	 * @param to_hour accetta solo valori del tipo HH, inserire per visualizzare i tweet creati prima dell'ora inserita
 	 * @param from_day acccetta solo valori del tipo dd mm yy,inserire per visualizzare i tweet creati dopo la data inserita
@@ -120,11 +131,13 @@ public class DataFilter implements Filter<Tweet> {
 	 * @throws InvalidDateException eccezione lanciata in caso di formati invalidi dei parametri *_day in input
 	 *
 	 */
+	@Override
 	public Map<String, Object> analyzeTweets (String from_day,String to_day, String from_hour, String to_hour) 
 			throws ParseException, EmptyCollectionListException, InvalidHourException, InvalidDateException 
 	{
-		//qui ci sono dei filtri innestati: prima si esegue il filtraggio dei tweet a seconda della data,
-		//successivamente i tweet filtrati vengono ri-filtrati a seconda dell'ora immessa
+		/*Qui ci sono dei filtri innestati: prima si esegue il filtraggio dei tweet a seconda della data,
+		 *successivamente i tweet filtrati vengono ri-filtrati a seconda dell'ora immessa
+		 */
 		this.tmp=utils.selectHour
 				(utils.selectDate(getTweets(), from_day, to_day), from_hour, to_hour);
 		Map<String,Object> map=utils.analyze(this.tmp);

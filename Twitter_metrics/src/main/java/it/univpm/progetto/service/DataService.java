@@ -30,14 +30,20 @@ import it.univpm.progetto.model.Timeline;
 import it.univpm.progetto.model.Tweet;
 
 
-/**classe che gestisce la struttura dati 
+/**
+ * Classe che gestisce la struttura dati 
+ * l'annotazione @Component è necessaria affinchè Springboot 
+ * utilizzi questa classe per l'iniezione delle dipendenze richieste
+ * nel {@link it.univpm.progetto.controller.controller.java} con l'annotazione @Autowired 
+ * 
  * @author Ivan Pacenti
  * 
  */
 @Component
-public final class DataService {
+public class DataService {
 	
-	/**indirizzi delle API di Twitter 
+	/**
+	 * indirizzi delle API di Twitter 
 	 */
 	private static final String ACCOUNTS_API_URL="https://wd4hfxnxxa.execute-api.us-east-2.amazonaws.com/dev/api/1.1/users/search.json?q=";
 	private static final String TWEET_API_URL="https://wd4hfxnxxa.execute-api.us-east-2.amazonaws.com/dev/user/1.1/statuses/user_timeline.json?id=<id>&count=<count>&include_rts=<rtws>&exclude_replies=<rpls>";
@@ -45,45 +51,53 @@ public final class DataService {
 	private static final String TIMELINE_API_URL="https://wd4hfxnxxa.execute-api.us-east-2.amazonaws.com/dev/user/1.1/collections/entries.json?id=";
 	private static final String USER_API_URL="https://wd4hfxnxxa.execute-api.us-east-2.amazonaws.com/dev/user/1.1/users/show.json?user_id=<id>&include_entities=false&tweet_mode=false";
 	
-	private static List<Account> accounts=new ArrayList<>();
-	private static List<Tweet> tweets=new ArrayList<>();
-	private static Map<String,Timeline> collections;
+	private List<Account> accounts=new ArrayList<>();
+	private List<Tweet> tweets=new ArrayList<>();
+	private Map<String,Timeline> collections;
 
 	
-	/**oggetto temporameto di tipo Timeline
+	/**
+	 * oggetto temporameto di tipo Timeline
 	 * utilizzato nelle collezioni
 	 */
-	private static Timeline tmp;
-	private static Tweet tweettmp=new Tweet();
+	private Timeline tmp;
+	private Tweet tweettmp=new Tweet();
 	
-	/**oggetto utilizzato per la serializzazione dei dati in ingresso
+	/**
+	 * oggetto utilizzato per la serializzazione dei dati in ingresso
 	 *viene utilizzato con lo stream definito nella classe APIImpl
 	 */
-	private static ObjectMapper mapper=new ObjectMapper();
+	private ObjectMapper mapper=new ObjectMapper();
 	
-	/**oggetto di tipo DataFilter, utilizzato per 
+	/**
+	 * oggetto di tipo DataFilter, utilizzato per 
 	 * filtrare i dati
 	 */
-	private static DataFilter filter;
+	private DataFilter filter;
 	
-	/**oggetto di tipo Account
+	/**
+	 * oggetto di tipo Account
 	 * utilizzato nelle collezioni, visto che ogni tweet ha un oggetto utente diverso
 	 * ne viene utilizzato uno per ogni tweet di una collezione
 	 */
-	private static Account user=new Account();
+	private Account user=new Account();
 	
-	/**oggetto necessario per lo stream dei dati in entrata
+	/**
+	 * oggetto necessario per lo stream dei dati in entrata
 	 */
-	private static APIImpl call=new APIImpl();
+	private APIImpl call=new APIImpl();
 	
-	/**costruttore vuoto necessario per la libreria Jackson
+	/**
+	 * costruttore vuoto necessario per la libreria Jackson
 	 */
 	public DataService() {}
 	
 	
 	
-	/**metodo usato per ricevere una lista di account, ordinati per rilevanza,
+	/**
+	 * metodo usato per ricevere una lista di account, ordinati per rilevanza,
 	 * rispetto la stringa query inserita
+	 * 
 	 * @param query parola chiave utilizzata per cercare account correlati
 	 * @return una lista di oggetti di tipo Account
 	 * @throws IOException eccezione di tipo input/output
@@ -91,7 +105,7 @@ public final class DataService {
 	 * @throws EmptyCollectionListException eccezione personalizzata lanciata in caso 
 	 * debba essere restituita in uscita una collezione vuota
 	 */
-	public static List<Account> getAccounts(String query) throws IOException, InputStreamException, EmptyCollectionListException
+	public List<Account> getAccounts(String query) throws IOException, InputStreamException, EmptyCollectionListException
 	{
 
 		String url=ACCOUNTS_API_URL+query.replaceAll(" ", "%20");
@@ -106,7 +120,9 @@ public final class DataService {
 		return accounts;
 	}
 
-	/**restituisce una lista di tweet pubblici, relativi al parametro id inserito
+	/**
+	 * restituisce una lista di tweet pubblici, relativi al parametro id inserito
+	 * 
 	 * @param id parametro obbligatorio, è l'identificativo dell'account di cui vogliamo i tweet
 	 * @param count intero che indica il numero di tweet che si vogliono scaricare, il valore massimo è 200
 	 * @param show_retweets valore booleano, va inserito con true se si vogliono scaricare anche i retweets effettuati dall'utente
@@ -117,7 +133,7 @@ public final class DataService {
 	 * debba essere restituita in uscita una collezione vuota
 	 * @throws InputStreamException eccezione personalizzaata, lanciata in caso di errori nello stream in input
 	 */
-	public static List<Tweet> getTweets(String id,int count,Boolean show_retweets,Boolean show_replies) throws IOException, EmptyCollectionListException, InputStreamException
+	public List<Tweet> getTweets(String id,int count,Boolean show_retweets,Boolean show_replies) throws IOException, EmptyCollectionListException, InputStreamException
 	{
 		String url=TWEET_API_URL.replaceAll("<id>", id).replace("<count>", Integer.toString(count))
 				.replaceAll("<rtws>", show_retweets.toString()).replaceAll("<rpls>",show_replies.toString());
@@ -135,7 +151,9 @@ public final class DataService {
 		return tweets;
 	}
 	
-	/**restituisce una tabella contenente eventuali collezioni di tweet create dall'utente
+	/**
+	 * restituisce una tabella contenente eventuali collezioni di tweet create dall'utente
+	 * 
 	 * @param id identificativo dell'utente di cui vogliamo scaricare le collezioni
 	 * @return una tabella di collezioni dell'utente, se la lista è vuota viene lanciata una eccezione
 	 * @throws IOException eccezione di tipo input/output
@@ -143,7 +161,7 @@ public final class DataService {
 	 * debba essere restituita in uscita una collezione vuota
 	 * @throws InputStreamException eccezione personalizzaata, lanciata in caso di errori nello stream in input
 	 */
-	public static Map<String,Timeline> getCollections(String id) throws IOException, EmptyCollectionListException, InputStreamException
+	public Map<String,Timeline> getCollections(String id) throws IOException, EmptyCollectionListException, InputStreamException
 	{
 		collections=new HashMap<>();
 		String url=COLLECTIONS_API_URL+id;
@@ -180,7 +198,9 @@ public final class DataService {
 		return collections;
 	}
 	
-	/**fornisce una lista di tweet presa dalla collezione di cui viene inserito l'id
+	/**
+	 * fornisce una lista di tweet presa dalla collezione di cui viene inserito l'id
+	 * 
 	 * @param id rappresenta l'identificativo della collezione
 	 * @param count stabilisce il numero di oggetti restituiti, per un massimo di 200 tweet
 	 * @return una lista di tweet
@@ -189,7 +209,7 @@ public final class DataService {
 	 * debba essere restituita in uscita una collezione vuota
 	 * @throws InputStreamException eccezione personalizzaata, lanciata in caso di errori nello stream in input
 	 */
-	public static List<Tweet> getTimelines(String id,String count) throws IOException, EmptyCollectionListException, InputStreamException
+	public List<Tweet> getTimelines(String id,String count) throws IOException, EmptyCollectionListException, InputStreamException
 	{
 		tweets=new ArrayList<>();
 		String url=TIMELINE_API_URL+id+"&count="+count;
@@ -220,13 +240,15 @@ public final class DataService {
 	
 	
 	
-	/**metodo utilizzato per scaricare i dati dell'utente di ogni tweet di una collezione
+	/**
+	 * metodo utilizzato per scaricare i dati dell'utente di ogni tweet di una collezione
+	 * 
 	 * @param id identificativo dell'utente
 	 * @return un oggetto di tipo Account
 	 * @throws IOException eccezione di tipo input/output
 	 * @throws InputStreamException eccezione personalizzaata, lanciata in caso di errori nello stream in input
 	 */
-	public static Account getUser(String id) throws IOException, InputStreamException
+	public Account getUser(String id) throws IOException, InputStreamException
 	{
 		String url=USER_API_URL.replaceAll("<id>", id);
 		try {
@@ -240,12 +262,14 @@ public final class DataService {
 		return user;
 	}
 	
-	/**restituisce i metadati utilizzati nell'applicazione
+	/**
+	 * restituisce i metadati utilizzati nell'applicazione
+	 * 
 	 * @param type stringa contenete la categoria di metadati desiderati
 	 * @return una tabella di metadati
 	 * @throws EmptyCollectionListException in caso di input non valido, lancia un'eccezione personalizzata
 	 */
-	public static List<Object> getMetadata(String type) throws EmptyCollectionListException
+	public List<Object> getMetadata(String type) throws EmptyCollectionListException
 	{
 		List<Object> collections_data=new ArrayList<>();
 		collections_data.add(new Metadata("name","nome della collezione","String"));
@@ -329,19 +353,23 @@ public final class DataService {
 	/**
 	 * @return lista di tweet
 	 */
-	public static List<Tweet> getTweets() {
+	public List<Tweet> getTweets() {
 		return tweets;
 	}
 
 
-	/**setta i tweets
+	/**
+	 * setta i tweets
+	 * 
 	 * @param tweets
 	 */
 	public void setTweets(List<Tweet> tweets) {
-		DataService.tweets = tweets;
+		this.tweets = tweets;
 	}
 	
-	/**metodo per il filtro dei tweet
+	/**
+	 * metodo per il filtro dei tweet
+	 * 
 	 * @param field campo del tweet che vogliamo utilizzare come filtro
 	 * @param op operatore per filtrare, accettati solo > < ==
 	 * @param val valore che si vuole usare per filtrare i tweet
@@ -349,14 +377,16 @@ public final class DataService {
 	 * @throws EmptyCollectionListException eccezione personalizzata per gestire l'output di eventuali liste vuote 
 	 * @throws InvalidFilterException eccezione personalizzata per gestire eventuali campi field invalidi
 	 */
-	public static List<Tweet> filterField(String field,String op, String val) throws InvalidFilterException, EmptyCollectionListException
+	public List<Tweet> filterField(String field,String op, String val) throws InvalidFilterException, EmptyCollectionListException
 	{
 		if(filter==null)  throw new EmptyCollectionListException("Please download some tweet before filtering");
 		if(!op.matches("<|>|==")) throw new InvalidFilterException("Please insert a valid operator : < > ==");
 		return filter.filterField(field, op, val);
 	}
 	
-	/**Restituisce dei tweet filtrati a seconda dei parametri inseriti, insieme a delle statistiche 
+	/**
+	 * Restituisce dei tweet filtrati a seconda dei parametri inseriti, insieme a delle statistiche 
+	 * 
 	 * @param from_hour accetta solo valori del tipo HH, inserire per visualizzare i tweet creati dopo l'ora inserita
 	 * @param to_hour accetta solo valori del tipo HH, inserire per visualizzare i tweet creati prima dell'ora inserita
 	 * @param from_day acccetta solo valori del tipo dd mm yy,inserire per visualizzare i tweet creati dopo la data inserita
@@ -367,7 +397,7 @@ public final class DataService {
 	 * @throws InvalidHourException eccezione lanciata in caso di formati invalidi dei parametri *_hour in input
 	 * @throws InvalidDateException eccezione lanciata in caso di formati invalidi dei parametri *_day in input
 	 */
-	public static Map<String, Object> searchbyDate(String from_hour,String to_hour, String from_day, String to_day) 
+	public Map<String, Object> searchbyDate(String from_hour,String to_hour, String from_day, String to_day) 
 			throws ParseException, EmptyCollectionListException, InvalidHourException, InvalidDateException
 	{
 		/*lancia un'eccezione in caso di oggetto filter non inizializzato

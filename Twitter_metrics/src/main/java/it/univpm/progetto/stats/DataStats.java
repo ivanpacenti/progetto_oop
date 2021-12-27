@@ -5,21 +5,25 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 
 
-/**Classe per il calcolo delle statistiche dei singoli tweet
+/**
+ * Classe per il calcolo delle statistiche dei singoli tweet
+ * 
  * @author Ivan Pacenti
  *
  */
 public class DataStats {
-	/*dati dall'account del tweet
+	/*
+	 * dati dall'account del tweet
 	 */
 	private String username;
 	private int followers;
 	private int following;
-	/*numero di liste pubbliche di tweet in cui l'utente compare
+	/*
+	 * numero di liste pubbliche di tweet in cui l'utente compare
 	 */
 	private int listed;
-	
-	/*statistiche del tweet
+	/*
+	 * statistiche del tweet
 	 */
 	private int likes;
 	private int retweets;
@@ -27,7 +31,9 @@ public class DataStats {
 	private int mentions;
 	private double engagement;
 	
-	/**costruttore che inzializza le variabili
+	/**
+	 * costruttore che inzializza le variabili
+	 * 
 	 * @param likes numero di likes del tweet
 	 * @param retweets numero di retweet
 	 * @param hashtags totale degli hashtag
@@ -170,8 +176,8 @@ public class DataStats {
 	public double getEngagement() {
 		return engagement;
 	}
-	
-	/**metodo che calcola l'engagement del tweet
+	/**
+	 * metodo che calcola l'engagement del tweet
 	 * l'engagement è una percentuale che rappresenta il rapporto tra interazioni effettuate su un tweet e 
 	 * il totale dei followers dell'utente
 	 * per un valore più preciso ho utilizzato la classe BigDecimal che permette di definire i numeri dopo la virgola
@@ -187,5 +193,4 @@ public class DataStats {
 		}
 
 	}
-
 }

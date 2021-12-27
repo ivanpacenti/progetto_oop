@@ -8,15 +8,23 @@ import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 
-/**Classe necessaria a contenere dati della proprietà "entities" del JSON in entrata
+/**
+ * Classe necessaria a contenere dati della proprietà "entities" del JSON in entrata
  * contiene una lista di hashtag e menzioni
+ * 
+ * @param JsonIgnoreProperties ignora le proprietà del file JSON che non corrispondono a nessuno degli attributi di questa classe
  * @author Ivan Pacenti
  *
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Entity {
-	
+	/*
+	 * rappresenta una lista di hashtag
+	 */
 	private List<Hashtag> hashtags=new ArrayList<>();
+	/*
+	 * rappresenta una lista di menzioni
+	 */
 	@JsonAlias("user_mentions")
 	private List<Mention> mentions=new ArrayList<>();
 	

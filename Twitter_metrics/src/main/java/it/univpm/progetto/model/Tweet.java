@@ -14,7 +14,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import it.univpm.progetto.stats.DataStats;
 
 
-/**classe utilizzata per contenere dati dell'oggetto tweet, presente nel JSON ricevuto da twitter
+/**
+ * classe utilizzata per contenere dati dell'oggetto tweet, presente nel JSON ricevuto da twitter
+ * 
+ * @param JsonIgnoreProperties ignora le proprietà del file JSON che non corrispondono a nessuno degli attributi di questa classe
  * @author Ivan Pacenti
  *
  */
@@ -22,7 +25,9 @@ import it.univpm.progetto.stats.DataStats;
 public class Tweet {
 	@JsonIgnore
 	private List<Tweet> tweets=new ArrayList<>();
-	/**fornisce alla libreria jackson il metodo per formattare la data dei tweet in ingresso
+	/**
+	 * fornisce alla libreria jackson il metodo per formattare la data dei tweet in ingresso
+	 * 
 	 * @param shape indica che la data in entrata è di tipo stringa
 	 * @param pattern indica la formattazione della stringa da convertire
 	 * @param locale indica che i giorni della settimana e i mesi sono in lingua inglese
@@ -35,7 +40,8 @@ public class Tweet {
 	@JsonIgnore
 	private Double engagement;
 	private Entity entities=new Entity();
-	/**@param access indica che Jackson,per questo attributo, deve avere un accesso di sola scrittura
+	/**
+	 * @param access indica che Jackson,per questo attributo, deve avere un accesso di sola scrittura
 	 */
 	@JsonProperty(access=JsonProperty.Access.WRITE_ONLY)
 	@JsonAlias("retweet_count")
@@ -45,11 +51,13 @@ public class Tweet {
 	private int likes;
 	@JsonProperty(access=JsonProperty.Access.WRITE_ONLY)
 	private Account user=new Account();
-	/** @param access in questo caso Jackson è in sola lettura
+	/** 
+	 * @param access in questo caso Jackson è in sola lettura
 	 */
 	@JsonProperty(access=JsonProperty.Access.READ_ONLY)
 	private DataStats stats;
-	/**@param JsonInclude indica la modalità di inclusione dell'attributo nel JSON in uscita
+	/**
+	 * @param JsonInclude indica la modalità di inclusione dell'attributo nel JSON in uscita
 	 * @param NON_NULL indica che verrà inserito solo se non nullo
 	 */
 	@JsonAlias("in_reply_to_screen_name")
@@ -139,11 +147,13 @@ public class Tweet {
 		this.id = id;
 	}
 
-	/**Jackson utilizza i setters per la serializzazione dei dati in entrata, 
+	/**
+	 * Jackson utilizza i setters per la serializzazione dei dati in entrata, 
 	 * quindi per un testo dei tweet più chiaro da leggere
 	 * vengono rimossi eventuali hashtag, menzioni e link URL
 	 * i metodi ReplaceAll leggono una espressione regex, che indica un insieme di stringhe della stringa @param text
 	 * e le cancellano tutte
+	 * 
 	 * @param text the text to set
 	 */
 	public void setText(String text) {

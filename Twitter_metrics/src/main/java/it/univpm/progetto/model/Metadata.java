@@ -1,7 +1,9 @@
 package it.univpm.progetto.model;
 
 
-/**Contiene i metadati del JSON in output
+/**
+ * Contiene i metadati del JSON in output
+ * 
  * @author Ivan Pacenti
  * @param alias indica il nome del parametro
  * @param sourceField indica la descrizione

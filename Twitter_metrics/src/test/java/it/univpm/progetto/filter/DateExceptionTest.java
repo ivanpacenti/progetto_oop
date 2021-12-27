@@ -16,12 +16,14 @@ import it.univpm.progetto.exceptions.InvalidDateException;
 import it.univpm.progetto.model.Tweet;
 
 
-/**classe per testare il parsing delle date 
+/**
+ * classe per testare il parsing delle date 
+ * 
  * @author Ivan Pacenti
  *
  */
 class DateExceptionTest {
-	FilterUtils<Tweet> prova=new FilterUtils<>();
+	FilterUtils prova=new FilterUtils();
 	List<Tweet> tweets=new ArrayList<>();
 	/**
 	 * @throws java.lang.Exception
@@ -44,7 +46,8 @@ class DateExceptionTest {
 	 */
 	@Test
 	void testSelectHour() {
-		/*verifica che venga lanciata l'eccezione in caso le date da convertire siano scritte
+		/**
+		 * verifica che venga lanciata l'eccezione in caso le date da convertire siano scritte
 		 * in modo scorretto
 		 */
 		InvalidDateException thrown = assertThrows(

@@ -1,14 +1,11 @@
 package it.univpm.progetto.filter;
 
 import java.lang.reflect.InvocationTargetException;
-
-
 import java.lang.reflect.Method;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collection;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.Iterator;
@@ -25,14 +22,17 @@ import it.univpm.progetto.exceptions.InvalidHourException;
 import it.univpm.progetto.model.Tweet;
 
 
-/**Classe contenente metodi per il filtraggio, implementa l'interfaccia Utils
+/**
+ * Classe contenente metodi per il filtraggio, implementa l'interfaccia Utils
+ * 
  * @author Ivan Pacenti
  *
- * @param <T> parametro generico
  */
-public class FilterUtils<T> implements Utils{
+public class FilterUtils implements Utils{
 	
-	/**metodo che controlla se un oggetto verifica o meno la condizione del filtro
+	/**
+	 * Metodo che controlla se un oggetto verifica o meno la condizione del filtro
+	 * 
 	 * @param value valore del tweet da controllare 
 	 * @param operator operatore che specifica il metodo di verifica
 	 * @param th valore effettivo da utilizzare pe il controllo
@@ -54,16 +54,17 @@ public class FilterUtils<T> implements Utils{
 	}
 	
 	/** Metodo che si occupa del controllo dei tweet
-	 * @param src collezione generica presa in input, da filtrare
+	 * 
+	 * @param src collezione di tweet presa in input, da filtrare
 	 * @param fieldName campo da filtrare
 	 * @param operator operatore per filtrare
 	 * @param value valore da utilizzare per la verifica 
 	 * @return una lista di tweet che hanno superato le condizioni del filtro
 	 * @throws InvalidFilterException eccezione lanciata in caso di invalidità del campo da filtrare, inserito in input
 	 */
-	public Collection<T> select(Collection<T> src, String fieldName, String operator, Object value) throws InvalidFilterException {
-		Collection<T> out = new ArrayList<T>();
-		for(T item:src) {
+	public List<Tweet> select(List<Tweet> src, String fieldName, String operator, Object value) throws InvalidFilterException {
+		List<Tweet> out = new ArrayList<>();
+		for(Tweet item:src) {
 			try {
 				Method m = item.getClass().getMethod("get"+fieldName.substring(0, 1).toUpperCase()+
 						fieldName.substring(1),null);
@@ -91,7 +92,9 @@ public class FilterUtils<T> implements Utils{
 		return out;
 	}
 	
-	/**metodo che filtra i tweet per data 
+	/**
+	 * Metodo che filtra i tweet per data 
+	 * 
 	 * @param tweets lista di tweet da filtrare
 	 * @param from stringa contenente una data per filtrare
 	 * @param to stringa contenete un'altra data per filtrare
@@ -104,11 +107,12 @@ public class FilterUtils<T> implements Utils{
 	 * @throws EmptyCollectionListException eccezione personalizzata per gestire l'output di eventuali liste vuote 
 	 * @throws InvalidDateException eccezione lanciata in caso di formati invalidi dei parametri "from" e "to" in input
 	 */
-	public  List<Tweet> selectDate(List<Tweet> tweets, String from, String to)  throws ParseException, EmptyCollectionListException, InvalidDateException
+	@Override
+	public List<Tweet> selectDate(List<Tweet> tweets, String from, String to) 
+			throws ParseException, EmptyCollectionListException, InvalidDateException
 	{
 		List<Tweet> result=new ArrayList<>(tweets);
 		Iterator<Tweet> iterator=result.iterator();
-		//if(tweets.isEmpty()) throw new EmptyCollectionListException("You have to download some tweets before!");
 		if((from!=null))
 		{
 
@@ -142,7 +146,9 @@ public class FilterUtils<T> implements Utils{
 		return result;
 	}
 	
-	/**Metodo che filtra i tweet in base all'ora
+	/**
+	 * Metodo che filtra i tweet in base all'ora
+	 * 
 	 * @param tweets lista di tweet da filtrare
 	 * @param from stringa contenente un'ora per filtrare
 	 * @param to stringa contenete un'altra ora per filtrare
@@ -155,6 +161,7 @@ public class FilterUtils<T> implements Utils{
 	 * @throws EmptyCollectionListException eccezione personalizzata per gestire l'output di eventuali liste vuote 
 	 * @throws InvalidHourException eccezione lanciata in caso di formati invalidi dei parametri "from" e "to" in input
 	 */
+	@Override
 	public  List<Tweet> selectHour(List<Tweet> tweets, String from, String to)  
 			throws ParseException, EmptyCollectionListException, InvalidHourException
 	{
@@ -162,14 +169,10 @@ public class FilterUtils<T> implements Utils{
 		List<Tweet> result=new ArrayList<>(tweets);
 		Iterator<Tweet> iterator=result.iterator();
 		Calendar getdate = Calendar.getInstance(Locale.US);
-		//if(tweets.isEmpty()) throw new EmptyCollectionListException("You have to download some tweets before!");
 		if((from!=null))
 		{
 			int hour=Integer.parseInt(from);
 			if(hour<0||hour>24) throw new InvalidHourException("Please insert a valid hour of the format: hh");
-
-			//Date parsedbeginhour=new SimpleDateFormat("HH").parse(from);
-
 			while(iterator.hasNext())
 			{	
 				Tweet t=iterator.next();
@@ -198,7 +201,9 @@ public class FilterUtils<T> implements Utils{
 		return result;
 	}
 
-	/**Metodo che calcola media, varianza, engagement più alto e più basso di una lista di tweet
+	/**
+	 * Metodo che calcola media, varianza, engagement più alto e più basso di una lista di tweet
+	 * 
 	 * @param tmp lista di tweet da analizzare
 	 * @param tot totale utilizzato per calcolare la media
 	 * @param average media
@@ -209,6 +214,7 @@ public class FilterUtils<T> implements Utils{
 	 * @return tabella con statistiche, contenente anche il numero di tweet analizzati
 	 *
 	 */
+	@Override
 	public Map<String,Object> analyze(List<Tweet> tmp) 
 	{
 		Double tot=0.0;
@@ -216,8 +222,9 @@ public class FilterUtils<T> implements Utils{
 		Double variance=0.0;
 		Double maxengagement=0.0;
 		Double minengagement=0.0;
-		//in caso di lista vuota di tweet da analizzare, 
-		//ho voluto stampare una tabella vuota invece di lanciare un'eccezione
+		/**In caso di lista vuota di tweet da analizzare, 
+		 * si è voluto stampare una tabella vuota invece di lanciare un'eccezione
+		 */
 		if(!tmp.isEmpty()) 
 		{
 			for(Tweet t:tmp) 
@@ -240,7 +247,8 @@ public class FilterUtils<T> implements Utils{
 					.getEngagement();
 
 		}
-		//utlizzo una LinkedHashMap poichè voglio mantenere ordine sulle righe dei valori
+		/*Si utilizza una LinkedHashMap poichè si vuole mantenere ordine sulle righe dei valori
+		 */
 		Map<String,Object> map=new LinkedHashMap<>();
 		map.put("Tweets analized", tmp.size());
 		map.put("Average engagement", average);

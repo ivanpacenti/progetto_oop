@@ -5,34 +5,43 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 
 
-/**Classe utilizzata per la deserializzazione di dati contenenti account, ricevuti dalla API di twitter
+/**
+ * Classe utilizzata per la deserializzazione di dati contenenti account, ricevuti dalla API di twitter
+ * @param JsonIgnoreProperties ignora le proprietà del file JSON che non corrispondono a nessuno degli attributi di questa classe
  * @author Ivan Pacenti
  *
  */
-@JsonIgnoreProperties(ignoreUnknown = true) //ignora le proprietà del file JSON che non corrispondono a nessuno degli attributi di questa classe
+@JsonIgnoreProperties(ignoreUnknown = true) 
 public class Account {
-	@JsonAlias("id_str")//significa che in lettura, i valori "id_str" andranno nella variabile "id"
+	/**
+	 * significa che in lettura, i valori "id_str" andranno nella variabile "id"
+	 */
+	@JsonAlias("id_str")
 	private String id;
 	private String name;
 	@JsonAlias("screen_name")
 	private String username;
 	@JsonAlias("followers_count")
 	private int followers;	
-	/**rappresenta il numero di utenti che l'account segue
+	/**
+	 * rappresenta il numero di utenti che l'account segue
 	 */
 	@JsonAlias("friends_count")
 	private int following;
-	/**rappresenta il numero di liste in cui l'utente è stato inserito
+	/**
+	 * rappresenta il numero di liste in cui l'utente è stato inserito
 	 */
 	@JsonAlias("listed_count")
 	private int listed;
-	/**rappresenta il totale dei tweet creati dall'utente, dalla creazione dell'account
+	/**
+	 * rappresenta il totale dei tweet creati dall'utente, dalla creazione dell'account
 	 */
 	@JsonAlias("statuses_count")
 	private int statuses;
 	
 	
-	/**costruttore vuoto necessario per il funzionamento della libreria Jackson
+	/**
+	 * costruttore vuoto necessario per il funzionamento della libreria Jackson
 	 */
 	public Account() {}
 

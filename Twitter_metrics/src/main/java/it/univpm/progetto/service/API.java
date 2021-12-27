@@ -7,8 +7,10 @@ import it.univpm.progetto.exceptions.InputStreamException;
 
 
 
-/**Interfaccia conenente un motodo per il download dei dati 
+/**
+ * Interfaccia conenente un motodo per il download dei dati 
  * dall'API di twitter
+ * 
  * @author Ivan Pacenti
  *
  */
