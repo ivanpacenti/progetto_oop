@@ -2,9 +2,6 @@ package it.univpm.progetto.service;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-
-
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -18,24 +15,15 @@ import org.junit.jupiter.api.Test;
 class ConnectionTest {
 	DataService service=new DataService();
 	/**
-	 * @throws java.lang.Exception
 	 * Test di connessione all'API di twitter, verifica che 
 	 * i dati scaricati non siano nulli
+	 * @throws java.lang.Exception
+	 * 
 	 */
 	@BeforeEach
 	void setUp() throws Exception {
 		
 		service.getTweets("7014762",200,false,false);
-	}
-	
-
-	
-	/**
-	 * @throws java.lang.Exception
-	 */
-	@AfterEach
-	void tearDown() throws Exception {
-		
 	}
 
 	/**
@@ -44,8 +32,6 @@ class ConnectionTest {
 	 */
 	@Test
 	void testGetData() {
-		/*verifica che i dati ricevuti non siano nulli
-		 */
 		assertNotEquals(service.getTweets(), "");
 	}
 }

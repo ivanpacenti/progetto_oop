@@ -119,7 +119,14 @@ public class DataService {
 		if(accounts.isEmpty()) throw new EmptyCollectionListException("No users found");
 		return accounts;
 	}
-
+	
+	/**
+	 * @return lista di tweet
+	 */
+	public List<Tweet> getTweets() {
+		return tweets;
+	}
+	
 	/**
 	 * restituisce una lista di tweet pubblici, relativi al parametro id inserito
 	 * 
@@ -133,7 +140,8 @@ public class DataService {
 	 * debba essere restituita in uscita una collezione vuota
 	 * @throws InputStreamException eccezione personalizzaata, lanciata in caso di errori nello stream in input
 	 */
-	public List<Tweet> getTweets(String id,int count,Boolean show_retweets,Boolean show_replies) throws IOException, EmptyCollectionListException, InputStreamException
+	public List<Tweet> getTweets(String id,int count,Boolean show_retweets,Boolean show_replies) 
+			throws IOException, EmptyCollectionListException, InputStreamException
 	{
 		String url=TWEET_API_URL.replaceAll("<id>", id).replace("<count>", Integer.toString(count))
 				.replaceAll("<rtws>", show_retweets.toString()).replaceAll("<rpls>",show_replies.toString());
@@ -350,12 +358,7 @@ public class DataService {
 		}
 	}
 
-	/**
-	 * @return lista di tweet
-	 */
-	public List<Tweet> getTweets() {
-		return tweets;
-	}
+	
 
 
 	/**

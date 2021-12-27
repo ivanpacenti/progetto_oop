@@ -22,33 +22,27 @@ import it.univpm.progetto.model.Tweet;
 class HourExceptionTest {
 	FilterUtils prova=new FilterUtils();
 	List<Tweet> tweets=new ArrayList<>();
+	InvalidHourException thrown;
+	
 	/**
+	 * Viene utilizzato il metodo  {@link it.univpm.progetto.filter.FilterUtils#selectHour} 
+	 * con il valore 31, che non dovrebbe essere ammesso
+	 * 
 	 * @throws java.lang.Exception
 	 */
 	@BeforeEach
 	void setUp() throws Exception {
+		thrown = assertThrows(
+		           InvalidHourException.class,
+		           () -> prova.selectHour(tweets, "31", "18"));
 	}
 
 	/**
-	 * @throws java.lang.Exception
-	 */
-	@AfterEach
-	void tearDown() throws Exception {
-	}
-
-	/**
+	 * Verifica che venga lanciata l'eccezione in caso le ore siano minori di 0 o maggiori di 24
 	 * Test method for {@link it.univpm.progetto.filter.FilterUtils#selectHour(java.util.List, java.lang.String, java.lang.String)}.
 	 */
 	@Test
 	void testSelectHour() {
-		/*Verifica che venga lanciata l'eccezione in caso le ore siano minori di 0 o maggiori di 24
-		 */
-		InvalidHourException thrown = assertThrows(
-		           InvalidHourException.class,
-		           () -> prova.selectHour(tweets, "31", "18"),
-		           "asd"
-		    );
-
 		    assertTrue(thrown.getMessage().contains("Please insert a valid hour of the format: hh"));	
 	}
 

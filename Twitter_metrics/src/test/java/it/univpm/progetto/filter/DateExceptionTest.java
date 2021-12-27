@@ -42,19 +42,17 @@ class DateExceptionTest {
 	}
 
 	/**
+	 * verifica che venga lanciata l'eccezione in caso le date da convertire siano scritte
+	 * in modo scorretto
 	 * Test method for {@link it.univpm.progetto.filter.FilterUtils#selectHour(java.util.List, java.lang.String, java.lang.String)}.
 	 */
 	@Test
 	void testSelectHour() {
-		/**
-		 * verifica che venga lanciata l'eccezione in caso le date da convertire siano scritte
-		 * in modo scorretto
-		 */
+		
 		InvalidDateException thrown = assertThrows(
 		           InvalidDateException.class,
 		           () -> prova.selectDate(tweets, "01 as 20", "01 02 21"),
-		           "asd"
-		    );
+		           "asd");
 
 		    assertTrue(thrown.getMessage().contains("Please insert a valid date of the format: dd mm yy"));
 	}
