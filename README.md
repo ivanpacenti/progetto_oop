@@ -59,11 +59,11 @@ L'obiettivo era di analizzare le metriche di engagement di una lista di tweet de
 
 ### Strumenti utilizzati
 
-### [Java](https://www.java.com/)
-### [Eclipse](https://www.eclipse.org/)
-### [Spring Boot](https://spring.io/projects/spring-boot)
-### [Postman](https://postman.com/)
-### [iA Writer](https://ia.net/it/writer/)
+[Java](https://www.java.com/)  
+[Eclipse](https://www.eclipse.org/)  
+[Spring Boot](https://spring.io/projects/spring-boot)  
+[Postman](https://postman.com/)  
+[iA Writer](https://ia.net/it/writer/)  
 
 ### Attenzione
 
@@ -88,15 +88,15 @@ Per il testing delle rotte è consigliato un software come [Postman](https://pos
 
 
 ### Installazione
-### Digitare il seguente comando da terminale per scaricare la cartella:   
+* Digitare il seguente comando da terminale per scaricare la cartella:   
 `git clone https://github.com/ivanpacenti/progetto_oop`
-### Importare il progetto in un IDE, ad esempio Eclipse
-### Avviare l'applicazione come Spring Boot App
+ * Importare il progetto in un IDE, ad esempio Eclipse
+ * Avviare l'applicazione come Spring Boot App
 
-Oppure:
-### Scaricare il file `twitter_metrics.jar` dentro la cartella `target/`
-### Aprire un terminale e spostarsi nella cartella di download del file
-### Digitare il comando `java -jar twitter_metrics.jar`
+Oppure:  
+* Scaricare il file `twitter_metrics.jar` dentro la cartella `target/`
+* Aprire un terminale e spostarsi nella cartella di download del file
+* Digitare il comando `java -jar twitter_metrics.jar`
 
 A questo punto, con il programma in esecuzione, è possibile utilizzare un software come Postman per interrogare le varie rotte elencate nella sezione apposita.  
 Si ricorda che di default l'applicazione è impostata per l'ascolto sulla porta 8080, quindi se avete altri servizi già attivi riceverete un messaggio di errore e il programma non si avvierà.  
