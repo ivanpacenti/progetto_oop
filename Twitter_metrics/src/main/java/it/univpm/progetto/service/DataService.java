@@ -363,7 +363,7 @@ public class DataService implements Filter{
 	}
 
 	/**
-	 * setta i tweets
+	 * setter dei tweets
 	 * 
 	 * @param tweets
 	 */
