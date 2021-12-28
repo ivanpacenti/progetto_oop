@@ -130,11 +130,33 @@ Se utilizzate il file `twitter_metrics.jar` dovete per forza ricompilare il pacc
 |:--|:--|:--|
 | query | si | Una parola chiave associata all'utente che stiamo cercando. |
 
+Output:
+```yaml
+{
+    `"id": "1304170778",`
+    `"name": "UnivPM",`
+    `"username": "@UnivPoliMarche",`
+    `"followers": 4206,`
+    `"listed": 87,`
+    `"statuses": 6881,`
+    `"friends": 0`
+}
+```
+
 #### <a name="collectionslist">`GET /search/collections`</a>
 
 | Parametro | Obbligatorio | Descrizione|
 |:--|:--|:--|
 | id | si | Identificativo dell'account di cui vogliamo visualizzare le collezioni di tweet, se presenti. |
+
+Output:
+```yaml
+"CNN Heroes 2020": {
+        "name": "CNN Heroes 2020",
+        "description": "Get inspired by everyday people doing extraordinary things to change the world.",
+        "id": "custom-1338291525168623617"
+    }
+```
 
 #### <a name="tweets">`GET /tweets‌`</a>
 
@@ -145,12 +167,39 @@ Se utilizzate il file `twitter_metrics.jar` dovete per forza ricompilare il pacc
 | replies | no | Valore booleano, impostare true se si vogliono scaricare anche i tweet di risposta. Il valore di default è false. |
 | retweets | no | Valore booleano, impostare true se si vogliono scaricare anche i retweet. Il valore di default è false.|
 
+Output:
+```yaml
+{
+        "created_at": "Wed Dec 15 21:01:31 +0100 2021",
+        "id": "1471208822542848001",
+        "text": "L'Univpm lancia la nuova infrastruttura  ",
+        "entities": {
+            "hashtags": [],
+            "mentions": []
+        },
+        "stats": {
+            "username": "@UnivPoliMarche",
+            "followers": 4206,
+            "following": 0,
+            "listed": 87,
+            "likes": 4,
+            "retweets": 1,
+            "hashtags": 0,
+            "mentions": 0,
+            "engagement": 0.11888
+        }
+    }
+```
+
 #### <a name="collections">`GET /collections`</a>
 
 | Parametro | Obbligatorio | Descrizione|
 |:--|:--|:--|
 | timeline | si | Identificativo della collezione di tweet che vogliamo visualizzare. |
 | count | no | Numero di tweet che vogliamo visualizzare, il massimo è 200 e in sua assenza se ne scaricheranno 50. |
+
+Output:
+Uguale a tweet.
 
 #### <a name="filter">`GET /filter‌`</a>
 
@@ -160,6 +209,8 @@ Se utilizzate il file `twitter_metrics.jar` dovete per forza ricompilare il pacc
 | op | si | Operatore per filtrare, accettati solo > < ==.|
 | val | si | Valore che si vuole usare per filtrare i tweet. |
 
+Output:
+Uguale a tweet.
 
 #### <a name="date">`GET /filter/date`</a>
 
@@ -169,7 +220,40 @@ Se utilizzate il file `twitter_metrics.jar` dovete per forza ricompilare il pacc
 | to_hour | no | Accetta solo valori del tipo HH, inserire per visualizzare i tweet creati prima dell'ora inserita dalla mezzanotte del giorno prima. |
 | from_day | no | Accetta solo valori del tipo dd mm yy, inserire per visualizzare i tweet creati dopo la data inserita.|
 | to_day | no | Accetta solo valori del tipo dd mm yy, inserire per visualizzare i tweet creati prima della data inserita |
- 
+
+Output:
+```yaml
+{
+    "analytics": {
+        "Tweets analized": 8,
+        "Average engagement": 0.00100375,
+        "Variance of engagement": 7.111734374999998E-7,
+        "Higher engagement": 0.00313,
+        "Lower engagement": 3.7E-4
+    },
+    "tweets": [
+        {
+            "created_at": "Tue Sep 22 18:44:24 +0200 2020",
+            "id": "1308447064582483968",
+            "text": "Covid-19 is now the second-leading cause of death in the US, just after heart disease, according to the University… ",
+            "entities": {
+                "hashtags": [],
+                "mentions": []
+            },
+            "stats": {
+                "username": "@CNN",
+                "followers": 55710122,
+                "following": 0,
+                "listed": 151158,
+                "likes": 130,
+                "retweets": 92,
+                "hashtags": 0,
+                "mentions": 0,
+                "engagement": 4.0E-4
+            },
+            "reply_to": "@CNN"
+        }
+```
 	 
 #### <a name="metadata">`GET /metadata/{type}`</a>
 
@@ -180,6 +264,7 @@ Se utilizzate il file `twitter_metrics.jar` dovete per forza ricompilare il pacc
 | /tweets | Visualizza i metadati della rotta `/tweets`  |  
 | /analytics | Visualizza i metadati della rotta `/filter/date`  |  
 
+Output: descrizione delle proprietà JSON, con alias e tipo di valore.
 
 
 <p align="right">(<a href="#top">back to top</a>)</p>
