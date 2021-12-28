@@ -133,13 +133,13 @@ Se utilizzate il file `twitter_metrics.jar` dovete per forza ricompilare il pacc
 Output:
 ```yaml
 {
-    `"id": "1304170778",`
-    `"name": "UnivPM",`
-    `"username": "@UnivPoliMarche",`
-    `"followers": 4206,`
-    `"listed": 87,`
-    `"statuses": 6881,`
-    `"friends": 0`
+        "id": "1304170778",
+        "name": "UnivPM",
+        "username": "@UnivPoliMarche",
+        "followers": 4206,
+        "following": 1016,
+        "listed": 0,
+        "statuses": 6881
 }
 ```
 
@@ -151,11 +151,11 @@ Output:
 
 Output:
 ```yaml
-"CNN Heroes 2020": {
-        "name": "CNN Heroes 2020",
-        "description": "Get inspired by everyday people doing extraordinary things to change the world.",
-        "id": "custom-1338291525168623617"
-    }
+"CNN's live debate draw": {
+        "name": "CNN's live debate draw",
+        "description": "CNN held a live draw to determine the candidate lineup for each night of the 2020 Democratic debate in Detroit, Michigan, on July 30 and 31.",
+        "id": "custom-1152025267801661440"
+}
 ```
 
 #### <a name="tweets">`GET /tweets‌`</a>
@@ -180,7 +180,7 @@ Output:
         "stats": {
             "username": "@UnivPoliMarche",
             "followers": 4206,
-            "following": 0,
+            "following": 1016,
             "listed": 87,
             "likes": 4,
             "retweets": 1,
@@ -223,38 +223,52 @@ Uguale a tweet.
 
 Output:
 ```yaml
-{
-    "analytics": {
-        "Tweets analized": 8,
-        "Average engagement": 0.00100375,
-        "Variance of engagement": 7.111734374999998E-7,
-        "Higher engagement": 0.00313,
-        "Lower engagement": 3.7E-4
+"analytics": {
+        "Tweets analized": 26,
+        "Average engagement": 0.06767038461538462,
+        "Variance of engagement": 0.005117544842159764,
+        "Higher engagement": 0.30908,
+        "Lower engagement": 0.0
     },
     "tweets": [
-        {
-            "created_at": "Tue Sep 22 18:44:24 +0200 2020",
-            "id": "1308447064582483968",
-            "text": "Covid-19 is now the second-leading cause of death in the US, just after heart disease, according to the University… ",
+        "created_at": "Tue Dec 14 09:53:42 +0100 2021",
+            "id": "1470678373097684992",
+            "text": "RT Oggi in Ambasciata firma dell’Accordo di collaborazione nel campo della perinatalità tra e le Universit…",
             "entities": {
                 "hashtags": [],
-                "mentions": []
+                "mentions": [
+                    {
+                        "name": "Italy in France",
+                        "username": "@ItalyinFrance",
+                        "id": "968165303766134786"
+                    },
+                    {
+                        "name": "Univ. Paris-Saclay",
+                        "username": "@UnivParisSaclay",
+                        "id": "2238902785"
+                    }
+                ]
             },
             "stats": {
-                "username": "@CNN",
-                "followers": 55710122,
-                "following": 0,
-                "listed": 151158,
-                "likes": 130,
-                "retweets": 92,
+                "username": "@UnivPoliMarche",
+                "followers": 4206,
+                "following": 1016,
+                "listed": 0,
+                "likes": 0,
+                "retweets": 13,
                 "hashtags": 0,
-                "mentions": 0,
-                "engagement": 4.0E-4
-            },
-            "reply_to": "@CNN"
+                "mentions": 2,
+                "engagement": 0.30908
+            }            
         }
+]
 ```
-	 
+ 
+##### Utilizzo del filtro:
+E' possibile utilizzare i parametri di questa rotta in modo completamente flessibile. Ad esempio, possiamo utilizzare from_hour con un valore di 18: visualizzeremo solo i tweet creati dopo le 18 di qualsiasi giorno.
+Aggiungendo il parametro to_hour, ad esempio con un valore di 22, visualizzeremo i tweet creati nella fascia oraria 18-22 di qualsiasi giorno.   
+Lo stesso metodo funziona per i parametri from_day e to_day, che possiamo aggiungere ai parametri precedenti o utilizzare in autonomia.
+
 #### <a name="metadata">`GET /metadata/{type}`</a>
 
 | Path Variable | Descrizione|
