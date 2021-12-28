@@ -2,6 +2,8 @@ package it.univpm.progetto.model;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 
 
@@ -13,6 +15,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
  *
  */
 @JsonIgnoreProperties(ignoreUnknown = true) 
+@JsonPropertyOrder({"id", "name","username", "followers", "following","listed","statuses" })
 public class Account {
 	/**
 	 * Significa che in lettura, i valori "id_str" andranno nella variabile "id"
@@ -23,11 +26,7 @@ public class Account {
 	@JsonAlias("screen_name")
 	private String username;
 	@JsonAlias("followers_count")
-	private int followers;	
-	/**
-	 * rappresenta il numero di utenti che l'account segue
-	 */
-	@JsonAlias("friends_count")
+	private int followers;
 	private int following;
 	/**
 	 * rappresenta il numero di liste in cui l'utente è stato inserito
@@ -71,10 +70,18 @@ public class Account {
 		return followers;
 	}
 	/**
-	 * @return the friends
+	 * @return the following
 	 */
-	public int getFriends() {
+    @JsonProperty("following")
+	public int getFollowing() {
 		return following;
+	}
+	/**
+	 * @param following the following to set
+	 */
+	@JsonProperty("friends_count")
+	public void setFollowing(int following) {
+		this.following = following;
 	}
 	/**
 	 * @return the listed
@@ -112,12 +119,7 @@ public class Account {
 	public void setFollowers(int followers) {
 		this.followers = followers;
 	}
-	/**
-	 * @param friends the friends to set
-	 */
-	public void setFriends(int friends) {
-		this.following = friends;
-	}
+	
 	/**
 	 * @param listed the listed to set
 	 */
@@ -129,7 +131,5 @@ public class Account {
 	 */
 	public void setStatuses(int statuses) {
 		this.statuses = statuses;
-	}
-	
-	
+	}	
 }

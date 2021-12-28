@@ -237,7 +237,7 @@ public class Tweet {
 	 */
 	public TweetStats getStats() {
 		this.stats = new TweetStats(this.getLikes(), this.getRetweets(),entities.getHashtags().size(),
-				entities.getMentions().size(),user.getFollowers(),user.getFriends(),
+				entities.getMentions().size(),user.getFollowers(),user.getFollowing(),
 				user.getListed(),user.getUsername());
 		
 		return stats;
