@@ -31,15 +31,15 @@ import it.univpm.progetto.service.DataService;
 @RestController
 public class Controller {
 	/*
-	 * Annotazione necessaria affinchè vengano usate
-	 * le dipendenze delle classi gestite da Springboot tramite
-	 * l'annotazione @Component
+	 * Annotazione necessaria affinchè Springboot 
+	 * utilizzi la classe {@link it.univpm.progetto.service.DataService},
+	 * annotata con @Component
 	 */
 	@Autowired 
 	private DataService service;
 	
 	/**
-	 * Restituisce un elenco di accounts relativi alla query inserita
+	 * Restituisce un elenco di account relativi alla query inserita
 	 * 
 	 * @param query parola chiave relativa all'account che cerchiamo
 	 * @return una lista di oggetti di tipo Account
@@ -52,6 +52,7 @@ public class Controller {
 	searchAccounts(@RequestParam(value="query",required=true) String query) 
 			throws IOException, InputStreamException, EmptyCollectionListException 
 	{
+		if(query=="") throw new EmptyCollectionListException("Request parameter query cannot be empty");
 		return new ResponseEntity<List<Account>>(service.getAccounts(query),HttpStatus.OK);
 	}
 	
@@ -75,8 +76,8 @@ public class Controller {
 	/**
 	 * Restituisce una lista di tweets, in base all'id utente inserito
 	 * 
-	 * @param id identificativo dell'account utente di cui vogliamo cercare eventuali tweet 
-	 * @param count numero di tweet che vogliamo scaricare, il massimo è 200
+	 * @param id identificativo dell'account utente di cui vogliamo cercare eventuali tweet, per default impostato sull'id dell'UNIVPM
+	 * @param count numero di tweet che vogliamo scaricare, il massimo è 200 e nel conteggio sono inclusi sia i retweets che i tweet normali
 	 * @param show_replies valore booleano, inserire true se si vogliono visualizzare anche le risposte effettuate dall'utente.
 	 * Twitter utilizza una logica contraria (exclude_replies), quindi utilizzo il ! per correggere la chiamata all'API
 	 * @param show_retweets valore booleano, inserire true se si vogliono visualizzare anche i retweet fatti dall'utente
@@ -87,17 +88,18 @@ public class Controller {
 	 */
 	@GetMapping("/tweets")
 	public ResponseEntity<List<Tweet>> getTweets
-	(@RequestParam(value="id",required=true) String id,
+	(@RequestParam(value="id",defaultValue="1304170778") String id,
 			@RequestParam(value="count", defaultValue = "50") int count,
 			@RequestParam(value="replies",defaultValue="false") Boolean show_replies,
-			@RequestParam(value="retweets",defaultValue="false") Boolean show_retweets)  throws  IOException, EmptyCollectionListException, InputStreamException
+			@RequestParam(value="retweets",defaultValue="false") Boolean show_retweets)  
+					throws  IOException, EmptyCollectionListException, InputStreamException
 			
 	{
 		return new ResponseEntity<List<Tweet>>(service.getTweets(id,count,show_retweets,!show_replies),HttpStatus.OK);
 	}
 	
 	/**
-	 * Restituisce i tweet relativi all'id collezione inserito
+	 * Restituisce i tweet contenuti nella collezione di cui si inserisce l'id
 	 * 
 	 * @param timeline identificativo della collezione che vogliamo visualizzare	
 	 * @param count numero di tweet che vogliamo scaricare, il massimo è 200

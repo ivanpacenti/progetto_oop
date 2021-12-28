@@ -82,11 +82,11 @@ public abstract class UserStats {
 		this.listed = listed;
 	}
 	/**
-	 * metodo astratto, ripreso nella classe {@link it.univpm.progetto.stats.TweetStats}
+	 * Metodo astratto, ripreso nella classe {@link it.univpm.progetto.stats.TweetStats}
 	 */
-	public abstract void setEngagement();
+	abstract void setEngagement();
 	/**
-	 * metodo astratto, ripreso nella classe {@link it.univpm.progetto.stats.TweetStats}
+	 * Metodo astratto, ripreso nella classe {@link it.univpm.progetto.stats.TweetStats}
 	 */
-	public abstract double getEngagement();
+	abstract double getEngagement();
 }

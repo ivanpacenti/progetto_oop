@@ -56,16 +56,24 @@ public class Tweet {
 	@JsonProperty(access=JsonProperty.Access.READ_ONLY)
 	private TweetStats stats;
 	/**
+	 * Indica l'utente a cui il tweet risponde
+	 * 
 	 * @param JsonInclude indica la modalità di inclusione dell'attributo nel JSON in uscita
 	 * @param NON_NULL indica che verrà inserito solo se non nullo
 	 */
 	@JsonAlias("in_reply_to_screen_name")
 	@JsonInclude(JsonInclude.Include.NON_NULL)
 	private String reply_to;
+	/**
+	 * tweet originale, che è stato retwittato
+	 */
 	@JsonAlias("retweeted_status")
 	@JsonInclude(JsonInclude.Include.NON_NULL)
 	private Tweet original_tweet;
 	@JsonAlias("quoted_status")
+	/**
+	 * tweet quotato
+	 */
 	@JsonInclude(JsonInclude.Include.NON_NULL)
 	private Tweet quoted_tweet;
 	
@@ -151,7 +159,8 @@ public class Tweet {
 	 * Jackson utilizza i setters per la serializzazione dei dati in entrata, 
 	 * quindi per un testo dei tweet più chiaro da leggere
 	 * vengono rimossi eventuali hashtag, menzioni e link URL
-	 * i metodi ReplaceAll leggono una espressione regex, che indica un insieme di stringhe della stringa @param text
+	 * <p>
+	 * I metodi ReplaceAll leggono una espressione regex, che indica un insieme di stringhe della stringa @param text
 	 * e le cancellano tutte
 	 * 
 	 * @param text the text to set
