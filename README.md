@@ -59,11 +59,11 @@ L'obiettivo era di analizzare le metriche di engagement di una lista di tweet de
 
 ### Strumenti utilizzati
 
-* [Java](https://www.java.com/)
-* [Eclipse](https://www.eclipse.org/)
-* [Spring Boot](https://spring.io/projects/spring-boot)
-* [Postman](https://postman.com/)
-* [iA Writer] (https://ia.net/it/writer)
+### [Java](https://www.java.com/)
+### [Eclipse](https://www.eclipse.org/)
+### [Spring Boot](https://spring.io/projects/spring-boot)
+### [Postman](https://postman.com/)
+### [iA Writer](https://ia.net/it/writer/)
 
 ### Attenzione
 
@@ -88,15 +88,15 @@ Per il testing delle rotte è consigliato un software come [Postman](https://pos
 
 
 ### Installazione
-* Digitare il seguente comando da terminale per scaricare la cartella:   
+### Digitare il seguente comando da terminale per scaricare la cartella:   
 `git clone https://github.com/ivanpacenti/progetto_oop`
-* Importare il progetto in un IDE, ad esempio Eclipse
-* Avviare l'applicazione come Spring Boot App
+### Importare il progetto in un IDE, ad esempio Eclipse
+### Avviare l'applicazione come Spring Boot App
 
 Oppure:
-* Scaricare il file `twitter_metrics.jar` dentro la cartella `target/`
-* Aprire un terminale e spostarsi nella cartella di download del file
-* Digitare il comando `java -jar twitter_metrics.jar`
+### Scaricare il file `twitter_metrics.jar` dentro la cartella `target/`
+### Aprire un terminale e spostarsi nella cartella di download del file
+### Digitare il comando `java -jar twitter_metrics.jar`
 
 A questo punto, con il programma in esecuzione, è possibile utilizzare un software come Postman per interrogare le varie rotte elencate nella sezione apposita.  
 Si ricorda che di default l'applicazione è impostata per l'ascolto sulla porta 8080, quindi se avete altri servizi già attivi riceverete un messaggio di errore e il programma non si avvierà.  
@@ -108,64 +108,62 @@ Se utilizzate il file `twitter_metrics.jar` dovete per forza ricompilare il pacc
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 
-
 <!-- USAGE EXAMPLES -->
 ## Utilizzo
 
-### Rotte
+## Rotte
 
 | Tipo | Rotta | Descrizione |
 |:--|:--|:--|
-| `GET` | `‌/search/accounts` | `Restituisce un elenco di account relativi alla query inserita‌` |
-| `GET` | `‌/search/collections` | `Restituisce una lista di collezioni di tweet, relativa all'id utente inserito‌` |
-| `GET` | `/tweets‌` | `Restituisce fino agli ultimi 200 tweet relativi all'id collezione inserito‌` |
-| `GET` | `‌/collections` | `‌Restituisce i tweet contenuti nella collezione di cui si inserisce l'id` |
-| `GET` | `/filter‌` | `‌Filtra l'ultima lista di tweet scaricata` |
-| `GET` | `‌/filter/date` | `Restituisce dei tweet filtrati a seconda dei parametri inseriti, insieme a delle statistiche ‌` |
-| `GET` | `‌/metadata/{type}` | `Restitiusce i metadati relativi alla path variable inserita‌` |
+| **GET** |[`‌/search/accounts`](#accountslist) | Restituisce un elenco di account relativi alla query inserita‌ |
+| **GET** | [`‌/search/collections`](#collectionslist) | Restituisce una lista di collezioni di tweet, relativa all'id utente inserito‌ |
+| **GET** | [`/tweets‌`](#tweets) | Restituisce fino agli ultimi 200 tweet relativi all'id collezione inserito‌ |
+| **GET** | [`‌/collections`](#collections) | ‌Restituisce i tweet contenuti nella collezione di cui si inserisce l'id |
+| **GET** | [`/filter‌`](#filter) | ‌Filtra l'ultima lista di tweet scaricata |
+| **GET** | [`‌/filter/date`](#date) | Restituisce dei tweet filtrati a seconda dei parametri inseriti, insieme a delle statistiche ‌ |
+| **GET** | [`‌/metadata/{type}`](#metadata) | Restituisce i metadati relativi alla path variable inserita‌ |
 
-### Specifiche tecniche
-
-* `GET /search/accounts`
+## Specifiche tecniche
+#### <a name="accountslist">`GET /search/accounts`</a>
 
 | Parametro | Obbligatorio | Descrizione|
 |:--|:--|:--|
 | query | si | Una parola chiave associata all'utente che stiamo cercando. |
 
-* `GET /search/collections`
+#### <a name="collectionslist">`GET /search/collections`</a>
 
-| Parametri | Obbligatori | Descrizione|
+| Parametro | Obbligatorio | Descrizione|
 |:--|:--|:--|
 | id | si | Identificativo dell'account di cui vogliamo visualizzare le collezioni di tweet, se presenti. |
 
-* `GET /tweets‌`
+#### <a name="tweets">`GET /tweets‌`</a>
 
-| Parametri | Obbligatori | Descrizione|
+| Parametro | Obbligatorio | Descrizione|
 |:--|:--|:--|
 | id | no | Identificativo dell'account di cui vogliamo visualizzare i tweet. |
 | count | no | Numero di tweet che vogliamo visualizzare, il massimo è 200 e in sua assenza se ne scaricheranno 50. Twitter conta nel totale anche i retweets, anche se effettivamente non vengono scaricati. |
 | replies | no | Valore booleano, impostare true se si vogliono scaricare anche i tweet di risposta. Il valore di default è false. |
 | retweets | no | Valore booleano, impostare true se si vogliono scaricare anche i retweet. Il valore di default è false.|
 
-* `GET /collections`
+#### <a name="collections">`GET /collections`</a>
 
-| Parametri | Obbligatori | Descrizione|
+| Parametro | Obbligatorio | Descrizione|
 |:--|:--|:--|
 | timeline | si | Identificativo della collezione di tweet che vogliamo visualizzare. |
 | count | no | Numero di tweet che vogliamo visualizzare, il massimo è 200 e in sua assenza se ne scaricheranno 50. |
 
-* `GET /filter‌`
+#### <a name="filter">`GET /filter‌`</a>
 
-| Parametri | Obbligatori | Descrizione|
+| Parametro | Obbligatorio | Descrizione|
 |:--|:--|:--|
 | field | si | Campo del tweet che vogliamo utilizzare come filtro. |
 | op | si | Operatore per filtrare, accettati solo > < ==.|
 | val | si | Valore che si vuole usare per filtrare i tweet. |
 
 
-* `GET /filter/date`
+#### <a name="date">`GET /filter/date`</a>
 
-| Parametri | Obbligatori | Descrizione|
+| Parametro | Obbligatorio | Descrizione|
 |:--|:--|:--|
 | from_hour | no | Accetta solo valori del tipo HH, inserire per visualizzare i tweet creati dopo l'ora inserita fino alla mezzanotte dello stesso giorno. |
 | to_hour | no | Accetta solo valori del tipo HH, inserire per visualizzare i tweet creati prima dell'ora inserita dalla mezzanotte del giorno prima. |
@@ -173,7 +171,7 @@ Se utilizzate il file `twitter_metrics.jar` dovete per forza ricompilare il pacc
 | to_day | no | Accetta solo valori del tipo dd mm yy, inserire per visualizzare i tweet creati prima della data inserita |
  
 	 
-* `GET /metadata/{type}`
+#### <a name="metadata">`GET /metadata/{type}`</a>
 
 | Path Variable | Descrizione|
 |:--|:--|
