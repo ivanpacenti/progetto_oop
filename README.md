@@ -38,10 +38,15 @@
       </ul>
     </li>
     <li><a href="#utilizzo">Utilizzo</a></li>
+    <ul>
+        <li><a href="#rotte">Rotte</a></li>
+        <li><a href="#specifiche-tecniche">Specifiche tecniche</a></li>
+      </ul>
+    <li><a href="#eccezioni">Eccezioni</a></li>
+    <li><a href="#test">Test</a></li>
+    <li><a href="#documentazione">Documentazione</a></li>
     <li><a href="#contributi">Contributi</a></li>
-    <li><a href="#license">License</a></li>
-    <li><a href="#contact">Contact</a></li>
-    <li><a href="#acknowledgments">Acknowledgments</a></li>
+    
   </ol>
 </details>
 
@@ -51,7 +56,8 @@
 ## Introduzione
 
 Progetto creato per l'esame di Programmazione ad oggetti 2021\2022 dell'Università Politecnica delle Marche.
-L'obiettivo era di analizzare le metriche di engagement di una lista di tweet dell'Università, ma si è deciso di ampliare il servizio a qualsiasi account pubblico.
+Come obiettivo bisognava creare un' applicazione web che analizzasse e fornisse statistiche, interfacciandosi alle API di Twitter, di una lista di tweet dell'Università.
+Una volta completato il compito, si è deciso di ampliare il servizio a qualsiasi account pubblico, in modo tale da essere utile a chiunque voglia studiare le dinamiche delle metriche di engagement del famoso Social Network.
 
 
 <p align="right">(<a href="#top">torna all'inizio</a>)</p>
@@ -60,7 +66,7 @@ L'obiettivo era di analizzare le metriche di engagement di una lista di tweet de
 
 ### Strumenti utilizzati
 
-<p align="left">  <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/java/java-original.svg" alt="java" width="15" height="15"/> [Java](https://www.java.com/)  
+<img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/java/java-original.svg" alt="java" width="15" height="15"/> [Java](https://www.java.com/)  
 <img src="https://www.nicepng.com/png/full/264-2648074_eclipse-logo-png-transparent-eclipse-ide.png" alt="spring" width="15" height="15"/> [Eclipse](https://www.eclipse.org/)  
 <img src="https://www.vectorlogo.zone/logos/springio/springio-icon.svg" alt="spring" width="15" height="15"/> [Spring Boot](https://spring.io/projects/spring-boot)  
 <img src="https://www.svgrepo.com/show/354202/postman-icon.svg" alt="spring" width="15" height="15"/> [Postman](https://postman.com/)  
@@ -68,7 +74,7 @@ L'obiettivo era di analizzare le metriche di engagement di una lista di tweet de
 
 ### Attenzione
 
-> Per evitare i lunghi tempi di attesa per ricevere un token di autenticazione, il collegamento alle API avviene tramite un proxy. E' comunque possibile cambiare gli URL di riferimento, presenti tutti nella stessa classe.
+> Per evitare i lunghi tempi di attesa per ricevere un token di autenticazione, il collegamento alle API avviene tramite un proxy. E' comunque possibile cambiare gli URL di riferimento, presenti tutti nella stessa [classe](https://github.com/ivanpacenti/progetto_oop/blob/main/Twitter_metrics/src/main/java/it/univpm/progetto/service/DataService.java).
 L'applicazione sfrutta le API Standard versione 1.1, non si assicura la compatibilità con versioni successive.
 
 
@@ -131,7 +137,7 @@ Se utilizzate il file `twitter_metrics.jar` dovete per forza ricompilare il pacc
 |:--|:--|:--|
 | query | si | Una parola chiave associata all'utente che stiamo cercando. |
 
-Output:
+<details><summary>Modello:</summary>
 ```yaml
 {
         "id": "1154170778",
@@ -143,6 +149,7 @@ Output:
         "statuses": 6881
 }
 ```
+</details>
 
 ---
 
@@ -152,7 +159,7 @@ Output:
 |:--|:--|:--|
 | id | si | Identificativo dell'account di cui vogliamo visualizzare le collezioni di tweet, se presenti. |
 
-Output:
+<details><summary>Modello:</summary>
 ```yaml
 "CNN's live debate draw": {
         "name": "CNN's live debate draw",
@@ -160,6 +167,7 @@ Output:
         "id": "custom-1152025267801661440"
 }
 ```
+</details>
 
 ---
 
@@ -172,7 +180,7 @@ Output:
 | replies | no | Valore booleano, impostare true se si vogliono scaricare anche i tweet di risposta. Il valore di default è false. |
 | retweets | no | Valore booleano, impostare true se si vogliono scaricare anche i retweet. Il valore di default è false.|
 
-Output:
+<details><summary>Modello:</summary>
 ```yaml
 {
         "created_at": "Wed Dec 15 21:01:31 +0100 2021",
@@ -195,6 +203,7 @@ Output:
         }
     }
 ```
+</details>
 
 ---
 
@@ -205,7 +214,7 @@ Output:
 | timeline | si | Identificativo della collezione di tweet che vogliamo visualizzare. |
 | count | no | Numero di tweet che vogliamo visualizzare, il massimo è 200 e in sua assenza se ne scaricheranno 50. |
 
-Output:
+Modello:
 Uguale a tweet.
 
 ---
@@ -218,7 +227,7 @@ Uguale a tweet.
 | op | si | Operatore per filtrare, accettati solo > < ==.|
 | val | si | Valore che si vuole usare per filtrare i tweet. |
 
-Output:
+Modello:
 Uguale a tweet.
 
 ---
@@ -232,7 +241,7 @@ Uguale a tweet.
 | from_day | no | Accetta solo valori del tipo dd mm yy, inserire per visualizzare i tweet creati dopo la data inserita.|
 | to_day | no | Accetta solo valori del tipo dd mm yy, inserire per visualizzare i tweet creati prima della data inserita |
 
-Output:
+<details><summary>Modello:</summary>
 ```yaml
 "analytics": {
         "Tweets analized": 26,
@@ -274,11 +283,13 @@ Output:
         }
 ]
 ```
- 
-##### Utilizzo del filtro:
-E' possibile utilizzare i parametri di questa rotta in modo completamente flessibile. Ad esempio, possiamo utilizzare from_hour con un valore di 18: visualizzeremo solo i tweet creati dopo le 18 di qualsiasi giorno.
-Aggiungendo il parametro to_hour, ad esempio con un valore di 22, visualizzeremo i tweet creati nella fascia oraria 18-22 di qualsiasi giorno.   
-Lo stesso metodo funziona per i parametri from_day e to_day, che possiamo aggiungere ai parametri precedenti o utilizzare in autonomia.
+
+ </details>
+<details> <summary>Utilizzo del filtro:</summary>
+E' possibile utilizzare i parametri di questa rotta in modo completamente flessibile. Ad esempio, possiamo utilizzare `from_hour` con un valore di 18: visualizzeremo solo i tweet creati dopo le 18 di qualsiasi giorno.
+Aggiungendo il parametro `to_hour`, ad esempio con un valore di 22, visualizzeremo i tweet creati nella fascia oraria 18-22 di qualsiasi giorno.   
+Lo stesso metodo funziona per i parametri `from_day` e `to_day`, che possiamo aggiungere ai parametri precedenti o utilizzare in autonomia.
+</details>
 
 ---
 
@@ -296,51 +307,39 @@ Output: descrizione delle proprietà JSON, con alias e tipo di valore.
 
 <p align="right">(<a href="#top">torna all'inizio</a>)</p>
 
+## Eccezioni
+Sono state utilizzate le seguenti eccezioni personalizzate:
+
+<details><summary>EptyCollectionListException</summary>
+Lanciata in caso di lista vuota in output, per specificare che non ci sono stati errori ma non c'è nulla da visualizzare.</details>
+<details><summary>InvalidHourException</summary>Lanciata in caso nella rotta [`‌/filter/date`](#date) venga data in input un' ora di formato diverso da quello richiesto.</details>
+<details><summary>InvalidDateException</summary>Lanciata in caso nella rotta [`‌/filter/date`](#date) venga data in input una data di formato diverso da quello richiesto.</details>
+<details><summary>InputStreamException</summary>Lanciata in caso si tenti di visualizzare i tweet di un utente con profilo privato, o più in generale se non sono presenti tweet o collezioni.</details>
+<details><summary>InvalidFilterException</summary>Lanciata in caso nella rotta [`/filter‌`](#filter) venga dato in input un campo non esistente.</details>
+
+<p align="right">(<a href="#top">torna all'inizio</a>)</p>
+
+## Test
+Sono stati implementati i seguenti test sfruttando JUnit 5:
+
+<details><summary>ConnectionTest</summary>Test di connessione all'API di twitter, verifica che i dati scaricati non siano nulli.</details>
+<details><summary>PrivateUserTest</summary>Viene utilizzato un id utente privato per verificare il funzionamento dell'eccezione apposita.</details>
+<details><summary>DateExceptionTest</summary>Si immette una data in modo volutamente scorretto per verificare il lancio dell'eccezione.</details>
+<details><summary>HourExceptionTest</summary>Si testa il filtro orario con un valore che sfora le 24 ore, per forzare l'eccezione.</details>
+
+<p align="right">(<a href="#top">torna all'inizio</a>)</p>
+
+## Documentazione
+
+Il Javadoc del progetto è disponibile [qui](https://github.com/ivanpacenti/progetto_oop/tree/main/doc).
+
+<p align="right">(<a href="#top">torna all'inizio</a>)</p>
 
 <!-- CONTRIBUTI -->
 ## Contributi
 
-Il progetto è stato realizzato interamente da Ivan Pacenti.
+Il progetto è stato realizzato interamente da Ivan Pacenti.  
 
-
-<p align="right">(<a href="#top">torna all'inizio</a>)</p>
-
-
-<!-- CONTACT -->
-## Contatti
-
-
- [https://github.com/ivanpacenti/progetto_oop](https://github.com/ivanpacenti/progetto_oop)
+[![Linkedin](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/ipacenti/) [![Github](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/ivanpacenti?tab=repositories)
 
 <p align="right">(<a href="#top">torna all'inizio</a>)</p>
-
-
-
-
-
-
-<!-- MARKDOWN LINKS & IMAGES -->
-<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/github_username/repo_name.svg?style=for-the-badge
-[contributors-url]: https://github.com/github_username/repo_name/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/github_username/repo_name.svg?style=for-the-badge
-[forks-url]: https://github.com/github_username/repo_name/network/members
-[stars-shield]: https://img.shields.io/github/stars/github_username/repo_name.svg?style=for-the-badge
-[stars-url]: https://github.com/github_username/repo_name/stargazers
-[issues-shield]: https://img.shields.io/github/issues/github_username/repo_name.svg?style=for-the-badge
-[issues-url]: https://github.com/github_username/repo_name/issues
-[license-shield]: (https://img.shields.io/github/license/github_username/https://github.com/ivanpacenti/progetto_oop.svg?style=for-the-badge)
-[license-url]: https://github.com/github_username/repo_name/blob/master/LICENSE.txt
-[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
-[linkedin-url]: https://linkedin.com/in/linkedin_username
-
-
-
-
-
-
-
-
-
-
-
