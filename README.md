@@ -290,8 +290,10 @@ Uguale a tweet.
 
  </details>
 <details> <summary>Utilizzo del filtro:</summary>
-E' possibile utilizzare i parametri di questa rotta in modo completamente flessibile. Ad esempio, possiamo utilizzare `from_hour` con un valore di 18: visualizzeremo solo i tweet creati dopo le 18 di qualsiasi giorno.
-Aggiungendo il parametro `to_hour`, ad esempio con un valore di 22, visualizzeremo i tweet creati nella fascia oraria 18-22 di qualsiasi giorno.   
+  
+E' possibile utilizzare i parametri di questa rotta in modo completamente flessibile.  
+Ad esempio, possiamo utilizzare `from_hour` con un valore di 18: visualizzeremo solo i tweet creati dopo le 18 di qualsiasi giorno.  
+Aggiungendo il parametro `to_hour`, ad esempio con un valore di 22, visualizzeremo i tweet creati nella fascia oraria 18-22 di qualsiasi giorno.     
 Lo stesso metodo funziona per i parametri `from_day` e `to_day`, che possiamo aggiungere ai parametri precedenti o utilizzare in autonomia.
 </details>
 
