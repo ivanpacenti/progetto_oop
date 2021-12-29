@@ -138,6 +138,7 @@ Se utilizzate il file `twitter_metrics.jar` dovete per forza ricompilare il pacc
 | query | si | Una parola chiave associata all'utente che stiamo cercando. |
 
 <details><summary>Modello:</summary>
+  
 ```yaml
 {
         "id": "1154170778",
@@ -160,6 +161,7 @@ Se utilizzate il file `twitter_metrics.jar` dovete per forza ricompilare il pacc
 | id | si | Identificativo dell'account di cui vogliamo visualizzare le collezioni di tweet, se presenti. |
 
 <details><summary>Modello:</summary>
+  
 ```yaml
 "CNN's live debate draw": {
         "name": "CNN's live debate draw",
@@ -181,6 +183,7 @@ Se utilizzate il file `twitter_metrics.jar` dovete per forza ricompilare il pacc
 | retweets | no | Valore booleano, impostare true se si vogliono scaricare anche i retweet. Il valore di default è false.|
 
 <details><summary>Modello:</summary>
+  
 ```yaml
 {
         "created_at": "Wed Dec 15 21:01:31 +0100 2021",
@@ -242,6 +245,7 @@ Uguale a tweet.
 | to_day | no | Accetta solo valori del tipo dd mm yy, inserire per visualizzare i tweet creati prima della data inserita |
 
 <details><summary>Modello:</summary>
+  
 ```yaml
 "analytics": {
         "Tweets analized": 26,
@@ -310,12 +314,21 @@ Output: descrizione delle proprietà JSON, con alias e tipo di valore.
 ## Eccezioni
 Sono state utilizzate le seguenti eccezioni personalizzate:
 
-<details><summary>EptyCollectionListException</summary>
-Lanciata in caso di lista vuota in output, per specificare che non ci sono stati errori ma non c'è nulla da visualizzare.</details>
-<details><summary>InvalidHourException</summary>Lanciata in caso nella rotta [`‌/filter/date`](#date) venga data in input un' ora di formato diverso da quello richiesto.</details>
-<details><summary>InvalidDateException</summary>Lanciata in caso nella rotta [`‌/filter/date`](#date) venga data in input una data di formato diverso da quello richiesto.</details>
-<details><summary>InputStreamException</summary>Lanciata in caso si tenti di visualizzare i tweet di un utente con profilo privato, o più in generale se non sono presenti tweet o collezioni.</details>
-<details><summary>InvalidFilterException</summary>Lanciata in caso nella rotta [`/filter‌`](#filter) venga dato in input un campo non esistente.</details>
+<details><summary>EmptyCollectionListException</summary>
+  
+ Lanciata in caso di lista vuota in output, per specificare che non ci sono stati errori ma non c'è nulla da visualizzare.</details>
+<details><summary>InvalidHourException</summary>
+ 
+ Lanciata in caso nella rotta [`‌/filter/date`](#date) venga data in input un' ora di formato diverso da quello richiesto.</details>
+<details><summary>InvalidDateException</summary>
+  
+ Lanciata in caso nella rotta [`‌/filter/date`](#date) venga data in input una data di formato diverso da quello richiesto.</details>
+<details><summary>InputStreamException</summary>
+ 
+ Lanciata in caso si tenti di visualizzare i tweet di un utente con profilo privato, o più in generale se non sono presenti tweet o collezioni.</details>
+<details><summary>InvalidFilterException</summary>
+ 
+ Lanciata in caso nella rotta [`/filter‌`](#filter) venga dato in input un campo non esistente.</details>
 
 <p align="right">(<a href="#top">torna all'inizio</a>)</p>
 
