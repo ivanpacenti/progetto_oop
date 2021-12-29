@@ -30,7 +30,7 @@ class DateExceptionTest {
 	
 	/**
 	 * Si immette una data in modo volutamente scorretto
-	 * per verificare il lancio dell'eccezione
+	 * per verificare il lancio dell'eccezione nel metodo {@link it.univpm.progetto.filter.FilterUtils#selectDate} 
 	 * @throws java.lang.Exception
 	 */
 	@BeforeEach
