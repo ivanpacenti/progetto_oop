@@ -19,6 +19,7 @@
 
 
 
+
 <!-- TABLE OF CONTENTS -->
 <details>
   <summary>Contenuti</summary>
@@ -53,17 +54,17 @@ Progetto creato per l'esame di Programmazione ad oggetti 2021\2022 dell'Universi
 L'obiettivo era di analizzare le metriche di engagement di una lista di tweet dell'Università, ma si è deciso di ampliare il servizio a qualsiasi account pubblico.
 
 
-<p align="right">(<a href="#top">back to top</a>)</p>
+<p align="right">(<a href="#top">torna all'inizio</a>)</p>
 
 
 
 ### Strumenti utilizzati
 
-[Java](https://www.java.com/)  
-[Eclipse](https://www.eclipse.org/)  
-[Spring Boot](https://spring.io/projects/spring-boot)  
-[Postman](https://postman.com/)  
-[iA Writer](https://ia.net/it/writer/)  
+<p align="left">  <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/java/java-original.svg" alt="java" width="15" height="15"/> [Java](https://www.java.com/)  
+<img src="https://www.nicepng.com/png/full/264-2648074_eclipse-logo-png-transparent-eclipse-ide.png" alt="spring" width="15" height="15"/> [Eclipse](https://www.eclipse.org/)  
+<img src="https://www.vectorlogo.zone/logos/springio/springio-icon.svg" alt="spring" width="15" height="15"/> [Spring Boot](https://spring.io/projects/spring-boot)  
+<img src="https://www.svgrepo.com/show/354202/postman-icon.svg" alt="spring" width="15" height="15"/> [Postman](https://postman.com/)  
+<img src="https://www.pngkit.com/png/full/380-3802267_ia-writer-icon-ia-writer.png" alt="java" width="15" height="15"/> [iA Writer](https://ia.net/it/writer/)  
 
 ### Attenzione
 
@@ -71,7 +72,7 @@ L'obiettivo era di analizzare le metriche di engagement di una lista di tweet de
 L'applicazione sfrutta le API Standard versione 1.1, non si assicura la compatibilità con versioni successive.
 
 
-<p align="right">(<a href="#top">back to top</a>)</p>
+<p align="right">(<a href="#top">torna all'inizio</a>)</p>
 
 
 
@@ -105,7 +106,7 @@ Per risolvere il problema potete cambiare la porta di ascolto intervenendo sul f
 Se utilizzate il file `twitter_metrics.jar` dovete per forza ricompilare il pacchetto, posizionandovi dentro la cartella `Twitter_metrics` ed eseguendo il comando `mvn package`. 
 
 
-<p align="right">(<a href="#top">back to top</a>)</p>
+<p align="right">(<a href="#top">torna all'inizio</a>)</p>
 
 
 <!-- USAGE EXAMPLES -->
@@ -133,7 +134,7 @@ Se utilizzate il file `twitter_metrics.jar` dovete per forza ricompilare il pacc
 Output:
 ```yaml
 {
-        "id": "1304170778",
+        "id": "1154170778",
         "name": "UnivPM",
         "username": "@UnivPoliMarche",
         "followers": 4206,
@@ -142,6 +143,8 @@ Output:
         "statuses": 6881
 }
 ```
+
+---
 
 #### <a name="collectionslist">`GET /search/collections`</a>
 
@@ -153,10 +156,12 @@ Output:
 ```yaml
 "CNN's live debate draw": {
         "name": "CNN's live debate draw",
-        "description": "CNN held a live draw to determine the candidate lineup for each night of the 2020 Democratic debate in Detroit, Michigan, on July 30 and 31.",
+        "description": "CNN held a live draw to determine the candidate lineup for each night of the 2020 Democratic debate in Detroit, Michigan, on July 15 and 31.",
         "id": "custom-1152025267801661440"
 }
 ```
+
+---
 
 #### <a name="tweets">`GET /tweets‌`</a>
 
@@ -191,6 +196,8 @@ Output:
     }
 ```
 
+---
+
 #### <a name="collections">`GET /collections`</a>
 
 | Parametro | Obbligatorio | Descrizione|
@@ -200,6 +207,8 @@ Output:
 
 Output:
 Uguale a tweet.
+
+---
 
 #### <a name="filter">`GET /filter‌`</a>
 
@@ -211,6 +220,8 @@ Uguale a tweet.
 
 Output:
 Uguale a tweet.
+
+---
 
 #### <a name="date">`GET /filter/date`</a>
 
@@ -227,12 +238,12 @@ Output:
         "Tweets analized": 26,
         "Average engagement": 0.06767038461538462,
         "Variance of engagement": 0.005117544842159764,
-        "Higher engagement": 0.30908,
+        "Higher engagement": 0.15908,
         "Lower engagement": 0.0
     },
     "tweets": [
         "created_at": "Tue Dec 14 09:53:42 +0100 2021",
-            "id": "1470678373097684992",
+            "id": "1470678371597684992",
             "text": "RT Oggi in Ambasciata firma dell’Accordo di collaborazione nel campo della perinatalità tra e le Universit…",
             "entities": {
                 "hashtags": [],
@@ -240,7 +251,7 @@ Output:
                     {
                         "name": "Italy in France",
                         "username": "@ItalyinFrance",
-                        "id": "968165303766134786"
+                        "id": "968165153766134786"
                     },
                     {
                         "name": "Univ. Paris-Saclay",
@@ -258,7 +269,7 @@ Output:
                 "retweets": 13,
                 "hashtags": 0,
                 "mentions": 2,
-                "engagement": 0.30908
+                "engagement": 0.15908
             }            
         }
 ]
@@ -268,6 +279,8 @@ Output:
 E' possibile utilizzare i parametri di questa rotta in modo completamente flessibile. Ad esempio, possiamo utilizzare from_hour con un valore di 18: visualizzeremo solo i tweet creati dopo le 18 di qualsiasi giorno.
 Aggiungendo il parametro to_hour, ad esempio con un valore di 22, visualizzeremo i tweet creati nella fascia oraria 18-22 di qualsiasi giorno.   
 Lo stesso metodo funziona per i parametri from_day e to_day, che possiamo aggiungere ai parametri precedenti o utilizzare in autonomia.
+
+---
 
 #### <a name="metadata">`GET /metadata/{type}`</a>
 
@@ -281,7 +294,7 @@ Lo stesso metodo funziona per i parametri from_day e to_day, che possiamo aggiun
 Output: descrizione delle proprietà JSON, con alias e tipo di valore.
 
 
-<p align="right">(<a href="#top">back to top</a>)</p>
+<p align="right">(<a href="#top">torna all'inizio</a>)</p>
 
 
 <!-- CONTRIBUTI -->
@@ -290,7 +303,7 @@ Output: descrizione delle proprietà JSON, con alias e tipo di valore.
 Il progetto è stato realizzato interamente da Ivan Pacenti.
 
 
-<p align="right">(<a href="#top">back to top</a>)</p>
+<p align="right">(<a href="#top">torna all'inizio</a>)</p>
 
 
 <!-- CONTACT -->
@@ -299,7 +312,7 @@ Il progetto è stato realizzato interamente da Ivan Pacenti.
 
  [https://github.com/ivanpacenti/progetto_oop](https://github.com/ivanpacenti/progetto_oop)
 
-<p align="right">(<a href="#top">back to top</a>)</p>
+<p align="right">(<a href="#top">torna all'inizio</a>)</p>
 
 
 
@@ -316,11 +329,10 @@ Il progetto è stato realizzato interamente da Ivan Pacenti.
 [stars-url]: https://github.com/github_username/repo_name/stargazers
 [issues-shield]: https://img.shields.io/github/issues/github_username/repo_name.svg?style=for-the-badge
 [issues-url]: https://github.com/github_username/repo_name/issues
-[license-shield]: https://img.shields.io/github/license/github_username/repo_name.svg?style=for-the-badge
+[license-shield]: (https://img.shields.io/github/license/github_username/https://github.com/ivanpacenti/progetto_oop.svg?style=for-the-badge)
 [license-url]: https://github.com/github_username/repo_name/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/linkedin_username
-[product-screenshot]: 
 
 
 
@@ -332,36 +344,3 @@ Il progetto è stato realizzato interamente da Ivan Pacenti.
 
 
 
-<table>
-<tbody>
-<tr>
-<th>Endpoint</th>
-<th>Risposte</th>
-</tr>
-<tr>
-<td><img src="https://img.shields.io/badge/GET-%2Fsearch/accounts-success" alt="Italian Trulli" /></td>
-<td><details> <summary>Click to expand!</summary> ## Heading con questo ho usato prova </details></td>
-</tr>
-<tr>
-<td><img src="https://img.shields.io/badge/GET-%2Fsearch/collections-success" alt="Italian Trulli" /></td>
-<td><details> <summary>Click to expand!</summary> ## Heading con questo ho usato prova </details></td>
-</tr>
-<tr>
-<td><img src="https://img.shields.io/badge/GET-%2Ftweets-success" alt="Italian Trulli" /></td>
-<td><details> <summary>Click to expand!</summary> ## Heading con questo ho usato prova </details></td>
-</tr>
-  <tr>
-<td><img src="https://img.shields.io/badge/GET-%2Fcollections-success" alt="Italian Trulli" /></td>
-<td><details> <summary>Click to expand!</summary> ## Heading con questo ho usato prova </details></td>
-</tr>
-<tr>
-<td><img src="https://img.shields.io/badge/GET-%2Ffilter-success" alt="Italian Trulli" /></td>
-<td><details> <summary>Click to expand!</summary> ## Heading con questo ho usato prova </details></td>
-</tr>
-<tr>
-<td><img src="https://img.shields.io/badge/POST-%2Ffilter/parameter-blue" alt="Italian Trulli" /></td>
-<td><details> <summary>Click to expand!</summary> ## Heading con questo ho usato prova </details></td>
-</tr>
-
-</tbody>
-</table>
