@@ -186,25 +186,34 @@ Se utilizzate il file `twitter_metrics.jar` dovete per forza ricompilare il pacc
   
 ```yaml
 {
-        "created_at": "Wed Dec 15 21:01:31 +0100 2021",
-        "id": "1471208822542848001",
-        "text": "L'Univpm lancia la nuova infrastruttura  ",
-        "entities": {
-            "hashtags": [],
-            "mentions": []
-        },
-        "stats": {
-            "username": "@UnivPoliMarche",
-            "followers": 4206,
-            "following": 1016,
-            "listed": 87,
-            "likes": 4,
-            "retweets": 1,
-            "hashtags": 0,
-            "mentions": 0,
-            "engagement": 0.11888
-        }
-    }
+            "created_at": "Mon Dec 06 12:17:55 +0100 2021",
+            "id": "1467815563707789323",
+            "text": "Non mancate all'evento di festeggiamento dei 10 anni del la mattina del 20/12! Parleremo di  ",
+            "entities": {
+                "hashtags": [
+                    {
+                        "text": "#ricerca"
+                    }
+                ],
+                "mentions": [
+                    {
+                        "name": "DIISM",
+                        "username": "@DIISM_UNIVPM",
+                        "id": "1144554916142309376"
+                    }
+                ]
+            },
+            "stats": {
+                "username": "@UnivPoliMarche",
+                "followers": 4206,
+                "following": 1016,
+                "listed": 0,
+                "likes": 0,
+                "retweets": 5,
+                "hashtags": 1,
+                "mentions": 2,
+                "engagement": 0.11888
+            }
 ```
 </details>
 
@@ -257,7 +266,7 @@ Uguale a tweet.
     "tweets": [
         "created_at": "Tue Dec 14 09:53:42 +0100 2021",
             "id": "1470678371597684992",
-            "text": "RT Oggi in Ambasciata firma dell’Accordo di collaborazione nel campo della perinatalità tra e le Universit…",
+            "text": "Oggi in Ambasciata firma dell’Accordo di collaborazione nel campo della perinatalità tra e le Universit…",
             "entities": {
                 "hashtags": [],
                 "mentions": [
