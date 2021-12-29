@@ -2,6 +2,7 @@ package it.univpm.progetto.service;
 
 import java.io.IOException;
 
+
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -11,7 +12,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -34,14 +35,14 @@ import it.univpm.progetto.model.Tweet;
 /**
  * Classe che gestisce la struttura dati.
  * <p>
- * L'annotazione @Component è necessaria affinchè Springboot 
+ * L'annotazione @Service è necessaria affinchè Springboot 
  * utilizzi questa classe per l'iniezione delle dipendenze richieste
  * nel {{@link it.univpm.progetto.controller.Controller} con l'annotazione @Autowired 
  * 
  * @author Ivan Pacenti
  * 
  */
-@Component
+@Service
 public class DataService implements Filter{
 	
 	/**
@@ -93,9 +94,7 @@ public class DataService implements Filter{
 	 * costruttore vuoto necessario per la libreria Jackson
 	 */
 	public DataService() {}
-	
-	
-	
+
 	/**
 	 * metodo usato per ricevere una lista di account, ordinati per rilevanza,
 	 * rispetto la stringa query inserita

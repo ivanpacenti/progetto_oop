@@ -2,6 +2,7 @@ package it.univpm.progetto.controller;
 
 import java.io.IOException;
 
+
 import java.text.ParseException;
 import java.util.List;
 import java.util.Map;
@@ -33,7 +34,7 @@ public class Controller {
 	/*
 	 * Annotazione necessaria affinchè Springboot 
 	 * utilizzi la classe {@link it.univpm.progetto.service.DataService},
-	 * annotata con @Component
+	 * annotata con @Service
 	 */
 	@Autowired 
 	private DataService service;
