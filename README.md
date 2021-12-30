@@ -319,8 +319,7 @@ Esempio:
 `to_hour`: 22   
 `from_day`: 01 11 21   
 `to_day`: 31 11 21   
-Avremo i tweets creati dallo 01 al 31 novembre, compresi nella fascia oraria 18-22.
-Si possono visualizzare i valori maggiori, minori o uguali della proprietà scelta, rispetto al valore immesso nel campo `val`.  
+Avremo i tweets creati dallo 01 al 31 novembre, compresi nella fascia oraria 18-22.   
 Il filtro funziona sull'ultima lista o collezione di tweet scaricata. Verrà lanciata un'eccezione in caso di assenza di valori da filtrare.
 </details>
 
