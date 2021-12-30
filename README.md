@@ -158,7 +158,7 @@ Se utilizzate il file `twitter_metrics.jar` dovete per forza ricompilare il pacc
 
 | Parametro | Obbligatorio | Descrizione|
 |:--|:--|:--|
-| id | si | Identificativo dell'account di cui vogliamo visualizzare le collezioni di tweet, se presenti. |
+| id | si | Identificativo dell'account di cui vogliamo visualizzare le collezioni di tweet, se presenti (es. 1154170778). |
 
 <details><summary>Modello:</summary>
   
@@ -177,7 +177,7 @@ Se utilizzate il file `twitter_metrics.jar` dovete per forza ricompilare il pacc
 
 | Parametro | Obbligatorio | Descrizione|
 |:--|:--|:--|
-| id | no | Identificativo dell'account di cui vogliamo visualizzare i tweet. |
+| id | no | Identificativo dell'account di cui vogliamo visualizzare i tweet (es. 1154170778). |
 | count | no | Numero di tweet che vogliamo visualizzare, il massimo è 200 e in sua assenza se ne scaricheranno 50. Twitter conta nel totale anche i retweets, anche se effettivamente non vengono scaricati. |
 | replies | no | Valore booleano, impostare true se si vogliono scaricare anche i tweet di risposta. Il valore di default è false. |
 | retweets | no | Valore booleano, impostare true se si vogliono scaricare anche i retweet. Il valore di default è false.|
@@ -223,11 +223,10 @@ Se utilizzate il file `twitter_metrics.jar` dovete per forza ricompilare il pacc
 
 | Parametro | Obbligatorio | Descrizione|
 |:--|:--|:--|
-| timeline | si | Identificativo della collezione di tweet che vogliamo visualizzare. |
+| timeline | si | Identificativo della collezione di tweet che vogliamo visualizzare (es. custom-1152025267801661440). |
 | count | no | Numero di tweet che vogliamo visualizzare, il massimo è 200 e in sua assenza se ne scaricheranno 50. |
 
-Modello:
-Uguale a tweet.
+Modello: uguale a tweet.
 
 ---
 
@@ -239,8 +238,19 @@ Uguale a tweet.
 | op | si | Operatore per filtrare, accettati solo > < ==.|
 | val | si | Valore che si vuole usare per filtrare i tweet. |
 
-Modello:
-Uguale a tweet.
+Modello: uguale a tweet.
+<details> <summary>Utilizzo del filtro:</summary>
+  
+E' possibile utilizzare nel campo `field` le seguenti proprietà:
+* `id`
+* `likes`
+* `retweets`
+* `engagement`
+
+Si possono visualizzare i valori maggiori, minori o uguali della proprietà scelta, rispetto al valore immesso nel campo `val`.  
+Il filtro funziona sull'ultima lista o collezione di tweet scaricata. Verrà lanciata un'eccezione in caso di assenza di valori da filtrare.
+</details>
+
 
 ---
 
@@ -303,7 +313,15 @@ Uguale a tweet.
 E' possibile utilizzare i parametri di questa rotta in modo completamente flessibile.  
 Ad esempio, possiamo utilizzare `from_hour` con un valore di 18: visualizzeremo solo i tweet creati dopo le 18 di qualsiasi giorno.  
 Aggiungendo il parametro `to_hour`, ad esempio con un valore di 22, visualizzeremo i tweet creati nella fascia oraria 18-22 di qualsiasi giorno.     
-Lo stesso metodo funziona per i parametri `from_day` e `to_day`, che possiamo aggiungere ai parametri precedenti o utilizzare in autonomia.
+Lo stesso metodo funziona per i parametri `from_day` e `to_day`, con il formato dd mm yy, che possiamo aggiungere ai parametri precedenti o utilizzare in autonomia.  
+Esempio:   
+`from_hour`: 18  
+`to_hour`: 22   
+`from_day`: 01 11 21   
+`to_day`: 31 11 21   
+Avremo i tweets creati dallo 01 al 31 novembre, compresi nella fascia oraria 18-22.
+Si possono visualizzare i valori maggiori, minori o uguali della proprietà scelta, rispetto al valore immesso nel campo `val`.  
+Il filtro funziona sull'ultima lista o collezione di tweet scaricata. Verrà lanciata un'eccezione in caso di assenza di valori da filtrare.
 </details>
 
 ---

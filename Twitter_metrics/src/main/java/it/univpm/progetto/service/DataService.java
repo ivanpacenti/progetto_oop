@@ -378,13 +378,27 @@ public class DataService implements Filter{
 	 * @param val valore che si vuole usare per filtrare i tweet
 	 * @return lista di oggetti di tipo Tweet filtrati
 	 * @throws InvalidFilterException eccezione personalizzata per gestire eventuali campi field invalidi
-	 * @throws EmptyCollectionListException 
+	 * @throws EmptyCollectionListException Lanciata se non sono stati scaricati tweets, il controllo avviene verificando che l'oggetto filter non sia inizializzato
+	 * @throws EmptyCollectionListException lanciata anche in caso vengano scelti come campi getters non numerici, che possono portare ad un filtraggio sbagliato
 	 */
 	@Override
 	public List<Tweet> filterField(String field,String op, String val) throws InvalidFilterException, EmptyCollectionListException
 	{
+		/*
+		 * se @param filter non è inizializzato (quindi nullo) vuol dire che non sono stati scaricati tweets, quindi lancia l'eccezione
+		 */
 		if(filter==null)  throw new EmptyCollectionListException("Please download some tweet before filtering");
+		/*
+		 * se @param op non corisponde a < > == lancia un'eccezione
+		 */
 		if(!op.matches("<|>|==")) throw new InvalidFilterException("Please insert a valid operator : < > ==");
+		/*
+		 * il filtro funziona tramite la libreria {@link java.lang.reflect} che cerca se esiste un getter del campo immesso,
+		 * visto che esistono getter che ritornano valori non filtrabili in questo modo (tipo getTweets()) lancia un'eccezione
+		 * in caso venga immesso un field con valore non filtrabile
+		 */
+		if(field.matches("stats|tweets|entities|created_at|user|original_tweet|quoted_tweet")) 
+			throw new InvalidFilterException("The field "+field+" is not avaiable for filtering");
 		return filter.filterField(field, op, val);
 	}
 	
