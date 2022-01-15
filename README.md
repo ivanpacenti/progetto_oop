@@ -66,11 +66,11 @@ Una volta completato il compito, si è deciso di ampliare il servizio a qualsias
 
 ### Strumenti utilizzati
 
-<img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/java/java-original.svg" alt="java" width="15" height="15"/> [Java](https://www.java.com/)  
-<img src="https://www.nicepng.com/png/full/264-2648074_eclipse-logo-png-transparent-eclipse-ide.png" alt="spring" width="15" height="15"/> [Eclipse](https://www.eclipse.org/)  
-<img src="https://www.vectorlogo.zone/logos/springio/springio-icon.svg" alt="spring" width="15" height="15"/> [Spring Boot](https://spring.io/projects/spring-boot)  
-<img src="https://www.svgrepo.com/show/354202/postman-icon.svg" alt="spring" width="15" height="15"/> [Postman](https://postman.com/)  
-<img src="https://www.pngkit.com/png/full/380-3802267_ia-writer-icon-ia-writer.png" alt="java" width="15" height="15"/> [iA Writer](https://ia.net/it/writer/)  
+<img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/java/java-original.svg" alt="java" width="15" height="15"/> [Java](https://www.java.com/) - Linguaggio di programmazione.  
+<img src="https://www.nicepng.com/png/full/264-2648074_eclipse-logo-png-transparent-eclipse-ide.png" alt="spring" width="15" height="15"/> [Eclipse](https://www.eclipse.org/) - IDE per lo sviluppo del progetto.  
+<img src="https://www.vectorlogo.zone/logos/springio/springio-icon.svg" alt="spring" width="15" height="15"/> [Spring Boot](https://spring.io/projects/spring-boot) - Framework per la realizzazione di applicazioni web.   
+<img src="https://www.svgrepo.com/show/354202/postman-icon.svg" alt="spring" width="15" height="15"/> [Postman](https://postman.com/) - Software utilizzato per interrogare le rotte dell'applicazione.  
+<img src="https://www.pngkit.com/png/full/380-3802267_ia-writer-icon-ia-writer.png" alt="java" width="15" height="15"/> [iA Writer](https://ia.net/it/writer/) - Software di videoscrittura, utilizzato per formattare questo file README.  
 
 ### Attenzione
 
@@ -107,9 +107,9 @@ Oppure:
 
 A questo punto, con il programma in esecuzione, è possibile utilizzare un software come Postman per interrogare le varie rotte elencate nella sezione apposita.  
 Si ricorda che di default l'applicazione è impostata per l'ascolto sulla porta 8080, quindi se avete altri servizi già attivi riceverete un messaggio di errore e il programma non si avvierà.  
-Per risolvere il problema potete cambiare la porta di ascolto intervenendo sul file `progetto_oop/Twitter_metrics/src/main/resources/application.properties`, aggiungendo la riga
+Per risolvere il problema potete cambiare la porta di ascolto intervenendo su questo [file](https://github.com/ivanpacenti/progetto_oop/blob/main/Twitter_metrics/src/main/resources/application.properties), aggiungendo la riga
 `server.port=XXXX` e sostituendo `XXXX` con la porta che volete utilizzare.  
-Se utilizzate il file `twitter_metrics.jar` dovete per forza ricompilare il pacchetto, posizionandovi dentro la cartella `Twitter_metrics` ed eseguendo il comando `mvn package`. 
+Se utilizzate il file `twitter_metrics.jar` dovrete per forza ricompilare il pacchetto, posizionandovi dentro la cartella `Twitter_metrics` ed eseguendo il comando `mvn package`. 
 
 
 <p align="right">(<a href="#top">torna all'inizio</a>)</p>
@@ -164,7 +164,7 @@ Se utilizzate il file `twitter_metrics.jar` dovete per forza ricompilare il pacc
   
 ```yaml
 {  
-"Welcome Home Tim": {
+	"Welcome Home Tim": {
         "name": "Welcome Home Tim",
         "description": "Return to Earth of ESA astronaut Time Peake, NASA Tim Kopra and Commander Yuri, 18 June",
         "id": "custom-744050218728046592"
