@@ -20,8 +20,9 @@ public interface API {
 	 * Metodo che si connette all'indirizzo dell'API di twitter
 	 * passato come parametro e restituisce uno stream di dati.
 	 * 
-	 * @return uno stream di dati
-	 * @throw InputStreamException lancia una eccezione personalizzata in caso di problemi nella lettura dei dati in input
+	 * @param address Stringa dell'URL da cui scaricare i dati.
+	 * @return Uno stream di dati.
+	 * @throws InputStreamException Lancia una eccezione personalizzata in caso di problemi nella lettura dei dati in input.
 	 */
 	InputStream getData(String address) throws InputStreamException ;	
 }

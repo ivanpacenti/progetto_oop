@@ -2,28 +2,31 @@ package it.univpm.progetto.model;
 
 
 /**
- * Contiene i metadati del JSON in output
+ * Contiene i metadati del JSON in output.
  * 
  * @author Ivan Pacenti
  *
  */
 public class Metadata {
+	
 	/**
-	 * nome della proprietà JSON
+	 * Stringa contenente il nome del parametro.
 	 */
-	String alias;
+	private String alias;
 	/**
-	 * descrizione della proprietà JSON
+	 * Indica la descrizione del parametro.
 	 */
-	String sourceField;
+	private String sourceField;
 	/**
-	 * tipo della proprietà JSON
+	 * Indica il tipo di dato che costituisce il parametro.
 	 */
-	String type;
+	private String type;
 	/**
-	 * @param alias indica il nome del parametro
-	 * @param sourceField indica la descrizione
-	 * @param type indica il tipo
+	 * Costruttore della classe, inizializza le variabili.
+	 * 
+	 * @param alias Stringa contenente il nome del parametro.
+	 * @param sourceField Indica la descrizione del parametro.
+	 * @param type Indica il tipo di dato che costituisce il parametro.
 	 */
 	public Metadata(String alias, String sourceField, String type) {
 		this.alias = alias;

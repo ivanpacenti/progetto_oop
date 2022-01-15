@@ -9,21 +9,31 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
  * Classe contente dati della proprietà "mentions" del JSON in entrata.
  * <p>
  * Rappresenta una menzione: contiene il nome dell'utente menzionato,
- * il suo username preceduto da @ e il suo identificativo.
+ * il suo username preceduto da <b>@</b> e il suo identificativo.</p>
  * 
- * @param JsonIgnoreProperties ignora le proprietà del file JSON che non corrispondono a nessuno degli attributi di questa classe
  * @author Ivan Pacenti
  *
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Mention {
 	
+	/**
+	 * Nome dell'utente menzionato.
+	 */
 	private String name;
+	/**
+	 * Username dell'utente menzionato.
+	 */
 	@JsonAlias("screen_name")
 	private String username;
+	/**
+	 * Codice identificativo dell'utente menzionato.
+	 */
 	@JsonAlias("id_str")
 	private String id;
-	
+	/**
+	 * Costruttore vuoto per jackson.
+	 */
 	public Mention() {}
 
 	/**

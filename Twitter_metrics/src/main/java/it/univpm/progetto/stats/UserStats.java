@@ -2,30 +2,35 @@ package it.univpm.progetto.stats;
 
 /**
  * Classe astratta che definisce dei metodi per il calcolo dell'engagement
- * e contiene i dati dell'account creatore del tweet
+ * e contiene i dati dell'account creatore del tweet.
  * 
  * @author Ivan Pacenti
  *
  */
 public abstract class UserStats {
-	/*
-	 * dati dall'account del tweet
+	/**
+	 * Username dell'utente.
 	 */
 	private String username;
+	/**
+	 * Numero di followers dell'utente.
+	 */
 	private int followers;
+	/**
+	 * Utenti che seguono l'account.
+	 */
 	private int following;
-	/*
-	 * numero di liste pubbliche di tweet in cui l'utente compare
+	/**
+	 * Numero di liste pubbliche di tweet in cui l'utente compare.
 	 */
 	private int listed;
-	
 	/**
-	 * Costruttore della classe
+	 * Costruttore della classe.
 	 * 
-	 * @param username stringa preceduta da '@', identificativa dell'utente
-	 * @param followers utenti che seguono gli aggiornamenti dell'account in questione
-	 * @param following gli utenti che vengono seguiti dell'account
-	 * @param listed numero di volte che l'account è stato inserito in una lista di tweet
+	 * @param username Stringa preceduta da '@', identificativa dell'utente.
+	 * @param followers Utenti che seguono gli aggiornamenti dell'account in questione.
+	 * @param following Gli utenti che vengono seguiti dell'account.
+	 * @param listed Numero di volte che l'account è stato inserito in una lista di tweet.
 	 */
 	public UserStats(String username, int followers, int following, int listed) {
 		this.username = username;
@@ -87,6 +92,8 @@ public abstract class UserStats {
 	abstract void setEngagement();
 	/**
 	 * Metodo astratto, ripreso nella classe {@link it.univpm.progetto.stats.TweetStats}
+	 * 
+	 * @return La percentuale di engagement del tweet.
 	 */
 	abstract double getEngagement();
 }

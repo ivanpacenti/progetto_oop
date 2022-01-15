@@ -12,20 +12,24 @@ import it.univpm.progetto.exceptions.InputStreamException;
  * Classe che implementa l'interfaccia {@link it.univpm.progetto.service.API}.
  * <p>
  * Viene utilizzato un metodo che ritorna un InputStream
+ * </p>
  * 
  * @author Ivan Pacenti
  *
  */
 public class APIImpl implements API{
 	
+	/**
+	 * Stream di dati passato a ObjectMapper della libreria jackson, per riempire la struttura dati.
+	 */
 	private InputStream is;
 
 	/**
 	 * Metodo che si connette all'indirizzo dell'API di twitter
 	 * passato come parametro e restituisce uno stream di dati.
 	 * 
-	 * @return uno stream di dati
-	 * @throw InputStreamException lancia una eccezione personalizzata in caso di problemi nella lettura dei dati in input
+	 * @return Uno stream di dati.
+	 * @throws InputStreamException Lancia una eccezione personalizzata in caso di problemi nella lettura dei dati in input.
 	 */
 	@Override
 	public InputStream getData(String address) throws InputStreamException

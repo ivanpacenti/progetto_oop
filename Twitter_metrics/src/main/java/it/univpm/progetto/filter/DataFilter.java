@@ -15,7 +15,7 @@ import it.univpm.progetto.model.Tweet;
 
 
 /**
- * Classe che gestisce il filtraggio dei tweet
+ * Classe che gestisce il filtraggio dei tweet.
  * 
  * @author Ivan Pacenti
  *
@@ -26,14 +26,11 @@ public class DataFilter implements Filter {
 	private  List<Tweet> tmp=new ArrayList<>();
 	private  FilterUtils utils;
 		
-	
-	
-	
+
 	/**
-	 * Costruttore della classe
+	 * Costruttore della classe.
 	 * 
-	 * @param tweets lista di tweets presi in input
-	 * @param utils oggetto della classe FilterUtils per filtrare
+	 * @param tweets Lista di tweets presi in input.
 	 */
 	public DataFilter(List<Tweet> tweets) {
 		this.tweets = tweets;
@@ -42,21 +39,14 @@ public class DataFilter implements Filter {
 	}
 
 	/**
-	 * @return the utils
+	 * @return oggetto utils
 	 */
 	public FilterUtils getUtils() {
 		return utils;
 	}
 
 	/**
-	 * @param result the result to set
-	 */
-	public  void setResult(List<Tweet> result) {
-	}
-	
-
-	/**
-	 * @return the tweets
+	 * @return i tweets
 	 */
 	public  List<Tweet> getTweets() {
 		return tweets;
@@ -64,7 +54,7 @@ public class DataFilter implements Filter {
 
 
 	/**
-	 * @param tweets the tweets to set
+	 * @param tweets setta i tweets
 	 */
 	public  void setTweets(List<Tweet> tweets) {
 		this.tweets = tweets;
@@ -79,10 +69,10 @@ public class DataFilter implements Filter {
 	}
 	
 	/**
-	 * Metodo per controllare se il valore è numerico
+	 * Metodo per controllare se il valore è numerico.
 	 * 
-	 * @param str valore in input
-	 * @return true se il valore è numerico, al contrario ritorna false
+	 * @param str Valore in input.
+	 * @return true Se il valore è numerico, al contrario ritorna false.
 	 */
 	public static boolean isNumeric(String str) { 
 		try {  
@@ -94,13 +84,13 @@ public class DataFilter implements Filter {
 	}
 
 	/**
-	 * Metodo che passa i valori alla classe FilterUtils, controllando che il valore insierito come parametro sia numerico
+	 * Metodo che passa i valori alla classe FilterUtils, controllando che il valore insierito come parametro sia numerico.
 	 * 
-	 * @param fieldName nome del campo da usare come filtro
-	 * @param operator operatore per filtrare (< > ==)
-	 * @param str valore da usare per filtrare
-	 * @return lista di oggetti di tipo Tweet filtrati dalla classe FilterUtils
-	 * @throws InvalidFilterException eccezione personalizzata per gestire eventuali campi field invalidi
+	 * @param fieldName Campo del tweet che vogliamo utilizzare come filtro.
+	 * @param operator Operatore per filtrare, accettati solo > < ==.
+	 * @param str Stringa contenente valore per filtrare i dati, sarà successivamente convertita eventualmente in formato numerico.
+	 * @return Lista di oggetti di tipo Tweet filtrati.
+	 * @throws InvalidFilterException Eccezione personalizzata per gestire eventuali campi field invalidi.
 	 *
 	 */
 	@Override
@@ -115,20 +105,17 @@ public class DataFilter implements Filter {
 	}
 	
 	/**
-	 * Metodo che restituisce una tabella con una lista di tweet analizzati e le relative statistiche
+	 * Metodo che restituisce una tabella con una lista di tweet analizzati e le relative statistiche.
 	 * 
-	 * @param from_hour accetta solo valori del tipo HH, inserire per visualizzare i tweet creati dopo l'ora inserita
-	 * @param to_hour accetta solo valori del tipo HH, inserire per visualizzare i tweet creati prima dell'ora inserita
-	 * @param from_day acccetta solo valori del tipo dd mm yy,inserire per visualizzare i tweet creati dopo la data inserita
-	 * @param to_day acccetta solo valori del tipo dd mm yy,inserire per visualizzare i tweet creati prima della data inserita
-	 * @param tmp lista di tweet temporanea, risultato del filtraggio secondo i parametri inseriti
-	 * @param map tabella contenente le statistiche dei tweet filtrati
-	 * @param total tabella riassuntiva contenente la lista dei tweet e la tabella delle statistiche
-	 * @return restituisce una tabella contenente i tweet filtrati e le relative statistiche
-	 * @throws ParseException Eccezione relativa ad eventuali problemi con valori di tipo Data
-	 * @throws EmptyCollectionListException eccezione personalizzata per gestire l'output di eventuali liste vuote 
-	 * @throws InvalidHourException eccezione lanciata in caso di formati invalidi dei parametri *_hour in input
-	 * @throws InvalidDateException eccezione lanciata in caso di formati invalidi dei parametri *_day in input
+	 * @param from_hour Accetta solo valori del tipo HH, inserire per visualizzare i tweet creati dopo l'ora inserita.
+	 * @param to_hour Accetta solo valori del tipo HH, inserire per visualizzare i tweet creati prima dell'ora inserita.
+	 * @param from_day Accetta solo valori del tipo dd mm yy, inserire per visualizzare i tweet creati dopo la data inserita.
+	 * @param to_day Acccetta solo valori del tipo dd mm yy, inserire per visualizzare i tweet creati prima della data inserita.
+	 * @return Una lista di oggetti filtrati di tipo Tweet.
+	 * @throws ParseException Eccezione relativa ad eventuali problemi con valori di tipo Data.
+	 * @throws EmptyCollectionListException Eccezione personalizzata per gestire l'output di eventuali liste vuote.
+	 * @throws InvalidHourException Eccezione lanciata in caso di formati invalidi dei parametri *_hour in input.
+	 * @throws InvalidDateException Eccezione lanciata in caso di formati invalidi dei parametri *_day in input.
 	 *
 	 */
 	@Override
@@ -137,7 +124,7 @@ public class DataFilter implements Filter {
 	{
 		/**
 		 * Qui ci sono dei filtri innestati: prima si esegue il filtraggio dei tweet a seconda della data,
-		 *successivamente i tweet filtrati vengono ri-filtrati a seconda dell'ora immessa
+		 * successivamente i tweet filtrati vengono ri-filtrati a seconda dell'ora immessa.
 		 */
 		this.tmp=utils.selectHour
 				(utils.selectDate(getTweets(), from_day, to_day), from_hour, to_hour);

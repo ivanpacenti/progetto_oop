@@ -10,36 +10,40 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 /**
  * Classe utilizzata per contenere i dati delle collezioni
  * 
- * @param JsonIgnoreProperties ignora le proprietà del file JSON che non corrispondono a nessuno degli attributi di questa classe
  * @author Ivan Pacenti
  *
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Timeline {
 	/**
-	 * nome della collezione
+	 * Nome della collezione di tweet.
 	 */
 	private String name;
 	/**
-	 * descrizione della collezione
+	 * Stringa contenente la descrizione della collezione.
 	 */
 	private String description;
 	/**
-	 * identificativo della collezione
+	 * Codice identificativo della collezione.
 	 */
 	private String id;
+	/**
+	 * Variable contenente una lista di tweet.
+	 */
 	@JsonIgnore
 	private List<Tweet> tweets=new ArrayList<>();
-	Tweet temp=new Tweet();
 	
-	/**costruttore vuoto per la libreria Jackson
+	/**
+	 * Costruttore vuoto per la libreria Jackson.
 	 */
 	public Timeline() {}
 	
 	/**
-	 * @param name
-	 * @param description
-	 * @param id
+	 * Costruttore della classe, inizializza le variabili.
+	 * 
+	 * @param name Nome della collezione di tweet.
+	 * @param description Stringa contenente la descrizione della collezione.
+	 * @param id Codice identificativo della collezione.
 	 */
 	public Timeline(String name, String description, String id) {
 		this.name = name;

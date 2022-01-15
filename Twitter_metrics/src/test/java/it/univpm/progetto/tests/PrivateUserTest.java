@@ -16,19 +16,25 @@ import it.univpm.progetto.service.DataService;
 
 /**
  * Test per verificare l'effettivo lancio dell'eccezione
- * {@link it.univpm.progetto.exceptions.InputStreamException.java}
- * in caso l'utente scelto abbia un profilo privato
+ * {@link it.univpm.progetto.exceptions.InputStreamException}
+ * in caso l'utente scelto abbia un profilo privato.
  * 
  * @author Ivan Pacenti
  *
  */
 class PrivateUserTest {
+	/**
+	 * Oggetto creato per testare la classe {@link it.univpm.progetto.service.DataService} 
+	 */
 	DataService service=new DataService();
+	/**
+	 * Oggetto utile per contenere l'eventuale eccezione lanciata.
+	 */
 	InputStreamException thrown;
 	
 	/**
 	 * Viene utilizzato un id utente privato per 
-	 * verificare il funzionamento dell'eccezione apposita
+	 * verificare il funzionamento dell'eccezione apposita.
 	 */
 	@BeforeEach
 	void setUp()  {
@@ -38,8 +44,7 @@ class PrivateUserTest {
 	}
 
 	/**
-	 * 
-	 * Test method for {@link it.univpm.progetto.service.APIImpl#getData(java.lang.String)}.
+	 * Verifica che venga lanciata l'eccezione in caso non si riesca a scaricare i dati dalle API di Twitter.
 	 */
 	@Test
 	void testGetData() {

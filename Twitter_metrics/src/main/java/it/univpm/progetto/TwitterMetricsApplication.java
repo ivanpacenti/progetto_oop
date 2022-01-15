@@ -4,7 +4,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
- * Avvia l'applicazione Springboot
+ * Avvia l'applicazione Springboot.
  * 
  * @author Ivan Pacenti
  *
@@ -12,8 +12,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class TwitterMetricsApplication {
 
-	/**Main dell'applicazione
-	 * @param args
+	/**
+	 * Main dell'applicazione
 	 */
 	public static void main(String[] args) {
 		SpringApplication.run(TwitterMetricsApplication.class, args);

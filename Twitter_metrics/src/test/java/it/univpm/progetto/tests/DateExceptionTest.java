@@ -18,20 +18,29 @@ import it.univpm.progetto.model.Tweet;
 
 
 /**
- * classe per testare il parsing delle date 
+ * Classe per testare il parsing delle date.<p>
+ * Metodo di test per {@link it.univpm.progetto.filter.FilterUtils#selectHour(java.util.List, java.lang.String, java.lang.String)}.
  * 
  * @author Ivan Pacenti
  *
  */
 class DateExceptionTest {
+	/**
+	 * Oggetto creato per effettuare il test.
+	 */
 	FilterUtils prova=new FilterUtils();
+	/**
+	 * Lista vuota di tweet, creata giusto per far iniziare l'algoritmo di filtraggio per data.
+	 */
 	List<Tweet> tweets=new ArrayList<>();
+	/**
+	 * Oggetto che contiene l'eccezione lanciata nel <b>setUp</b>.
+	 */
 	InvalidDateException thrown;
 	
 	/**
 	 * Si immette una data in modo volutamente scorretto
-	 * per verificare il lancio dell'eccezione nel metodo {@link it.univpm.progetto.filter.FilterUtils#selectDate} 
-	 * @throws java.lang.Exception
+	 * per verificare il lancio dell'eccezione nel metodo {@link it.univpm.progetto.filter.FilterUtils#selectDate}.
 	 */
 	@BeforeEach
 	void setUp() throws Exception {
@@ -41,9 +50,8 @@ class DateExceptionTest {
 	}
 
 	/**
-	 * verifica che venga lanciata l'eccezione in caso le date da convertire siano scritte
-	 * in modo scorretto
-	 * Test method for {@link it.univpm.progetto.filter.FilterUtils#selectHour(java.util.List, java.lang.String, java.lang.String)}.
+	 * Verifica che venga lanciata l'eccezione in caso le date da convertire siano scritte
+	 * in modo scorretto.
 	 */
 	@Test
 	void testSelectHour() {

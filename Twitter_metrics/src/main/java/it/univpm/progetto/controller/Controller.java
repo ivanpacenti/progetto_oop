@@ -25,28 +25,29 @@ import it.univpm.progetto.model.Tweet;
 import it.univpm.progetto.service.DataService;
 
 /**
- * Classe che gestisce le chiamate all'applicazione
+ * Classe che gestisce le chiamate all'applicazione.
  * 
  * @author Ivan Pacenti
  */
 @RestController
 public class Controller {
-	/*
-	 * Annotazione necessaria affinchè Springboot 
+	/**
+	 * Oggetto della classe che gestisce i dati.<p>
+	 * <b>@Autowired</b> è un'annotazione necessaria affinchè Springboot 
 	 * utilizzi la classe {@link it.univpm.progetto.service.DataService},
-	 * annotata con @Service
+	 * annotata con <b>@Service</b>.
 	 */
 	@Autowired 
 	private DataService service;
 	
 	/**
-	 * Restituisce un elenco di account relativi alla query inserita
+	 * Restituisce un elenco di account relativi alla query inserita.
 	 * 
-	 * @param query parola chiave relativa all'account che cerchiamo
-	 * @return una lista di oggetti di tipo Account
-	 * @throws IOException in caso di problemi nella lettura dei dati dalla API di twitter
-	 * @throws InputStreamException eccezione personalizzata per gestire eventuali problemi di lettura dei dati
-	 * @throws EmptyCollectionListException eccezione personalizzata per gestire l'output di eventuali liste vuote 
+	 * @param query Parola chiave relativa all'account che cerchiamo.
+	 * @return Una lista di oggetti di tipo Account.
+	 * @throws IOException In caso di problemi nella lettura dei dati dalla API di Twitter.
+	 * @throws InputStreamException Eccezione personalizzata per gestire eventuali problemi di lettura dei dati.
+	 * @throws EmptyCollectionListException Eccezione personalizzata per gestire l'output di eventuali liste vuote. 
 	 */
 	@GetMapping("/search/accounts")
 	public ResponseEntity<List<Account>> 
@@ -58,13 +59,13 @@ public class Controller {
 	}
 	
 	/**
-	 * Restituisce una lista di collezioni di tweet, relativa all'id utente inserito
+	 * Restituisce una lista di collezioni di tweet, relativa all'id utente inserito.
 	 * 
-	 * @param id identificativo dell'account utente di cui vogliamo cercare eventuali collezioni 
-	 * @return una mappa (tabella) che contiene il nome della collezione, seguito da altri valori 
-	 * @throws IOException in caso di problemi nella lettura dei dati dalla API di twitter
-	 * @throws EmptyCollectionListException eccezione personalizzata per gestire l'output di eventuali liste vuote 
-	 * @throws InputStreamException eccezione personalizzata per gestire eventuali problemi di lettura dei dati
+	 * @param id Identificativo dell'account utente di cui vogliamo cercare eventuali collezioni. 
+	 * @return Una mappa (tabella) che contiene il nome della collezione, seguito da altri valori. 
+	 * @throws IOException In caso di problemi nella lettura dei dati dalla API di Twitter.
+	 * @throws EmptyCollectionListException Eccezione personalizzata per gestire l'output di eventuali liste vuote. 
+	 * @throws InputStreamException Eccezione personalizzata per gestire eventuali problemi di lettura dei dati.
 	 */
 	@GetMapping("/search/collections")
 	public ResponseEntity<Map<String,Timeline>> searchCollections
@@ -75,17 +76,17 @@ public class Controller {
 	}
 	
 	/**
-	 * Restituisce una lista di tweets, in base all'id utente inserito
+	 * Restituisce una lista di tweets, in base all'id utente inserito.
 	 * 
-	 * @param id identificativo dell'account utente di cui vogliamo cercare eventuali tweet, per default impostato sull'id dell'UNIVPM
-	 * @param count numero di tweet che vogliamo scaricare, il massimo è 200 e nel conteggio sono inclusi sia i retweets che i tweet normali
-	 * @param show_replies valore booleano, inserire true se si vogliono visualizzare anche le risposte effettuate dall'utente.
-	 * Twitter utilizza una logica contraria (exclude_replies), quindi utilizzo il ! per correggere la chiamata all'API
-	 * @param show_retweets valore booleano, inserire true se si vogliono visualizzare anche i retweet fatti dall'utente
-	 * @return una lista di oggetti di tipo Tweet
-	 * @throws IOException in caso di problemi nella lettura dei dati dalla API di twitter
-	 * @throws EmptyCollectionListException eccezione personalizzata per gestire l'output di eventuali liste vuote 
-	 * @throws InputStreamException eccezione personalizzata per gestire eventuali problemi di lettura dei dati
+	 * @param id Identificativo dell'account utente di cui vogliamo cercare eventuali tweet, per default impostato sull'id dell'UNIVPM.
+	 * @param count Numero di tweet che vogliamo scaricare, il massimo è 200 e nel conteggio sono inclusi sia i retweets che i tweet normali.
+	 * @param show_replies Valore booleano, inserire true se si vogliono visualizzare anche le risposte effettuate dall'utente.<p>
+	 * 					   Twitter utilizza una logica contraria (exclude_replies), quindi si utilizza il <b>!</b> per correggere la chiamata all'API
+	 * @param show_retweets Valore booleano, inserire true se si vogliono visualizzare anche i retweet fatti dall'utente.
+	 * @return Una lista di oggetti di tipo tweet.
+	 * @throws IOException In caso di problemi nella lettura dei dati dalla API di Twitter.
+	 * @throws EmptyCollectionListException Eccezione personalizzata per gestire l'output di eventuali liste vuote. 
+	 * @throws InputStreamException Eccezione personalizzata per gestire eventuali problemi di lettura dei dati.
 	 */
 	@GetMapping("/tweets")
 	public ResponseEntity<List<Tweet>> getTweets
@@ -100,14 +101,14 @@ public class Controller {
 	}
 	
 	/**
-	 * Restituisce i tweet contenuti nella collezione di cui si inserisce l'id
+	 * Restituisce i tweet contenuti nella collezione di cui si inserisce l'<b>id</b>.
 	 * 
-	 * @param timeline identificativo della collezione che vogliamo visualizzare	
-	 * @param count numero di tweet che vogliamo scaricare, il massimo è 200
-	 * @return una lista di oggetti di tipo Tweet
-	 * @throws IOException in caso di problemi nella lettura dei dati dalla API di twitter
-	 * @throws EmptyCollectionListException eccezione personalizzata per gestire l'output di eventuali liste vuote 
-	 * @throws InputStreamException eccezione personalizzata per gestire eventuali problemi di lettura dei dati
+	 * @param timeline Identificativo della collezione che vogliamo visualizzare.	
+	 * @param count Numero di tweet che vogliamo scaricare, il massimo è 200.
+	 * @return Una lista di oggetti di tipo Tweet.
+	 * @throws IOException In caso di problemi nella lettura dei dati dalla API di twitter.
+	 * @throws EmptyCollectionListException Eccezione personalizzata per gestire l'output di eventuali liste vuote .
+	 * @throws InputStreamException Eccezione personalizzata per gestire eventuali problemi di lettura dei dati.
 	 */
 	@GetMapping("/collections")
 	public ResponseEntity<List<Tweet>> getCollections
@@ -119,14 +120,14 @@ public class Controller {
 	}
 	
 	/**
-	 * Filtra l'ultima lista di tweet scaricata
+	 * Filtra l'ultima lista di tweet scaricata.
 	 * 
-	 * @param field campo del tweet che vogliamo utilizzare come filtro
-	 * @param op operatore per filtrare, accettati solo > < ==
-	 * @param val valore che si vuole usare per filtrare i tweet
-	 * @return lista di oggetti di tipo Tweet filtrati
-	 * @throws EmptyCollectionListException eccezione personalizzata per gestire l'output di eventuali liste vuote 
-	 * @throws InvalidFilterException eccezione personalizzata per gestire eventuali campi field invalidi
+	 * @param field Campo del tweet che vogliamo utilizzare come filtro.
+	 * @param op Operatore per filtrare, accettati solo > < ==.
+	 * @param val Valore che si vuole usare per filtrare i tweet.
+	 * @return Lista di oggetti di tipo Tweet filtrati.
+	 * @throws EmptyCollectionListException Eccezione personalizzata per gestire l'output di eventuali liste vuote.
+	 * @throws InvalidFilterException Eccezione personalizzata per gestire eventuali campi field invalidi.
 	 */
 	@GetMapping("/filter")
 	public ResponseEntity<List<Tweet>> getFilter
@@ -141,17 +142,17 @@ public class Controller {
 	
 	/**
 	 * Restituisce dei tweet filtrati a seconda dei parametri inseriti, 
-	 * insieme a delle statistiche 
+	 * insieme a delle statistiche.
 	 * 
-	 * @param from_hour accetta solo valori del tipo HH, inserire per visualizzare i tweet creati dopo l'ora inserita
-	 * @param to_hour accetta solo valori del tipo HH, inserire per visualizzare i tweet creati prima dell'ora inserita
-	 * @param from_day accetta solo valori del tipo dd mm yy,inserire per visualizzare i tweet creati dopo la data inserita
-	 * @param to_day acccetta solo valori del tipo dd mm yy,inserire per visualizzare i tweet creati prima della data inserita
-	 * @return una lista di oggetti filtrati di tipo Tweet
-	 * @throws ParseException Eccezione relativa ad eventuali problemi con valori di tipo Data
-	 * @throws EmptyCollectionListException eccezione personalizzata per gestire l'output di eventuali liste vuote 
-	 * @throws InvalidHourException eccezione lanciata in caso di formati invalidi dei parametri *_hour in input
-	 * @throws InvalidDateException eccezione lanciata in caso di formati invalidi dei parametri *_day in input
+	 * @param from_hour Accetta solo valori del tipo HH, inserire per visualizzare i tweet creati dopo l'ora inserita.
+	 * @param to_hour Accetta solo valori del tipo HH, inserire per visualizzare i tweet creati prima dell'ora inserita.
+	 * @param from_day Accetta solo valori del tipo dd mm yy, inserire per visualizzare i tweet creati dopo la data inserita.
+	 * @param to_day Acccetta solo valori del tipo dd mm yy, inserire per visualizzare i tweet creati prima della data inserita.
+	 * @return Una lista di oggetti filtrati di tipo Tweet.
+	 * @throws ParseException Eccezione relativa ad eventuali problemi con valori di tipo Data.
+	 * @throws EmptyCollectionListException Eccezione personalizzata per gestire l'output di eventuali liste vuote.
+	 * @throws InvalidHourException Eccezione lanciata in caso di formati invalidi dei parametri *_hour in input.
+	 * @throws InvalidDateException Eccezione lanciata in caso di formati invalidi dei parametri *_day in input.
 	 */
 	@GetMapping("/filter/date")
 	public ResponseEntity<Map<String, Object>> getSearchbyDate
@@ -166,12 +167,12 @@ public class Controller {
 	}
 	
 	/**
-	 * Restitiusce i metadati relativi alla path variable inserita
+	 * Restitiusce i metadati relativi alla path variable inserita.
 	 * 
-	 * @param type stringa relativa al tipo di metadati che si vogliono ottenere,
-	 * accetta solo i valori tweets, collections, accounts e analytics
-	 * @return tabelle di metadati relativi al parametro inserito
-	 * @throws EmptyCollectionListException eccezione personalizzata per gestire l'output di eventuali liste vuote 
+	 * @param type Stringa relativa al tipo di metadati che si vogliono ottenere,
+	 *             accetta solo i valori tweets, collections, accounts e analytics.
+	 * @return Tabelle di metadati relativi al parametro inserito.
+	 * @throws EmptyCollectionListException Eccezione personalizzata per gestire l'output di eventuali liste vuote.
 	 */
 	@GetMapping("/metadata/{type}")
 	public ResponseEntity<List<Object>> getMetadata

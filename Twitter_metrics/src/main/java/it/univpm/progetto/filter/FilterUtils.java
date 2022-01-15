@@ -24,7 +24,7 @@ import it.univpm.progetto.model.Tweet;
 
 
 /**
- * Classe contenente metodi per il filtraggio, implementa l'interfaccia Utils
+ * Classe contenente metodi per il filtraggio, implementa l'interfaccia Utils.
  * 
  * @author Ivan Pacenti
  *
@@ -32,12 +32,12 @@ import it.univpm.progetto.model.Tweet;
 public class FilterUtils implements Utils{
 	
 	/**
-	 * Metodo che controlla se un oggetto verifica o meno la condizione del filtro
+	 * Metodo che controlla se un oggetto verifica o meno la condizione del filtro.
 	 * 
-	 * @param value valore del tweet da controllare 
-	 * @param operator operatore che specifica il metodo di verifica
-	 * @param th valore effettivo da utilizzare pe il controllo
-	 * @return valore booleano, true o false a seconda dell'esito del filtraggio
+	 * @param value Valore del tweet da controllare. 
+	 * @param operator Operatore che specifica il metodo di verifica.
+	 * @param th Valore effettivo da utilizzare pe il controllo.
+	 * @return Valore booleano, true o false a seconda dell'esito del filtraggio.
 	 */
 	public static boolean check(Object value, String operator, Object th) {
 		if (th instanceof Number && value instanceof Number) {	
@@ -54,14 +54,14 @@ public class FilterUtils implements Utils{
 		return false;		
 	}
 	
-	/** Metodo che si occupa del controllo dei tweet
+	/** Metodo che si occupa del controllo dei tweet.
 	 * 
-	 * @param src collezione di tweet presa in input, da filtrare
-	 * @param fieldName campo da filtrare
-	 * @param operator operatore per filtrare
-	 * @param value valore da utilizzare per la verifica 
-	 * @return una lista di tweet che hanno superato le condizioni del filtro
-	 * @throws InvalidFilterException eccezione lanciata in caso di invalidità del campo da filtrare, inserito in input
+	 * @param src Collezione di tweet presa in input, da filtrare.
+	 * @param fieldName Campo da filtrare.
+	 * @param operator Operatore per filtrare.
+	 * @param value Valore da utilizzare per la verifica.
+	 * @return Una lista di tweet che hanno superato le condizioni del filtro.
+	 * @throws InvalidFilterException Eccezione lanciata in caso di invalidità del campo da filtrare, inserito in input.
 	 */
 	public List<Tweet> select(List<Tweet> src, String fieldName, String operator, Object value) throws InvalidFilterException {
 		List<Tweet> out = new ArrayList<>();
@@ -94,19 +94,19 @@ public class FilterUtils implements Utils{
 	}
 	
 	/**
-	 * Metodo che filtra i tweet per data 
+	 * Metodo che filtra i tweet per data.
 	 * 
-	 * @param tweets lista di tweet da filtrare
-	 * @param from stringa contenente una data per filtrare
-	 * @param to stringa contenete un'altra data per filtrare
-	 * @return una lista di tweet creati nell'intervallo di tempo definito dalle due date, 
-	 * in assenza di date da filtrare la lista resta immutata,
-	 * in caso sia presente solo la data "from" verranno restituiti i tweet creati dopo,
-	 * in caso sia presente solo la data "to" verranno restituiti solo i tweet creati prima,
-	 * in caso siano presenti sia "from" che "to" verranno restituiti i tweet creati tra le due date
-	 * @throws ParseException Eccezione relativa ad eventuali problemi con valori di tipo Data
-	 * @throws EmptyCollectionListException eccezione personalizzata per gestire l'output di eventuali liste vuote 
-	 * @throws InvalidDateException eccezione lanciata in caso di formati invalidi dei parametri "from" e "to" in input
+	 * @param tweets Lista di tweet da filtrare.
+	 * @param from Stringa contenente una data per filtrare.
+	 * @param to Stringa contenete un'altra data per filtrare.
+	 * @return Una lista di tweet creati nell'intervallo di tempo definito dalle due date, 
+	 *         in assenza di date da filtrare la lista resta immutata,
+	 *         in caso sia presente solo la data "from" verranno restituiti i tweet creati dopo,
+	 *         in caso sia presente solo la data "to" verranno restituiti solo i tweet creati prima,
+	 *         in caso siano presenti sia "from" che "to" verranno restituiti i tweet creati tra le due date.
+	 * @throws ParseException Eccezione relativa ad eventuali problemi con valori di tipo Data.
+	 * @throws EmptyCollectionListException Eccezione personalizzata per gestire l'output di eventuali liste vuote.
+	 * @throws InvalidDateException Eccezione lanciata in caso di formati invalidi dei parametri "from" e "to" in input.
 	 */
 	@Override
 	public List<Tweet> selectDate(List<Tweet> tweets, String from, String to) 
@@ -148,19 +148,19 @@ public class FilterUtils implements Utils{
 	}
 	
 	/**
-	 * Metodo che filtra i tweet in base all'ora
+	 * Metodo che filtra i tweet in base all'ora.
 	 * 
-	 * @param tweets lista di tweet da filtrare
-	 * @param from stringa contenente un'ora per filtrare
-	 * @param to stringa contenete un'altra ora per filtrare
-	 * @return una lista di tweet creati nell'intervallo di tempo definito dalle due ore, 
-	 * in assenza di ore da filtrare la lista resta immutata,
-	 * in caso sia presente solo il valore "from", verranno restituiti i tweet creati dopo, fino alla mezzanotte dello stesso giorno,
-	 * in caso sia presente solo l'ora "to", verranno restituiti solo i tweet creati prima, dalla mezzanotte dello stesso giorno fino all'ora in questione,
-	 * in caso siano presenti sia "from" che "to" verranno restituiti i tweet creati tra le due ore
-	 * @throws ParseException Eccezione relativa ad eventuali problemi con valori di tipo Data
-	 * @throws EmptyCollectionListException eccezione personalizzata per gestire l'output di eventuali liste vuote 
-	 * @throws InvalidHourException eccezione lanciata in caso di formati invalidi dei parametri "from" e "to" in input
+	 * @param tweets Lista di tweet da filtrare.
+	 * @param from Stringa contenente un'ora per filtrare.
+	 * @param to Stringa contenete un'altra ora per filtrare.
+	 * @return Una lista di tweet creati nell'intervallo di tempo definito dalle due ore, 
+	 *         in assenza di ore da filtrare la lista resta immutata,
+	 *         in caso sia presente solo il valore "from", verranno restituiti i tweet creati dopo, fino alla mezzanotte dello stesso giorno,
+	 *         in caso sia presente solo l'ora "to", verranno restituiti solo i tweet creati prima, dalla mezzanotte dello stesso giorno fino all'ora in questione,
+	 *         in caso siano presenti sia "from" che "to" verranno restituiti i tweet creati tra le due ore.
+	 * @throws ParseException Eccezione relativa ad eventuali problemi con valori di tipo Data.
+	 * @throws EmptyCollectionListException Eccezione personalizzata per gestire l'output di eventuali liste vuote.
+	 * @throws InvalidHourException Eccezione lanciata in caso di formati invalidi dei parametri "from" e "to" in input.
 	 */
 	@Override
 	public  List<Tweet> selectHour(List<Tweet> tweets, String from, String to)  
@@ -203,27 +203,37 @@ public class FilterUtils implements Utils{
 	}
 
 	/**
-	 * Metodo che calcola media, varianza, engagement più alto e più basso di una lista di tweet
+	 * Metodo che calcola media, varianza, engagement più alto e più basso di una lista di tweet.
 	 * 
-	 * @param tmp lista di tweet da analizzare
-	 * @param tot totale utilizzato per calcolare la media
-	 * @param average media
-	 * @param variance varianza
-	 * @param maxengagement engagement massimo
-	 * @param minengagement engagement minimo
-	 * @param map tabella di valori da restituire in output
-	 * @return tabella con statistiche, contenente anche il numero di tweet analizzati
+	 * @param tmp Lista di tweet da analizzare.
+	 * @return Tabella con statistiche, contenente anche il numero di tweet analizzati.
 	 *
 	 */
 	@Override
 	public Map<String,Object> analyze(List<Tweet> tmp) 
 	{
+		/**
+		 * Totale utilizzato per calcolare la media.
+		 */
 		Double tot=0.0;
+		/**
+		 * Media.
+		 */
 		Double average=0.0;
+		/**
+		 * Varianza
+		 */
 		Double variance=0.0;
+		/**
+		 * Engagement massimo.
+		 */
 		Double maxengagement=0.0;
+		/**
+		 * Engagement minimo.
+		 */
 		Double minengagement=0.0;
-		/**In caso di lista vuota di tweet da analizzare, 
+		/**
+		 * In caso di lista vuota di tweet da analizzare, 
 		 * si è voluto stampare una tabella vuota invece di lanciare un'eccezione
 		 */
 		if(!tmp.isEmpty()) 
@@ -236,19 +246,21 @@ public class FilterUtils implements Utils{
 			tot=0.0;
 			for(Tweet t:tmp) tot+=Math.pow((t.getEngagement()-average), 2);
 			variance=tot/tmp.size();
-			minengagement = tmp
-					.stream()
-					.min(Comparator.comparing(Tweet::getEngagement))
-					.orElseThrow(NoSuchElementException::new)
-					.getEngagement();
+			minengagement = tmp //lista di tweets presa come parametro
+					.stream() //metodo che ha come ritorno un flusso di oggetti sequenziali
+					.min(Comparator.comparing(Tweet::getEngagement)) //min seleziona l'elemento con valore più basso, selezionato con Comparator(tramite getter getEngagement)
+					.orElseThrow(NoSuchElementException::new) //eccezione lanciata in casi non sia possibile ottenere un minimo
+					.getEngagement(); //ritorna l'engagement del tweet con engagement minimo, preso dallo stream sopra
 			maxengagement = tmp
 					.stream()
-					.max(Comparator.comparing(Tweet::getEngagement))
+					.max(Comparator.comparing(Tweet::getEngagement))//come sopra ma stavolta si seleziona il massimo
 					.orElseThrow(NoSuchElementException::new)
 					.getEngagement();
 
 		}
-		/*Si utilizza una LinkedHashMap poichè si vuole mantenere ordine sulle righe dei valori
+		/**
+		 * Tabella di valori da restituire in output.<p>
+		 * Si utilizza una LinkedHashMap poichè si vuole mantenere ordine sulle righe dei valori
 		 */
 		Map<String,Object> map=new LinkedHashMap<>();
 		map.put("Tweets analized", tmp.size());

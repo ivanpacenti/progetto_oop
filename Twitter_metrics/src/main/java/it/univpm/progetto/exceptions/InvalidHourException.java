@@ -4,7 +4,7 @@ import java.io.IOException;
 
 
 /**
- * Classe utilizzata per gestire eventuali errori di inserimento di un'ora per filtrare i tweet
+ * Classe utilizzata per gestire eventuali errori di inserimento di un'ora per filtrare i tweet.
  * 
  * @author Ivan Pacenti
  *
@@ -14,9 +14,9 @@ public class InvalidHourException extends IOException{
 	/**
 	 * Stampa la stringa inserita come messaggio,
 	 * per specificare meglio l'errore commesso 
-	 * dall'utente
+	 * dall'utente.
 	 * 
-	 * @param msg messaggio personalizzato
+	 * @param message messaggio personalizzato.
 	 */
 	public InvalidHourException(String message) {
 		super(message);
