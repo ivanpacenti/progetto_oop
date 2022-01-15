@@ -101,7 +101,7 @@ Per il testing delle rotte è consigliato un software come [Postman](https://pos
  * Avviare l'applicazione come Spring Boot App
 
 Oppure:  
-* Scaricare il file `twitter_metrics.jar` disponibile [qui](https://github.com/ivanpacenti/progetto_oop/releases/tag/release).
+* Scaricare il file `twitter_metrics.jar` disponibile [qui](https://github.com/ivanpacenti/progetto_oop/releases/tag/v1.0.0).
 * Aprire un terminale e spostarsi nella cartella di download del file
 * Digitare il comando `java -jar twitter_metrics.jar`
 
