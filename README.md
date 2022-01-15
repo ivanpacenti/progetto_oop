@@ -256,7 +256,7 @@ E' possibile utilizzare nel campo `field` le seguenti proprietà:
 * `engagement`
 
 Si possono visualizzare i valori maggiori, minori o uguali della proprietà scelta, rispetto al valore immesso nel campo `val`.  
-Il filtro funziona sull'ultima lista o collezione di tweet scaricata. Verrà lanciata un'eccezione in caso di assenza di valori da filtrare.
+Il filtro funziona sull'ultima lista o collezione di tweet scaricata. Verrà lanciata un'eccezione in caso di assenza di valori da filtrare o nel caso si voglia filtrare un campo diverso da quelli sopra.
 </details>
 
 
