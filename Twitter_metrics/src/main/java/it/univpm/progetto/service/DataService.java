@@ -242,6 +242,7 @@ public class DataService implements Filter{
 	 * 
 	 * @param id Rappresenta l'identificativo della collezione.
 	 * @param count Stabilisce il numero di oggetti restituiti, per un massimo di 200 tweet.
+	 * 				Se il numero è minore di 0 o maggiore di 200, vengono scaricati 20 tweets.
 	 * @return Una lista di tweet.
 	 * @throws IOException Eccezione di tipo input/output.
 	 * @throws EmptyCollectionListException Eccezione personalizzata lanciata in caso 
