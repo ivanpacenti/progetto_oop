@@ -163,12 +163,18 @@ Se utilizzate il file `twitter_metrics.jar` dovete per forza ricompilare il pacc
 <details><summary>Modello:</summary>
   
 ```yaml
-"CNN's live debate draw": {
-        "name": "CNN's live debate draw",
-        "description": "CNN held a live draw to determine the candidate lineup for each night of the 2020 Democratic debate in Detroit, Michigan, on July 15 and 31.",
-        "id": "custom-1152025267801661440"
-}
-```
+{  
+"Welcome Home Tim": {
+        "name": "Welcome Home Tim",
+        "description": "Return to Earth of ESA astronaut Time Peake, NASA Tim Kopra and Commander Yuri, 18 June",
+        "id": "custom-744050218728046592"
+    },
+    "Couture in orbit": {
+        "name": "Couture in orbit",
+        "description": "Space-inspired fashion on show on 25 May at the London Science Museum with ESA and top European fashion schools ",
+        "id": "custom-727493833076912128"
+    }
+}```
 </details>
 
 ---
