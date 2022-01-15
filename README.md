@@ -185,7 +185,7 @@ Se utilizzate il file `twitter_metrics.jar` dovrete per forza ricompilare il pac
 
 | Parametro | Obbligatorio | Descrizione|
 |:--|:--|:--|
-| id | no | Identificativo dell'account di cui vogliamo visualizzare i tweet (es. 1154170778). |
+| id | no | Identificativo dell'account di cui vogliamo visualizzare i tweet, di default verrà utilizzato l'id dell'UNIVPM. (es. 1154170778). |
 | count | no | Numero di tweet che vogliamo visualizzare, il massimo è 200 e in sua assenza se ne scaricheranno 50. Twitter conta nel totale anche i retweets, anche se effettivamente non vengono scaricati. |
 | replies | no | Valore booleano, impostare true se si vogliono scaricare anche i tweet di risposta. Il valore di default è false. |
 | retweets | no | Valore booleano, impostare true se si vogliono scaricare anche i retweet. Il valore di default è false.|
