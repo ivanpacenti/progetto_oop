@@ -44,6 +44,7 @@
       </ul>
     <li><a href="#eccezioni">Eccezioni</a></li>
     <li><a href="#test">Test</a></li>
+    <li><a href="#struttura">Struttura</a></li>
     <li><a href="#documentazione">Documentazione</a></li>
     <li><a href="#contributi">Contributi</a></li>
     
@@ -377,13 +378,65 @@ Sono stati implementati i seguenti test sfruttando JUnit 5:
 
 <p align="right">(<a href="#top">torna all'inizio</a>)</p>
 
+## Struttura
+Il progetto è strutturato nel seguente modo:
+
+<details><summary>Source:</summary>
+
+```
+.
+├── TwitterMetricsApplication.java           #Applicazione principale
+├── controller                               #Contiene il controller che gestisce le chiamate alle rotte
+│   └── Controller.java  
+├── exceptions                               #Contiene le eccezioni personalizzate
+│   ├── EmptyCollectionListException.java  
+│   ├── InputStreamException.java  
+│   ├── InvalidDateException.java  
+│   ├── InvalidFilterException.java  
+│   └── InvalidHourException.java  
+├── filter                                   #Contiene le classi per filtrare i dati
+│   ├── DataFilter.java  
+│   ├── Filter.java  
+│   ├── FilterUtils.java  
+│   └── Utils.java  
+├── model                                    #Contiene la struttura dati
+│   ├── Account.java  
+│   ├── Entity.java  
+│   ├── Hashtag.java  
+│   ├── Mention.java  
+│   ├── Metadata.java  
+│   ├── Timeline.java  
+│   └── Tweet.java  
+├── service                                  #Contiene classi che forniscono servizi 
+│   ├── API.java  
+│   ├── APIImpl.java  
+│   └── DataService.java  
+└── stats                                    #Contiene classi utili per effettuare statistiche
+    ├── TweetStats.java  
+    └── UserStats.java  
+```
+</details>
+<details><summary>Test:</summary>
+
+```
+.
+└── tests
+    ├── ConnectionTest.java
+    ├── DateExceptionTest.java
+    ├── HourExceptionTest.java
+    └── PrivateUserTest.java
+
+```
+</details>
+
+<p align="right">(<a href="#top">torna all'inizio</a>)</p>
+
 ## Documentazione
 
 Il Javadoc del progetto è disponibile [qui](https://github.com/ivanpacenti/progetto_oop/tree/main/doc).
 
 <p align="right">(<a href="#top">torna all'inizio</a>)</p>
 
-<!-- CONTRIBUTI -->
 ## Contributi
 
 Il progetto è stato realizzato interamente da Ivan Pacenti.  
