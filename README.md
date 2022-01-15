@@ -174,7 +174,8 @@ Se utilizzate il file `twitter_metrics.jar` dovete per forza ricompilare il pacc
         "description": "Space-inspired fashion on show on 25 May at the London Science Museum with ESA and top European fashion schools ",
         "id": "custom-727493833076912128"
     }
-}```
+}
+```
 </details>
 
 ---
