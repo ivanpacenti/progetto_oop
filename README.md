@@ -440,6 +440,7 @@ Il Javadoc del progetto è disponibile [qui](https://github.com/ivanpacenti/prog
 ## Contributi
 
 Il progetto è stato realizzato interamente da Ivan Pacenti.  
+La valutazione raggiunta dal progetto e della prova orale è di **30 e lode** 🥇
 
 [![Linkedin](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/ipacenti/) [![Github](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/ivanpacenti?tab=repositories)
 
