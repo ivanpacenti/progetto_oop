@@ -1,7 +1,7 @@
 <div id="top"></div>
 <!-- PROJECT LOGO -->
 <br />
-<div align="center ">
+<div align="center">
   <a href="https://github.com/ivanpacenti/progetto_oop">
     <img src="images/logo1.png" alt="Logo" width="140" height="140" >
   </a>
